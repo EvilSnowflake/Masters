@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://damj44d1jssvr"]
+
+[ext_resource type="Script" uid="uid://bt0103x3c534m" path="res://scripts/item_pickup.gd" id="1_wgx86"]
+[ext_resource type="Texture2D" uid="uid://bvm1we232yjrg" path="res://assets/Stage/1 Icons/Icon31_24.png" id="1_wqo8y"]
+
+[sub_resource type="Gradient" id="Gradient_w6tcq"]
+offsets = PackedFloat32Array(0, 0.00649351, 0.493506)
+colors = PackedColorArray(0.713726, 0.713726, 0.713726, 0, 1, 1, 1, 0.588235, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_e74nj"]
+gradient = SubResource("Gradient_w6tcq")
+fill = 1
+fill_from = Vector2(0.449541, 0.458716)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mrlqq"]
+radius = 19.0
+
+[node name="Item_Pickup" type="CharacterBody2D"]
+z_index = 4
+scale = Vector2(0.5, 0.5)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_wgx86")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -29.0
+offset_top = -31.0
+offset_right = 35.0
+offset_bottom = 33.0
+texture = SubResource("GradientTexture2D_e74nj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wqo8y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_mrlqq")
+
+[node name="Disappear_Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.25
+one_shot = true
+
+[connection signal="timeout" from="Disappear_Timer" to="." method="_on_disappear_timer_timeout"]

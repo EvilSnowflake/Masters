@@ -1,0 +1,56 @@
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://dgwn8knwt1m3r"]
+
+[ext_resource type="Texture2D" uid="uid://dfhy41duf1scb" path="res://assets/GUI/6 Buttons/6/6_04.png" id="1_4tkxa"]
+[ext_resource type="FontFile" uid="uid://sab7pg0qk2nn" path="res://assets/GUI/10 Font/CyberpunkCraftpixPixel.otf" id="1_wbmy5"]
+[ext_resource type="Texture2D" uid="uid://dfvtvtx7bc8w3" path="res://assets/GUI/6 Buttons/2/2_04.png" id="2_8uyn4"]
+[ext_resource type="Texture2D" uid="uid://c53mfjdrsiyrr" path="res://assets/GUI/2 Bars/HealthBar4.png" id="4_1jq7m"]
+[ext_resource type="Texture2D" uid="uid://crffhmjv124kg" path="res://assets/GUI/2 Bars/HealthBar8.png" id="5_sdglx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xv6pp"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j57mb"]
+texture = ExtResource("2_8uyn4")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.599908, 0.881445, 0.697367, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7wojr"]
+texture = ExtResource("2_8uyn4")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0, 0.954646, 0.575995, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_41evq"]
+texture = ExtResource("1_4tkxa")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(4.42803e-06, 0.916607, 0.931373, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_782wb"]
+texture = ExtResource("5_sdglx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qwrl8"]
+texture = ExtResource("4_1jq7m")
+
+[resource]
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 8
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_wbmy5")
+Button/styles/focus = SubResource("StyleBoxEmpty_xv6pp")
+Button/styles/hover = SubResource("StyleBoxTexture_j57mb")
+Button/styles/normal = SubResource("StyleBoxTexture_7wojr")
+Button/styles/pressed = SubResource("StyleBoxTexture_41evq")
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 8
+Label/constants/shadow_offset_x = 4
+Label/fonts/font = ExtResource("1_wbmy5")
+ProgressBar/styles/background = SubResource("StyleBoxTexture_782wb")
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_qwrl8")

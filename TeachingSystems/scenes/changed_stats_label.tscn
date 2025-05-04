@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b06bxv1t30gkh"]
+
+[ext_resource type="Script" uid="uid://dgcglrj42q3a2" path="res://scripts/Changed_Stats_Label.gd" id="1_ue7dw"]
+[ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_xxfff"]
+
+[node name="Changed_Stats_Label" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_xxfff")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+script = ExtResource("1_ue7dw")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

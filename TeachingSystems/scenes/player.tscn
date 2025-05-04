@@ -1,0 +1,144 @@
+[gd_scene load_steps=13 format=3 uid="uid://d24wd1ra8nur8"]
+
+[ext_resource type="Script" uid="uid://d1ie6340pidl" path="res://scripts/player.gd" id="1_2xu6a"]
+[ext_resource type="Texture2D" uid="uid://b3mvmtwqs7dh2" path="res://assets/GUI/2 Bars/HealthBar5.png" id="4_lrdga"]
+[ext_resource type="PackedScene" uid="uid://cqn24nau6yrw4" path="res://scenes/gun.tscn" id="4_v0hkf"]
+[ext_resource type="Texture2D" uid="uid://qk403fa4jccc" path="res://scenes/Cyborg.png" id="5_0s3ed"]
+[ext_resource type="Texture2D" uid="uid://bi7en0i464my" path="res://assets/GUI/2 Bars/HealthBar1.png" id="5_k3y7e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7qydt"]
+radius = 8.0
+
+[sub_resource type="Animation" id="Animation_mvcla"]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player_Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 10, 11, 12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_2o5qg"]
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player_Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_obtsb"]
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player_Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y0aio"]
+_data = {
+&"Death": SubResource("Animation_mvcla"),
+&"Idle": SubResource("Animation_2o5qg"),
+&"Run": SubResource("Animation_obtsb")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7rqrd"]
+size = Vector2(18, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l18yk"]
+radius = 31.0161
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 2
+y_sort_enabled = true
+position = Vector2(-2, -10)
+script = ExtResource("1_2xu6a")
+
+[node name="Player_Collision" type="CollisionShape2D" parent="."]
+position = Vector2(2, 10)
+shape = SubResource("CircleShape2D_7qydt")
+
+[node name="Gun" parent="." instance=ExtResource("4_v0hkf")]
+unique_name_in_owner = true
+position = Vector2(0, -2)
+
+[node name="Player_Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+texture = ExtResource("5_0s3ed")
+hframes = 4
+vframes = 4
+metadata/_aseprite_wizard_config_ = {
+"i_mode": -1,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "Cyborg_Player",
+"slice": "",
+"source": "res://assets/Stage/3 Cyborg/Cyborg.aseprite"
+}
+metadata/_aseprite_wizard_source_file_hash_ = "a62a7921e78129fcb6d89cf5cd9761d0"
+
+[node name="Cyborg_Player" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_y0aio")
+}
+autoplay = "Idle"
+
+[node name="Hurt_Box" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurt_Box"]
+position = Vector2(2, 9)
+shape = SubResource("RectangleShape2D_7rqrd")
+debug_color = Color(0.996078, 0, 0.168627, 0.270588)
+
+[node name="Health_Bar" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -15.0
+offset_top = -20.0
+offset_right = 25.0
+offset_bottom = 20.0
+scale = Vector2(1, 0.525487)
+value = 100.0
+texture_under = ExtResource("4_lrdga")
+texture_progress = ExtResource("5_k3y7e")
+
+[node name="Pickup_Box" type="Area2D" parent="."]
+z_index = 6
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup_Box"]
+position = Vector2(2, 10)
+shape = SubResource("CircleShape2D_l18yk")
+debug_color = Color(0.585714, 0.379266, 1, 0.42)
+
+[connection signal="body_entered" from="Pickup_Box" to="." method="_on_pickup_box_body_entered"]

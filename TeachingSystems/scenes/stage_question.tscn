@@ -1,0 +1,97 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcqxvm6bx2kj5"]
+
+[ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_i5ygv"]
+[ext_resource type="Script" uid="uid://b7nnfdyiqxlai" path="res://scripts/stage_question.gd" id="1_ogwjm"]
+[ext_resource type="Texture2D" uid="uid://bexg8qg56nx3h" path="res://assets/GUI/3 Icons/Icons/Icon_02.png" id="3_3ihov"]
+
+[node name="Stage_Question" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ogwjm")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.811765)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 48
+alignment = 1
+
+[node name="Pre_Question" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_i5ygv")
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "Question, how much is :"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Question_Num_1" type="Label" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_i5ygv")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(0, 1, 0, 1)
+layout_mode = 2
+texture = ExtResource("3_3ihov")
+expand_mode = 2
+
+[node name="Question_Num_2" type="Label" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_i5ygv")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Possible_Answers" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Possible_Answer_1" type="Button" parent="VBoxContainer/Possible_Answers"]
+layout_mode = 2
+theme = ExtResource("1_i5ygv")
+theme_override_font_sizes/font_size = 48
+text = "5"
+
+[node name="Possible_Answer_2" type="Button" parent="VBoxContainer/Possible_Answers"]
+layout_mode = 2
+theme = ExtResource("1_i5ygv")
+theme_override_font_sizes/font_size = 48
+text = "25"
+
+[node name="Possible_Answer_3" type="Button" parent="VBoxContainer/Possible_Answers"]
+layout_mode = 2
+theme = ExtResource("1_i5ygv")
+theme_override_font_sizes/font_size = 48
+text = "35"

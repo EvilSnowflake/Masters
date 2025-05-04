@@ -1,2 +1,2 @@
 # Masters
- A project containing my master degree assignment subject 
+ A project containing my master's thesis subject 
