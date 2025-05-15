@@ -1,0 +1,5 @@
+Your new game was created successfully! Here is your API key:
+CqSf9SKaX69546wWGLUXHaw3ngFl5L9P2vJvu9me
+And here is the identifier (gameId) for your game :
+multiplicationteachingsystem
+Please take note of your API key and your new game id, you will need to use them to access SilentWolf backend services.

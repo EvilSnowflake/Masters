@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="TeachingSystems"
+config/name="MultiplicactionTeachingSystem"
 config/version="1_3"
 run/main_scene="res://scenes/StageMenu.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
@@ -18,13 +18,23 @@ boot_splash/bg_color=Color(1, 1, 1, 1)
 boot_splash/show_image=false
 config/icon="res://Icons/Didaskalia_Icon.svg"
 
+[autoload]
+
+SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
+Global="*res://scripts/Global.gd"
+
 [display]
 
 mouse_cursor/custom_image="res://assets/GUI/8 Cursors/1.png"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/silent_wolf/plugin.cfg")
+
+[gui]
+
+theme/custom="uid://dgwn8knwt1m3r"
+theme/custom_font="uid://sab7pg0qk2nn"
 
 [input]
 

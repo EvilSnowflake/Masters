@@ -10,6 +10,7 @@ extends Area2D
 @export var bullet_damage: int = 1
 
 func _physics_process(_delta):
+	#Test comment
 	var enemies_in_range = get_overlapping_bodies()
 	if enemies_in_range.size() == 0:
 		shooting_timer.stop()

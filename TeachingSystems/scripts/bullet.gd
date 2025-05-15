@@ -8,6 +8,7 @@ var _bullet_persistance = 0
 const _bullet_range: int = 1200
 
 func _physics_process(delta):
+	
 	var direction = Vector2.RIGHT.rotated(rotation)
 	position += direction * _bullet_speed * delta
 	_travelled_distance += _bullet_speed * delta

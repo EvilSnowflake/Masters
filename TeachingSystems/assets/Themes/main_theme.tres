@@ -1,9 +1,10 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://dgwn8knwt1m3r"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://dgwn8knwt1m3r"]
 
 [ext_resource type="Texture2D" uid="uid://dfhy41duf1scb" path="res://assets/GUI/6 Buttons/6/6_04.png" id="1_4tkxa"]
 [ext_resource type="FontFile" uid="uid://sab7pg0qk2nn" path="res://assets/GUI/10 Font/CyberpunkCraftpixPixel.otf" id="1_wbmy5"]
 [ext_resource type="Texture2D" uid="uid://dfvtvtx7bc8w3" path="res://assets/GUI/6 Buttons/2/2_04.png" id="2_8uyn4"]
 [ext_resource type="Texture2D" uid="uid://c53mfjdrsiyrr" path="res://assets/GUI/2 Bars/HealthBar4.png" id="4_1jq7m"]
+[ext_resource type="Texture2D" uid="uid://bvomxq44th8ng" path="res://assets/GUI/6 Buttons/9/9_02.png" id="4_ikqmo"]
 [ext_resource type="Texture2D" uid="uid://crffhmjv124kg" path="res://assets/GUI/2 Bars/HealthBar8.png" id="5_sdglx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xv6pp"]
@@ -32,6 +33,21 @@ texture_margin_right = 10.0
 texture_margin_bottom = 10.0
 modulate_color = Color(4.42803e-06, 0.916607, 0.931373, 1)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rg3u3"]
+texture = ExtResource("4_ikqmo")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.82606, 0.82606, 0.82606, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ikqmo"]
+texture = ExtResource("4_ikqmo")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_782wb"]
 texture = ExtResource("5_sdglx")
 
@@ -52,5 +68,10 @@ Label/colors/font_shadow_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 8
 Label/constants/shadow_offset_x = 4
 Label/fonts/font = ExtResource("1_wbmy5")
+LeaderboardsButton/base_type = &"Button"
+LeaderboardsButton/colors/font_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+LeaderboardsButton/colors/font_outline_color = Color(1, 1, 1, 1)
+LeaderboardsButton/styles/hover = SubResource("StyleBoxTexture_rg3u3")
+LeaderboardsButton/styles/normal = SubResource("StyleBoxTexture_ikqmo")
 ProgressBar/styles/background = SubResource("StyleBoxTexture_782wb")
 ProgressBar/styles/fill = SubResource("StyleBoxTexture_qwrl8")

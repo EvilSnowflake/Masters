@@ -118,7 +118,7 @@ alignment = 1
 
 [node name="TitleItems" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 48
+theme_override_constants/separation = 32
 alignment = 1
 
 [node name="Controls_Button" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
@@ -152,6 +152,20 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("6_6ogre")
 text = "Apply Code"
+
+[node name="Register" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
+layout_mode = 2
+theme = ExtResource("6_6ogre")
+text = "REGISTER"
+
+[node name="Login" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
+layout_mode = 2
+theme = ExtResource("6_6ogre")
+text = "LOGIN"
+
+[node name="PlayerLoginLabel" type="Label" parent="MarginContainer/HBoxContainer/TitleItems"]
+layout_mode = 2
+theme = ExtResource("6_6ogre")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2

@@ -1,5 +1,8 @@
 extends Control
 
+const REGISTERSCENE = "res://addons/silent_wolf/Auth/Register.tscn"
+const LOGINSCENE = "res://addons/silent_wolf/Auth/Login.tscn"
+
 var stage_menu
 var save_path = "user://SavedData.save"
 #FILE SAVE ON %APPDATA%\Godot\app_userdata\TeachingSystems
@@ -9,15 +12,23 @@ var save_path = "user://SavedData.save"
 @export var _codes: Array[String] = ["12345678910","2468101214161820","36912151821242730","481216202428323640","5101520253035404550","6121824303642485460","7142128354249566370","8162432404856647280","9182736455463728190","102030405060708090100"]
 @export var _stages_en: Array = [1,0,0,0,0,0,0,0,0,0]
 
+@onready var _register_button =  $MarginContainer/HBoxContainer/TitleItems/Register
+@onready var _login_button = $MarginContainer/HBoxContainer/TitleItems/Login
 @onready var controls = %Controls
 @onready var code_input = %Code_Input
+@onready var login_state_label = $MarginContainer/HBoxContainer/TitleItems/PlayerLoginLabel
 
 func _ready():
+	
 	stage_menu = get_tree().get_root().get_node("Stage_Menu")
 	for button in stage_buttons:
 		button.pressed.connect(_on_stage_button_pressed.bind(button.text))
+	_register_button.pressed.connect(_on_register_button_pressed.bind())
+	_login_button.pressed.connect(_on_login_button_pressed.bind())
 	load_data()
 	unlock_enabled_stages()
+	SilentWolf.Auth.sw_session_check_complete.connect(_on_login_complete)
+	SilentWolf.Auth.auto_login_player()
 
 func _on_stage_button_pressed(stg_num: String):
 	if(stage_menu.has_method("create_game")):
@@ -80,3 +91,18 @@ func _on_code_button_pressed():
 		if(_codes[i] == code_text):
 			enable_propedia_button(i+1)
 	code_input.clear()
+
+func _on_register_button_pressed():
+	get_tree().change_scene_to_file(REGISTERSCENE)
+
+func _on_login_button_pressed():
+	get_tree().change_scene_to_file(LOGINSCENE)
+
+func _on_login_complete(sw_result):
+	update_login_state_label()
+	
+func update_login_state_label():
+	if SilentWolf.Auth.logged_in_player:
+		login_state_label.text = "Logged In"
+	else:
+		login_state_label.text = "NotLogged In"
