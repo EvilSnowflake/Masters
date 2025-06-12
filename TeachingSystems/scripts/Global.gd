@@ -14,12 +14,8 @@ func _ready():
 	SilentWolf.configure_auth({
 		"redirect_to_scene": "res://scenes/StageMenu.tscn",
 		"login_scene": "res://addons/silent_wolf/Auth/Login.tscn",
-		"reset_password_scene": "res://addons/silent_wolf/Auth/ResetPassword.tscn",
+		"reset_password_scene": "res://scenes/resetpass_scene.tscn",
+		"email_confirmation_scene": "res://scenes/confirmmail_scene.tscn",
 		"session_duration_second": 0,
 		"saved_session_expiration_days": 30
 	})
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

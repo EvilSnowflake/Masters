@@ -1,10 +1,13 @@
-[gd_resource type="Theme" load_steps=15 format=3 uid="uid://dgwn8knwt1m3r"]
+[gd_resource type="Theme" load_steps=25 format=3 uid="uid://dgwn8knwt1m3r"]
 
 [ext_resource type="Texture2D" uid="uid://dfhy41duf1scb" path="res://assets/GUI/6 Buttons/6/6_04.png" id="1_4tkxa"]
 [ext_resource type="FontFile" uid="uid://sab7pg0qk2nn" path="res://assets/GUI/10 Font/CyberpunkCraftpixPixel.otf" id="1_wbmy5"]
 [ext_resource type="Texture2D" uid="uid://dfvtvtx7bc8w3" path="res://assets/GUI/6 Buttons/2/2_04.png" id="2_8uyn4"]
 [ext_resource type="Texture2D" uid="uid://c53mfjdrsiyrr" path="res://assets/GUI/2 Bars/HealthBar4.png" id="4_1jq7m"]
+[ext_resource type="Texture2D" uid="uid://dusr7glrlwmru" path="res://assets/GUI/3 Icons/Icons/Icon_10.png" id="4_a7w41"]
 [ext_resource type="Texture2D" uid="uid://bvomxq44th8ng" path="res://assets/GUI/6 Buttons/9/9_02.png" id="4_ikqmo"]
+[ext_resource type="Texture2D" uid="uid://bexg8qg56nx3h" path="res://assets/GUI/3 Icons/Icons/Icon_02.png" id="4_lgxaw"]
+[ext_resource type="Texture2D" uid="uid://6yfqjinl66lj" path="res://assets/GUI/6 Buttons/9/9_06.png" id="5_rg3u3"]
 [ext_resource type="Texture2D" uid="uid://crffhmjv124kg" path="res://assets/GUI/2 Bars/HealthBar8.png" id="5_sdglx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xv6pp"]
@@ -33,6 +36,12 @@ texture_margin_right = 10.0
 texture_margin_bottom = 10.0
 modulate_color = Color(4.42803e-06, 0.916607, 0.931373, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rg3u3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tn0mi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lgxaw"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rg3u3"]
 texture = ExtResource("4_ikqmo")
 texture_margin_left = 10.0
@@ -48,8 +57,27 @@ texture_margin_top = 10.0
 texture_margin_right = 10.0
 texture_margin_bottom = 10.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tn0mi"]
+texture = ExtResource("5_rg3u3")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rg3u3"]
+bg_color = Color(0.942823, 0.942823, 0.942823, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tn0mi"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lgxaw"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_782wb"]
 texture = ExtResource("5_sdglx")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qwrl8"]
 texture = ExtResource("4_1jq7m")
@@ -63,6 +91,17 @@ Button/styles/focus = SubResource("StyleBoxEmpty_xv6pp")
 Button/styles/hover = SubResource("StyleBoxTexture_j57mb")
 Button/styles/normal = SubResource("StyleBoxTexture_7wojr")
 Button/styles/pressed = SubResource("StyleBoxTexture_41evq")
+CheckBox/colors/font_color = Color(0.572989, 0.572988, 0.572988, 1)
+CheckBox/colors/font_focus_color = Color(0.572549, 0.572549, 0.572549, 1)
+CheckBox/colors/font_hover_color = Color(0.808997, 0.808999, 0.808999, 1)
+CheckBox/colors/font_pressed_color = Color(1, 1, 1, 1)
+CheckBox/constants/align_to_largest_stylebox = 1
+CheckBox/constants/outline_size = 10
+CheckBox/icons/checked = ExtResource("4_a7w41")
+CheckBox/icons/unchecked = ExtResource("4_lgxaw")
+CheckBox/styles/hover = SubResource("StyleBoxEmpty_rg3u3")
+CheckBox/styles/normal = SubResource("StyleBoxEmpty_tn0mi")
+CheckBox/styles/pressed = SubResource("StyleBoxEmpty_lgxaw")
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 8
@@ -70,8 +109,28 @@ Label/constants/shadow_offset_x = 4
 Label/fonts/font = ExtResource("1_wbmy5")
 LeaderboardsButton/base_type = &"Button"
 LeaderboardsButton/colors/font_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+LeaderboardsButton/colors/font_focus_color = Color(0.0562917, 0.0562916, 0.0562916, 1)
+LeaderboardsButton/colors/font_hover_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 LeaderboardsButton/colors/font_outline_color = Color(1, 1, 1, 1)
+LeaderboardsButton/colors/font_pressed_color = Color(0.856067, 0.856067, 0.856067, 1)
 LeaderboardsButton/styles/hover = SubResource("StyleBoxTexture_rg3u3")
 LeaderboardsButton/styles/normal = SubResource("StyleBoxTexture_ikqmo")
+LeaderboardsButton/styles/pressed = SubResource("StyleBoxTexture_tn0mi")
+LineEdit/colors/font_color = Color(0.133197, 0.133196, 0.133196, 1)
+LineEdit/font_sizes/font_size = 22
+LineEdit/styles/focus = SubResource("StyleBoxFlat_rg3u3")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_tn0mi")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_lgxaw")
+LinkButton/colors/font_outline_color = Color(0.412152, 0.412152, 0.412152, 1)
+LinkButton/font_sizes/font_size = 20
+LinkButton/fonts/font = ExtResource("1_wbmy5")
+ProgressBar/fonts/font = ExtResource("1_wbmy5")
 ProgressBar/styles/background = SubResource("StyleBoxTexture_782wb")
 ProgressBar/styles/fill = SubResource("StyleBoxTexture_qwrl8")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+RichTextLabel/colors/font_outline_color = Color(1, 1, 1, 1)
+RichTextLabel/colors/font_shadow_color = Color(1, 1, 1, 0.6)
+RichTextLabel/constants/outline_size = 5
+RichTextLabel/constants/shadow_offset_x = 3
+RichTextLabel/constants/shadow_offset_y = 3
+RichTextLabel/fonts/normal_font = ExtResource("1_wbmy5")

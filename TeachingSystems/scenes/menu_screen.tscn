@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://vo06pvm6giba" path="res://scenes/controls.tscn" id="8_5dsp7"]
 [ext_resource type="FontFile" uid="uid://sab7pg0qk2nn" path="res://assets/GUI/10 Font/CyberpunkCraftpixPixel.otf" id="8_yuakj"]
 
-[node name="MenuScreen" type="Control" node_paths=PackedStringArray("stage_buttons")]
+[node name="MenuScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tejro")
-stage_buttons = [NodePath("MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages/Stage_Button_1"), NodePath("MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages/Stage_Button_2"), NodePath("MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages/Stage_Button_3"), NodePath("MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages/Stage_Button_4"), NodePath("MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages/Stage_Button_5"), NodePath("MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages2/Stage_Button_6"), NodePath("MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages2/Stage_Button_7"), NodePath("MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages2/Stage_Button_8"), NodePath("MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages2/Stage_Button_9"), NodePath("MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages2/Stage_Button_10")]
+num_of_stages = 10
 
 [node name="Background" type="Control" parent="."]
 layout_mode = 1
@@ -118,7 +118,7 @@ alignment = 1
 
 [node name="TitleItems" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 24
 alignment = 1
 
 [node name="Controls_Button" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
@@ -137,6 +137,7 @@ theme = ExtResource("6_6ogre")
 text = "CLEAR DATA"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TitleItems"]
+visible = false
 layout_mode = 2
 
 [node name="Code_Input" type="LineEdit" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer"]
@@ -153,15 +154,44 @@ layout_mode = 2
 theme = ExtResource("6_6ogre")
 text = "Apply Code"
 
-[node name="Register" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TitleItems"]
+layout_mode = 2
+
+[node name="Register" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("6_6ogre")
 text = "REGISTER"
 
-[node name="Login" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
+[node name="Login" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("6_6ogre")
 text = "LOGIN"
+
+[node name="Logout" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
+layout_mode = 2
+theme = ExtResource("6_6ogre")
+text = "Logout"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TitleItems"]
+layout_mode = 2
+
+[node name="SaveData" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 20
+text = "Save"
+
+[node name="LoadData" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 20
+text = "Load From Cloud"
+
+[node name="Leaderboards" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
+layout_mode = 2
+theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 20
+text = "Leaderboard"
 
 [node name="PlayerLoginLabel" type="Label" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
@@ -174,99 +204,10 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 64
-alignment = 1
-
-[node name="Seperator" type="Control" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Seperator2" type="Control" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Seperator3" type="Control" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Stages" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer"]
+[node name="StageBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 16
-alignment = 1
-
-[node name="Stage_Button_1" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme = ExtResource("6_6ogre")
-text = "1"
-icon_alignment = 1
-
-[node name="Stage_Button_2" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme = ExtResource("6_6ogre")
-disabled = true
-text = "2"
-
-[node name="Stage_Button_3" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme = ExtResource("6_6ogre")
-disabled = true
-text = "3"
-
-[node name="Stage_Button_4" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme = ExtResource("6_6ogre")
-disabled = true
-text = "4"
-
-[node name="Stage_Button_5" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme = ExtResource("6_6ogre")
-disabled = true
-text = "5"
-
-[node name="Stages2" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="Stage_Button_6" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages2"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme = ExtResource("6_6ogre")
-disabled = true
-text = "6"
-
-[node name="Stage_Button_7" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages2"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme = ExtResource("6_6ogre")
-disabled = true
-text = "7"
-
-[node name="Stage_Button_8" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages2"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme = ExtResource("6_6ogre")
-disabled = true
-text = "8"
-
-[node name="Stage_Button_9" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages2"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme = ExtResource("6_6ogre")
-disabled = true
-text = "9"
-
-[node name="Stage_Button_10" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/Stages2"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme = ExtResource("6_6ogre")
-disabled = true
-text = "10"
+alignment = 2
 
 [node name="Controls" parent="." instance=ExtResource("8_5dsp7")]
 unique_name_in_owner = true

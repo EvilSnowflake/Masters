@@ -1,0 +1,269 @@
+[gd_scene load_steps=3 format=3 uid="uid://11g8r3bgs0lg"]
+
+[ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_ervq3"]
+[ext_resource type="Script" uid="uid://b3m3m04ibi5tr" path="res://scripts/resetpass_scene.gd" id="1_v03yq"]
+
+[node name="resetpass_scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v03yq")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.114897, 0.114897, 0.114897, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="BackButtonContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/BackButtonContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="MarginContainer/BackButtonContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_ervq3")
+theme_type_variation = &"LeaderboardsButton"
+text = "BACK"
+
+[node name="RequestFormContainer" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="Seperation" type="Control" parent="MarginContainer/RequestFormContainer"]
+layout_mode = 2
+
+[node name="Seperation2" type="Control" parent="MarginContainer/RequestFormContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/RequestFormContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ResetpassLabel" type="Label" parent="MarginContainer/RequestFormContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_colors/font_color = Color(0.54099, 0.54099, 0.54099, 1)
+theme_override_font_sizes/font_size = 75
+text = "RESET PASSWORD"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/RequestFormContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ResetpassLabel2" type="Label" parent="MarginContainer/RequestFormContainer/HBoxContainer6"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_colors/font_color = Color(0.54099, 0.54099, 0.54099, 1)
+theme_override_font_sizes/font_size = 20
+text = "PLEASE ENTER YOUR NAME BELOW"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/RequestFormContainer"]
+custom_minimum_size = Vector2(480.995, 60)
+layout_mode = 2
+theme_override_constants/separation = 48
+alignment = 1
+
+[node name="VBox_Labels" type="VBoxContainer" parent="MarginContainer/RequestFormContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="MarginContainer/RequestFormContainer/HBoxContainer3/VBox_Labels"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_font_sizes/font_size = 40
+text = "Name:"
+
+[node name="VBoxLineEdits" type="VBoxContainer" parent="MarginContainer/RequestFormContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="NameLineEdit" type="LineEdit" parent="MarginContainer/RequestFormContainer/HBoxContainer3/VBoxLineEdits"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_font_sizes/font_size = 30
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/RequestFormContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/RequestFormContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(701, 0)
+layout_mode = 2
+
+[node name="InfoLabel" type="Label" parent="MarginContainer/RequestFormContainer/HBoxContainer5/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="SubmitButton" type="Button" parent="MarginContainer/RequestFormContainer/HBoxContainer5"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_type_variation = &"LeaderboardsButton"
+text = "Submit"
+
+[node name="PwdResetFormContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="Seperation" type="Control" parent="MarginContainer/PwdResetFormContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PwdResetFormContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ResetpassLabel" type="Label" parent="MarginContainer/PwdResetFormContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_colors/font_color = Color(0.54099, 0.54099, 0.54099, 1)
+theme_override_font_sizes/font_size = 75
+text = "RESET PASSWORD"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/PwdResetFormContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ResetpassLabel" type="Label" parent="MarginContainer/PwdResetFormContainer/HBoxContainer6"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_colors/font_color = Color(0.54099, 0.54099, 0.54099, 1)
+theme_override_font_sizes/font_size = 20
+text = "Please enter below the code we sent you by email and your new password twice."
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/PwdResetFormContainer"]
+custom_minimum_size = Vector2(480.995, 60)
+layout_mode = 2
+theme_override_constants/separation = 48
+alignment = 1
+
+[node name="VBox_Labels" type="VBoxContainer" parent="MarginContainer/PwdResetFormContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="CodeLabel" type="Label" parent="MarginContainer/PwdResetFormContainer/HBoxContainer3/VBox_Labels"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_font_sizes/font_size = 40
+text = "Code:"
+
+[node name="PasswordLabel" type="Label" parent="MarginContainer/PwdResetFormContainer/HBoxContainer3/VBox_Labels"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_font_sizes/font_size = 40
+text = "Password:"
+
+[node name="ConfirmPassLabel" type="Label" parent="MarginContainer/PwdResetFormContainer/HBoxContainer3/VBox_Labels"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_font_sizes/font_size = 40
+text = "Confirm Password:"
+
+[node name="VBoxLineEdits" type="VBoxContainer" parent="MarginContainer/PwdResetFormContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="CodeLineEdit" type="LineEdit" parent="MarginContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_font_sizes/font_size = 30
+
+[node name="PasswordLineEdit" type="LineEdit" parent="MarginContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_font_sizes/font_size = 30
+secret = true
+
+[node name="ConfirmPassLineEdit" type="LineEdit" parent="MarginContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_font_sizes/font_size = 30
+secret = true
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/PwdResetFormContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PwdResetFormContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(701, 0)
+layout_mode = 2
+
+[node name="InfoLabel" type="Label" parent="MarginContainer/PwdResetFormContainer/HBoxContainer5/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="SubmitButton" type="Button" parent="MarginContainer/PwdResetFormContainer/HBoxContainer5"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_type_variation = &"LeaderboardsButton"
+text = "Submit"
+
+[node name="PasswordChangedContainer" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="Seperation" type="Control" parent="MarginContainer/PasswordChangedContainer"]
+layout_mode = 2
+
+[node name="Seperation2" type="Control" parent="MarginContainer/PasswordChangedContainer"]
+layout_mode = 2
+
+[node name="Seperation3" type="Control" parent="MarginContainer/PasswordChangedContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PasswordChangedContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PassresetLabel" type="Label" parent="MarginContainer/PasswordChangedContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_colors/font_color = Color(0.54099, 0.54099, 0.54099, 1)
+theme_override_font_sizes/font_size = 75
+text = "PASSWORD RESET"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/PasswordChangedContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ResetpassLabel3" type="Label" parent="MarginContainer/PasswordChangedContainer/HBoxContainer6"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_override_colors/font_color = Color(0.54099, 0.54099, 0.54099, 1)
+theme_override_font_sizes/font_size = 20
+text = "Your password was changed successfully."
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/PasswordChangedContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CloseButton" type="Button" parent="MarginContainer/PasswordChangedContainer/HBoxContainer5"]
+layout_mode = 2
+theme = ExtResource("1_ervq3")
+theme_type_variation = &"LeaderboardsButton"
+text = "Close"

@@ -23,6 +23,10 @@ config/icon="res://Icons/Didaskalia_Icon.svg"
 SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
 Global="*res://scripts/Global.gd"
 
+[debug]
+
+gdscript/warnings/integer_division=0
+
 [display]
 
 mouse_cursor/custom_image="res://assets/GUI/8 Cursors/1.png"
@@ -30,11 +34,6 @@ mouse_cursor/custom_image="res://assets/GUI/8 Cursors/1.png"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/silent_wolf/plugin.cfg")
-
-[gui]
-
-theme/custom="uid://dgwn8knwt1m3r"
-theme/custom_font="uid://sab7pg0qk2nn"
 
 [input]
 

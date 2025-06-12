@@ -1,18 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5gcieeebwfhf"]
+[gd_scene load_steps=3 format=3 uid="uid://bevwk1yc65svm"]
 
-[ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_jj6ok"]
-[ext_resource type="Script" uid="uid://d1wk6t56ipvls" path="res://scripts/registerscene.gd" id="1_ldays"]
-[ext_resource type="Texture2D" uid="uid://dxsyui4g70gb8" path="res://assets/GUI/9 Other/3 Skill icons/Skillicon7_09.png" id="3_6glbt"]
-[ext_resource type="Texture2D" uid="uid://b71wl8x3m4jvb" path="res://assets/GUI/9 Other/2 Socialmedia icons/DummyInfoIcon.png" id="4_oiks7"]
+[ext_resource type="Script" uid="uid://jss17aspfsqh" path="res://scripts/loginscreen.gd" id="1_e8ckn"]
+[ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_frse4"]
 
-[node name="RegisterScene" type="Control"]
+[node name="login_screen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ldays")
+script = ExtResource("1_e8ckn")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -45,7 +43,7 @@ layout_mode = 2
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme = ExtResource("1_jj6ok")
+theme = ExtResource("1_frse4")
 theme_type_variation = &"LeaderboardsButton"
 text = "BACK"
 
@@ -53,12 +51,12 @@ text = "BACK"
 layout_mode = 2
 alignment = 1
 
-[node name="SignupLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LoginLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme = ExtResource("1_jj6ok")
+theme = ExtResource("1_frse4")
 theme_override_colors/font_color = Color(0.54099, 0.54099, 0.54099, 1)
 theme_override_font_sizes/font_size = 75
-text = "SIGN UP"
+text = "LOGIN"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(480.995, 60)
@@ -67,86 +65,53 @@ theme_override_constants/separation = 48
 alignment = 1
 
 [node name="VBox_Labels" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(450, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
 [node name="UsernameLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBox_Labels"]
 layout_mode = 2
-theme = ExtResource("1_jj6ok")
+theme = ExtResource("1_frse4")
 theme_override_font_sizes/font_size = 40
 text = "Username:"
 
-[node name="EmalLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBox_Labels"]
-layout_mode = 2
-theme = ExtResource("1_jj6ok")
-theme_override_font_sizes/font_size = 40
-text = "Email:"
-
 [node name="PasswordLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBox_Labels"]
 layout_mode = 2
-theme = ExtResource("1_jj6ok")
+theme = ExtResource("1_frse4")
 theme_override_font_sizes/font_size = 40
 text = "Password:"
 
-[node name="ConfirmPassLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBox_Labels"]
-layout_mode = 2
-theme = ExtResource("1_jj6ok")
-theme_override_font_sizes/font_size = 40
-text = "Confirm Password:"
-
 [node name="VBoxLineEdits" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(450, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
 [node name="UsernameLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits"]
 layout_mode = 2
-theme = ExtResource("1_jj6ok")
-theme_override_font_sizes/font_size = 30
-
-[node name="EmailLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits"]
-layout_mode = 2
-theme = ExtResource("1_jj6ok")
+theme = ExtResource("1_frse4")
 theme_override_font_sizes/font_size = 30
 
 [node name="PasswordLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits"]
 layout_mode = 2
-theme = ExtResource("1_jj6ok")
+theme = ExtResource("1_frse4")
 theme_override_font_sizes/font_size = 30
 secret = true
 
-[node name="CofirmPassLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("1_jj6ok")
-theme_override_font_sizes/font_size = 30
-secret = true
+alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="ForgotPassword_LinkButton" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer6"]
 layout_mode = 2
-theme_override_constants/separation = 5
+theme = ExtResource("1_frse4")
+text = "FORGOT PASSWORD?"
 
-[node name="UsernameToolButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer7" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"LeaderboardsButton"
-icon = ExtResource("3_6glbt")
-flat = true
+alignment = 1
 
-[node name="DummyToolButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="StaySignedCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer7"]
 layout_mode = 2
-theme_type_variation = &"LeaderboardsButton"
-icon = ExtResource("4_oiks7")
-flat = true
-
-[node name="PasswordToolButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"LeaderboardsButton"
-icon = ExtResource("3_6glbt")
-flat = true
-
-[node name="DummyToolButton2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"LeaderboardsButton"
-icon = ExtResource("4_oiks7")
-flat = true
+theme = ExtResource("1_frse4")
+text = "STAY SIGNED IN FOR 30 DAYS"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -158,15 +123,15 @@ layout_mode = 2
 
 [node name="InfoLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("1_jj6ok")
+theme = ExtResource("1_frse4")
 horizontal_alignment = 1
 autowrap_mode = 1
 
-[node name="SubmitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer5"]
+[node name="LoginButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
-theme = ExtResource("1_jj6ok")
+theme = ExtResource("1_frse4")
 theme_type_variation = &"LeaderboardsButton"
-text = "Submit"
+text = "LOGIN"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

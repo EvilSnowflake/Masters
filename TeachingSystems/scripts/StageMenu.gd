@@ -17,12 +17,13 @@ func create_game(num: int):
 	menu_screen.hide()
 	if(new_game.has_method("pause")):
 		new_game.pause(2)
+	return new_game
 
 func exit_game():
 	menu_screen.show()
 	menu_music.playing = true
 
-func unlock_next_stage(num: int):
+func unlock_next_stage(num: int, end_stats : Dictionary = {}):
 	menu_music.playing = true
 	if(menu_screen.has_method("enable_propedia_button")):
-		menu_screen.enable_propedia_button(num)
+		menu_screen.enable_propedia_button(num, end_stats)

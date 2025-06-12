@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://biv20i4hepal0"]
+
+[ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_tqkoy"]
+
+[node name="score_item" type="Control"]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 500.0
+offset_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.203922)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="LabelContainers" type="HBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(450, 49)
+layout_mode = 2
+alignment = 1
+
+[node name="PlayerName" type="RichTextLabel" parent="MarginContainer/LabelContainers"]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+theme = ExtResource("1_tqkoy")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 30
+text = "1.Crocodile"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="MarginContainer/LabelContainers"]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+theme = ExtResource("1_tqkoy")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "50"
+horizontal_alignment = 2
+vertical_alignment = 1

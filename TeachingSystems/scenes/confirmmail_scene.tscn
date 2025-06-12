@@ -1,0 +1,108 @@
+[gd_scene load_steps=3 format=3 uid="uid://crm453n8pg0dy"]
+
+[ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_dpxav"]
+[ext_resource type="Script" uid="uid://bejvcq0y2w68t" path="res://scripts/confirmmail_scene.gd" id="1_v1ofm"]
+
+[node name="confirmmail_scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v1ofm")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.114897, 0.114897, 0.114897, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 48
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ConfirmMailLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_dpxav")
+theme_override_colors/font_color = Color(0.54099, 0.54099, 0.54099, 1)
+theme_override_font_sizes/font_size = 50
+text = "Confirm your email address"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+theme_override_constants/separation = 48
+alignment = 1
+
+[node name="VBox_Labels" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="CodeLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBox_Labels"]
+layout_mode = 2
+theme = ExtResource("1_dpxav")
+theme_override_font_sizes/font_size = 40
+text = "Code:"
+
+[node name="VBoxLineEdits" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="CodeLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits"]
+layout_mode = 2
+theme = ExtResource("1_dpxav")
+theme_override_font_sizes/font_size = 30
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(701, 0)
+layout_mode = 2
+
+[node name="InfoLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_dpxav")
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+
+[node name="SubmitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_dpxav")
+theme_type_variation = &"LeaderboardsButton"
+text = "Submit"
+
+[node name="ResendButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_dpxav")
+theme_type_variation = &"LeaderboardsButton"
+text = "Resend Code"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1

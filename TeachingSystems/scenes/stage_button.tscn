@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb2gnflrkttnv"]
+
+[ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_u3m03"]
+
+[node name="StageButton" type="Button"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_u3m03")
+disabled = true
+icon_alignment = 1

@@ -396,6 +396,10 @@ _data = {
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ake26"]
 texture = ExtResource("5_6sc7p")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
 modulate_color = Color(5.39064e-06, 0.908111, 0.788993, 1)
 
 [node name="Game" type="Node2D"]
@@ -455,6 +459,9 @@ rotation = 0.00717476
 [node name="Spawn_Timer" type="Timer" parent="."]
 unique_name_in_owner = true
 
+[node name="Time_Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Game_Menu" type="Control" parent="CanvasLayer"]
@@ -490,6 +497,7 @@ libraries = {
 
 [node name="Statistics_Container" type="VBoxContainer" parent="CanvasLayer/Game_Menu"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(356.485, 0)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -526,6 +534,13 @@ layout_mode = 2
 theme = ExtResource("4_yo6n8")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/fill = SubResource("StyleBoxTexture_ake26")
+
+[node name="Game_Timer" type="Label" parent="CanvasLayer/Game_Menu/Statistics_Container"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_yo6n8")
+text = "00:00"
+horizontal_alignment = 2
 
 [node name="Pauses" type="Control" parent="CanvasLayer/Game_Menu"]
 unique_name_in_owner = true
@@ -610,6 +625,4 @@ layout_mode = 1
 [connection signal="timeout" from="Spawn_Timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Game_Menu/Pauses/Pause_Menu/MarginContainer/HBoxContainer/VBoxContainer/Resume_Button" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Game_Menu/Pauses/Pause_Menu/MarginContainer/HBoxContainer/VBoxContainer/Exit_Button" to="." method="_on_exit_button_pressed"]
-[connection signal="correct_answer" from="CanvasLayer/Game_Menu/Pauses/Stage_Question" to="." method="_on_stage_question_correct_answer"]
-[connection signal="wrong_answer" from="CanvasLayer/Game_Menu/Pauses/Stage_Question" to="." method="_on_stage_question_wrong_answer"]
 [connection signal="pressed_return" from="CanvasLayer/Game_Menu/Pauses/Stage_Propedia" to="." method="_on_stage_propedia_pressed_return"]

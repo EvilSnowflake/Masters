@@ -10,8 +10,7 @@ var second_num: int = 1
 @onready var question_num_2 = %Question_Num_2
 
 var correct_answer_num = 0
-signal correct_answer
-signal wrong_answer
+signal answer_given(numbers: String, result: bool)
 
 func set_numbers(wave: int, stage: int):
 	_wave_num = wave
@@ -39,10 +38,7 @@ func create_question():
 func _on_question_button_pressed(answer: int):
 	for i in range(possible_answers.get_child_count()):
 		if(i == correct_answer_num):
-			possible_answers.get_child(i).pressed.disconnect(_on_question_button_pressed.bind(first_num*second_num))
+			possible_answers.get_child(i).pressed.disconnect(_on_question_button_pressed)
 		else:
-			possible_answers.get_child(i).pressed.disconnect(_on_question_button_pressed.bind(wrong_answer))
-	if(answer == first_num*second_num):
-		correct_answer.emit()
-	else:
-		wrong_answer.emit()
+			possible_answers.get_child(i).pressed.disconnect(_on_question_button_pressed)
+	answer_given.emit(str(first_num)+"|"+str(second_num),answer == first_num*second_num)
