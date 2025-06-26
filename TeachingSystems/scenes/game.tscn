@@ -515,7 +515,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("4_yo6n8")
 theme_override_font_sizes/font_size = 24
-text = "Enemies left: 0"
+text = "ENEMIES LEFT: 0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -524,7 +524,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("4_yo6n8")
 theme_override_font_sizes/font_size = 18
-text = "Level: 0"
+text = "LEVEL: 0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -605,13 +605,13 @@ layout_mode = 2
 [node name="Resume_Button" type="Button" parent="CanvasLayer/Game_Menu/Pauses/Pause_Menu/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_yo6n8")
-text = "Resume"
+text = "RESUME"
 icon_alignment = 1
 
 [node name="Exit_Button" type="Button" parent="CanvasLayer/Game_Menu/Pauses/Pause_Menu/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_yo6n8")
-text = "Return to menu"
+text = "RETURN TO MENU"
 
 [node name="Stage_Question" parent="CanvasLayer/Game_Menu/Pauses" instance=ExtResource("6_edvp2")]
 visible = false

@@ -61,6 +61,6 @@ autowrap_mode = 2
 layout_mode = 2
 theme = ExtResource("1_h3ffy")
 theme_override_font_sizes/font_size = 24
-text = "left click to dismiss"
+text = "LEFT CLICK TO DISMISS"
 horizontal_alignment = 1
 vertical_alignment = 1

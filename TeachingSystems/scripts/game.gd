@@ -62,7 +62,7 @@ func _on_spawn_timer_timeout() -> void:
 		spawn_enemy()
 		_enemies_left -= 1
 		_enemies_left_alive += 1
-		enemies_anouncer.text = "Enemies left: " + str(_enemies_left_alive)
+		enemies_anouncer.text = "ENEMIES LEFT: " + str(_enemies_left_alive)
 	
 	if(_enemies_left_alive == 0):
 		spawn_timer.stop()
@@ -110,7 +110,7 @@ func set_wave_enemies(num: int) -> void:
 
 func decrease_enemy_number_by_one():
 	_enemies_left_alive -= 1
-	enemies_anouncer.text = "Enemies left: " + str(_enemies_left_alive)
+	enemies_anouncer.text = "ENEMIES LEFT: " + str(_enemies_left_alive)
 
 func _increase_wave() -> void:
 	_wave += 1
@@ -125,11 +125,11 @@ func read_stage_menu(menu: Node2D) -> void:
 	stage_menu = menu
 
 func return_to_stage_menu() -> void:
-	if(_wave == _max_waves and stage_menu.has_method("unlock_next_stage") and !_user_died):
+	if(stage_menu.has_method("unlock_next_stage")):
 		print("Total enemies fought : " + str(end_stats["total_enemies"]))
 		print("Total time needed : " + str(end_stats["total_time"]))
 		print("Total right answers : " + str(end_stats["correct_answers"]) + " and wrong ones : " + str(end_stats["wrong_answers"]))
-		stage_menu.unlock_next_stage(_propedia_num,end_stats)
+		stage_menu.unlock_next_stage(_propedia_num,end_stats, _user_died)
 	if(stage_menu.has_method("exit_game")):
 		queue_free()
 		stage_menu.exit_game()
@@ -148,7 +148,7 @@ func _on_player_health_depleted() -> void:
 	return_to_stage_menu()
 
 func update_pickups(level: int, current_resources: int, res_to_lvl: int) -> void:
-	items_announcer.text = "Level: " + str(level)
+	items_announcer.text = "LEVEL: " + str(level)
 	level_bar.value = int((100 * current_resources)/res_to_lvl)
 
 func _on_stage_question_answer(numbers: String, result: bool) -> void:

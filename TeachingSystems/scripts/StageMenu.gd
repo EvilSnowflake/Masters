@@ -23,7 +23,7 @@ func exit_game():
 	menu_screen.show()
 	menu_music.playing = true
 
-func unlock_next_stage(num: int, end_stats : Dictionary = {}):
+func unlock_next_stage(num: int, end_stats : Dictionary = {}, user_died: bool = false):
 	menu_music.playing = true
 	if(menu_screen.has_method("enable_propedia_button")):
-		menu_screen.enable_propedia_button(num, end_stats)
+		menu_screen.enable_propedia_button(num, end_stats, user_died)

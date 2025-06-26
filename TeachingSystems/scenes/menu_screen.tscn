@@ -168,30 +168,34 @@ theme = ExtResource("6_6ogre")
 text = "LOGIN"
 
 [node name="Logout" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
+visible = false
 layout_mode = 2
 theme = ExtResource("6_6ogre")
-text = "Logout"
+text = "LOGOUT"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
 
 [node name="SaveData" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer3"]
+visible = false
 layout_mode = 2
 theme = ExtResource("6_6ogre")
 theme_override_font_sizes/font_size = 20
-text = "Save"
+text = "SAVE"
 
 [node name="LoadData" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer3"]
+visible = false
 layout_mode = 2
 theme = ExtResource("6_6ogre")
 theme_override_font_sizes/font_size = 20
-text = "Load From Cloud"
+text = "LOAD FROM CLOUD"
 
 [node name="Leaderboards" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
+visible = false
 layout_mode = 2
 theme = ExtResource("6_6ogre")
 theme_override_font_sizes/font_size = 20
-text = "Leaderboard"
+text = "LEADERBOARD"
 
 [node name="PlayerLoginLabel" type="Label" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2

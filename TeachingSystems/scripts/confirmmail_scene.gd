@@ -3,7 +3,7 @@ extends Control
 const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
 const RED = Color(1.0,0.0,0.0,1.0)
 const WHITE = Color(1.0,1.0,1.0,1.0)
-const PROCESSING = "Processing"
+const PROCESSING = "PROCESSING"
 
 @onready var info_label = $MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer/InfoLabel
 @onready var submit_button = $MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer2/SubmitButton

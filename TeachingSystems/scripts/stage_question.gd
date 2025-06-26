@@ -4,6 +4,7 @@ var _wave_num: int = 1
 var _stage_num: int = 1
 var first_num: int = 1
 var second_num: int = 1
+var menu_screen_node : Control
 
 @onready var possible_answers = %Possible_Answers
 @onready var question_num_1 = %Question_Num_1
@@ -12,11 +13,20 @@ var second_num: int = 1
 var correct_answer_num = 0
 signal answer_given(numbers: String, result: bool)
 
+func _ready():
+	pass
+
 func set_numbers(wave: int, stage: int):
 	_wave_num = wave
 	_stage_num = stage
 
 func create_question():
+	var prev_answers: Dictionary = {}
+	if "_game_stats" in menu_screen_node:
+		prev_answers = menu_screen_node._game_stats["answers"]
+	
+	if prev_answers != null:
+		print(prev_answers)
 	first_num = randi_range(1,_stage_num)
 	second_num = randi_range(1,_wave_num)
 	question_num_1.text = str(first_num)

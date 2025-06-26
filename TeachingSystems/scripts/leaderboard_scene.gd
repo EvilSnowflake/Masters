@@ -3,8 +3,8 @@ extends Control
 
 const SCORE_ITEM = preload("res://scenes/score_item.tscn")
 const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
-const NOSCORES = "No scores yet!"
-const LOADING = "Loading scores..."
+const NOSCORES = "NO SCORES YET!"
+const LOADING = "LOADING SCORES..."
 
 var list_index = 0
 # Replace the leaderboard name if you're not using the default leaderboard

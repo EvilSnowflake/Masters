@@ -93,7 +93,7 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("1_ervq3")
 theme_override_font_sizes/font_size = 40
-text = "Name:"
+text = "NAME:"
 
 [node name="VBoxLineEdits" type="VBoxContainer" parent="MarginContainer/RequestFormContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(450, 0)
@@ -122,7 +122,7 @@ autowrap_mode = 1
 layout_mode = 2
 theme = ExtResource("1_ervq3")
 theme_type_variation = &"LeaderboardsButton"
-text = "Submit"
+text = "SUBMIT"
 
 [node name="PwdResetFormContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -151,7 +151,8 @@ layout_mode = 2
 theme = ExtResource("1_ervq3")
 theme_override_colors/font_color = Color(0.54099, 0.54099, 0.54099, 1)
 theme_override_font_sizes/font_size = 20
-text = "Please enter below the code we sent you by email and your new password twice."
+text = "PLEASE ENTER BELOW THE CODE WE SENT YOU BY EMAIL 
+AND YOUR NEW PASSWORD TWICE"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/PwdResetFormContainer"]
 custom_minimum_size = Vector2(480.995, 60)
@@ -166,20 +167,20 @@ layout_mode = 2
 [node name="CodeLabel" type="Label" parent="MarginContainer/PwdResetFormContainer/HBoxContainer3/VBox_Labels"]
 layout_mode = 2
 theme = ExtResource("1_ervq3")
-theme_override_font_sizes/font_size = 40
-text = "Code:"
+theme_override_font_sizes/font_size = 30
+text = "CODE:"
 
 [node name="PasswordLabel" type="Label" parent="MarginContainer/PwdResetFormContainer/HBoxContainer3/VBox_Labels"]
 layout_mode = 2
 theme = ExtResource("1_ervq3")
-theme_override_font_sizes/font_size = 40
-text = "Password:"
+theme_override_font_sizes/font_size = 30
+text = "PASSWORD:"
 
 [node name="ConfirmPassLabel" type="Label" parent="MarginContainer/PwdResetFormContainer/HBoxContainer3/VBox_Labels"]
 layout_mode = 2
 theme = ExtResource("1_ervq3")
-theme_override_font_sizes/font_size = 40
-text = "Confirm Password:"
+theme_override_font_sizes/font_size = 30
+text = "CONFIRM PASSWORD:"
 
 [node name="VBoxLineEdits" type="VBoxContainer" parent="MarginContainer/PwdResetFormContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(450, 0)
@@ -256,7 +257,7 @@ layout_mode = 2
 theme = ExtResource("1_ervq3")
 theme_override_colors/font_color = Color(0.54099, 0.54099, 0.54099, 1)
 theme_override_font_sizes/font_size = 20
-text = "Your password was changed successfully."
+text = "YOUR PASSWORD WAS CHANGED SUCCESSFULLY"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/PasswordChangedContainer"]
 layout_mode = 2
@@ -266,4 +267,4 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("1_ervq3")
 theme_type_variation = &"LeaderboardsButton"
-text = "Close"
+text = "CLOSE"

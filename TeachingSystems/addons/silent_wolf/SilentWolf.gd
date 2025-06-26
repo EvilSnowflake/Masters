@@ -12,10 +12,10 @@ const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
 #var Players = Node.new()
 #var Multiplayer = Node.new()
 
-@onready var Auth = Node.new()
-@onready var Scores = Node.new()
-@onready var Players = Node.new()
-@onready var Multiplayer = Node.new()
+var Scores : Node
+var Auth : Node
+var Players : Node
+var Multiplayer : Node
 
 #
 # SILENTWOLF CONFIG: THE CONFIG VARIABLES BELOW WILL BE OVERRIDED THE 
@@ -56,6 +56,10 @@ func _init():
 
 
 func _ready():
+	Scores = Node.new()
+	Auth = Node.new()
+	Players = Node.new()
+	Multiplayer = Node.new()
 	# The following line would keep SilentWolf working even if the game tree is paused.
 	#pause_mode = Node.PAUSE_MODE_PROCESS
 	print("SW ready start timestamp: " + str(SWUtils.get_timestamp()))

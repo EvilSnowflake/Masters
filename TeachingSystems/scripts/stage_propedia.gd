@@ -6,7 +6,7 @@ extends Control
 signal pressed_return
 
 func change_labels(number: String, mat: String):
-	stage_number.text = "Stage " + number + " material"
+	stage_number.text = "STAGE " + number + " MATERIAL"
 	stage_material.text = mat
 
 func _process(_delta):

@@ -1,11 +1,11 @@
 extends Control
 
-const USERHELPMESSAGE = "Username should contain at least 6 characters (letters or numbers) and no spaces."
-const PASSHELPMESSAGE = "Password should contain at least 8 characters including uppercase and lowercase letters, numbers and (optionally) special characters."
+const USERHELPMESSAGE = "USERNAME SHOULD CONTAIN AT LEAST 6 CHARACTERS (LETTERS OR NUMBERS) AND NO SPACES"
+const PASSHELPMESSAGE = "PASSWORD SHOULD CONTAIN AT LEAST 8 CHARACTERS INCLUDING UPPERCASE AND LOWERCASE LETTERS, NUMBERS AND (OPTIONALLY) SPECIAL CHARACTERS"
 const RED = Color(1.0,0.0,0.0,1.0)
 const WHITE = Color(1.0,1.0,1.0,1.0)
 const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
-const PROCESSING = "Processing"
+const PROCESSING = "PROCESSING"
 
 @onready var info_label = $MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer/InfoLabel
 @onready var submit_button = $MarginContainer/VBoxContainer/HBoxContainer5/SubmitButton

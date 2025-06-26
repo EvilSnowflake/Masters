@@ -52,7 +52,7 @@ func _ready():
 	SilentWolf.Auth.sw_login_complete.connect(_on_login_complete)
 	SilentWolf.Auth.sw_logout_complete.connect(_on_logout_complete)
 	SilentWolf.Auth.auto_login_player()
-	unlock_enabled_stages()
+	#unlock_enabled_stages()
 
 func _on_stage_button_pressed(stg_num: String) -> void:
 	if(stage_menu.has_method("create_game")):
@@ -63,14 +63,17 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 				stg_qst.answer_given.connect(_update_answrs)
 				#stg_qst.correct_answer.connect(_update_answrs)
 				#print(stg_qst.answer_given.get_connections())
+			if ("menu_screen_node" in stg_qst):
+				stg_qst.menu_screen_node = self
 
-func enable_propedia_button(num: int, end_stats : Dictionary = {}) -> void:
-	print("Enabling stage "+str(num))
+func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bool = false) -> void:
+	#print("Enabling stage "+str(num))
 	_game_stats["stage_"+str(num)] = end_stats
 	_game_stats["highscore"] = _calc_highscore()
 	#_stages_en[num] = 1
-	save_data()
 	_cloud_save_data()
+	if(user_died):
+		return
 	unlock_enabled_stages()
 
 func _on_controls_button_pressed() -> void:
@@ -161,14 +164,15 @@ func _on_leader_button_pressed() -> void:
 func update_login_state_label() -> void:
 	if SilentWolf.Auth.logged_in_player:
 		var username = SilentWolf.Auth.logged_in_player
-		login_state_label.text = "Logged In as " + username
+		login_state_label.text = "LOGGED IN AS " + username
 		_cloud_load_data()
 		_logout_button.show()
 		_save_data_button.show()
 		_load_data_button.show()
+		_leaderboard_button.show()
 		_login_button.hide()
 	else:
-		login_state_label.text = "NotLogged In"
+		login_state_label.text = "NOT LOGGED IN"
 		_logout_button.hide()
 		_save_data_button.hide()
 		_load_data_button.hide()

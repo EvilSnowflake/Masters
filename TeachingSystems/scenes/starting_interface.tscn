@@ -112,14 +112,17 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("5_35nuw")
 theme_override_font_sizes/font_size = 64
-text = "adaptive teaching systems"
+text = "MULTIPLICATION
+TEACHING SYSTEM"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Subtitle" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("5_35nuw")
-text = "assignment created by panagiotis vailakis mpsp2305
-using godot game engine
-assets created by craftpix.net
+text = "Assignment Created by Panagiotis Vailakis MPSP2305
+Ysing Godot Game Engine
+Assets Created by craftpix.net
 MUSIC TRACKS : 
 \"PASSENGERS\" BY CHROMONICCI
 \"MANIFOLD\" BY WEIRD INSIDE"

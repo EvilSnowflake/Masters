@@ -55,7 +55,7 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("1_frse4")
 theme_override_colors/font_color = Color(0.54099, 0.54099, 0.54099, 1)
-theme_override_font_sizes/font_size = 75
+theme_override_font_sizes/font_size = 50
 text = "LOGIN"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
@@ -72,13 +72,13 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("1_frse4")
 theme_override_font_sizes/font_size = 40
-text = "Username:"
+text = "USERNAME:"
 
 [node name="PasswordLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBox_Labels"]
 layout_mode = 2
 theme = ExtResource("1_frse4")
 theme_override_font_sizes/font_size = 40
-text = "Password:"
+text = "PASSWORD:"
 
 [node name="VBoxLineEdits" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(300, 0)
@@ -87,12 +87,12 @@ layout_mode = 2
 [node name="UsernameLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits"]
 layout_mode = 2
 theme = ExtResource("1_frse4")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 40
 
 [node name="PasswordLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits"]
 layout_mode = 2
 theme = ExtResource("1_frse4")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 40
 secret = true
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
@@ -111,6 +111,7 @@ alignment = 1
 [node name="StaySignedCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer7"]
 layout_mode = 2
 theme = ExtResource("1_frse4")
+theme_override_font_sizes/font_size = 20
 text = "STAY SIGNED IN FOR 30 DAYS"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
