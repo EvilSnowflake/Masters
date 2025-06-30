@@ -6,8 +6,13 @@ extends Area2D
 @onready var white_red_gun = %White_Red_Gun
 @onready var gun_range = %Gun_Range
 
-@export var bullet_persistance = 0
-@export var bullet_damage: int = 1
+var bullet_persistance : int
+var bullet_damage: int
+
+@export var default_bullet_persistance: int = 0
+@export var default_bullet_damage: int = 1
+@export var default_range: int = 150
+@export var default_attack_speed : float = 0.5 
 
 func _physics_process(_delta):
 	#Test comment
@@ -26,6 +31,13 @@ func _physics_process(_delta):
 		white_red_gun.flip_v = true
 	else:
 		white_red_gun.flip_v = false
+
+func set_default_values():
+	print("reset gun values")
+	set_bullet_persistance(default_bullet_persistance)
+	set_bullet_damage(default_bullet_damage)
+	set_range(default_range)
+	set_attack_speed(default_attack_speed)
 
 func shoot():
 	const BULLET = preload("res://scenes/bullet.tscn")

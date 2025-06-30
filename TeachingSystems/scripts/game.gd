@@ -92,8 +92,8 @@ func pause(pause_kind: int) -> void:
 			pauses.get_child(pause_kind).create_question()
 		if(pauses.get_child(pause_kind).has_method("change_labels")):
 			var stgMat = ""
-			for i in range(1,11):
-				stgMat += str(i)+"x"+str(_propedia_num)+"="+str(i*_propedia_num)+"|"
+			for i in range(1,_max_waves+1):
+				stgMat += str(_propedia_num)+"x"+str(i)+"="+str(i*_propedia_num)+"|"
 			stgMat = stgMat.left(stgMat.length()-1)
 			pauses.get_child(pause_kind).change_labels(str(_propedia_num),stgMat)
 	_paused = !_paused
@@ -186,3 +186,6 @@ func _on_time_timer_timeout() -> void:
 
 func get_stage_quest():
 	return pauses.get_child(1)
+
+func set_max_waves(num: int):
+	_max_waves = num

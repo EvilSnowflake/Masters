@@ -18,7 +18,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tejro")
-num_of_stages = 10
 
 [node name="Background" type="Control" parent="."]
 layout_mode = 1
@@ -217,6 +216,8 @@ alignment = 2
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
+
+[node name="NumberRequests" type="HTTPRequest" parent="."]
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/Controls_Button" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/Exit" to="." method="_on_exit_pressed"]

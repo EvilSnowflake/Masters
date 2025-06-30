@@ -5,6 +5,7 @@ const LOGINSCENE = "res://scenes/login_screen.tscn"
 const LEADERBOARDSCENE = "res://scenes/leaderboard_scene.tscn"
 const STAGE_BUTTON = preload("res://scenes/stage_button.tscn")
 const STAGE_BUTTON_BOX = preload("res://scenes/stage_button_box.tscn")
+const API_URL = "https://localhost:7218/api/Numbers/1"
 #FILE SAVE ON %APPDATA%\Godot\app_userdata\TeachingSystems
 var stage_menu
 var save_path = "user://SavedData.save"
@@ -13,7 +14,8 @@ var _current_game
 
 @export var max_num_stage_buttons = 7
 @export var stage_buttons: Array[Button] = []
-@export var num_of_stages = 22
+@export var num_of_stages = 10
+@export var num_in_propedia = 10
 @export var _codes: Array[String] = ["12345678910","2468101214161820","36912151821242730","481216202428323640","5101520253035404550","6121824303642485460","7142128354249566370","8162432404856647280","9182736455463728190","102030405060708090100"]
 
 @onready var _register_button =  $MarginContainer/HBoxContainer/TitleItems/HBoxContainer2/Register
@@ -26,6 +28,8 @@ var _current_game
 @onready var _save_data_button = $MarginContainer/HBoxContainer/TitleItems/HBoxContainer3/SaveData
 @onready var _load_data_button = $MarginContainer/HBoxContainer/TitleItems/HBoxContainer3/LoadData
 @onready var _leaderboard_button = $MarginContainer/HBoxContainer/TitleItems/Leaderboards
+@onready var _number_req_https = $NumberRequests
+
 
 func _ready():
 	var rest = num_of_stages%7
@@ -37,6 +41,8 @@ func _ready():
 			numOfTimes -= 1
 		button_num = _add_stage_and_button(rest,button_num)
 	stage_menu = get_tree().get_root().get_node("Stage_Menu")
+	
+	#BUTTONS STUFF
 	for button in stage_buttons:
 		button.pressed.connect(_on_stage_button_pressed.bind(button.text))
 	_register_button.pressed.connect(_on_register_button_pressed.bind())
@@ -48,15 +54,20 @@ func _ready():
 	load_data()
 	#_game_stats["highscore"] = _calc_highscore()
 	
+	#SILENTWOLF STTUFF
 	SilentWolf.Auth.sw_session_check_complete.connect(_on_login_complete)
 	SilentWolf.Auth.sw_login_complete.connect(_on_login_complete)
 	SilentWolf.Auth.sw_logout_complete.connect(_on_logout_complete)
 	SilentWolf.Auth.auto_login_player()
 	#unlock_enabled_stages()
+	
+	#API STUFF
+	_number_req_https.request_completed.connect(_on_request_completed)
+	_number_req_https.request(API_URL)
 
 func _on_stage_button_pressed(stg_num: String) -> void:
 	if(stage_menu.has_method("create_game")):
-		_current_game = stage_menu.create_game(int(stg_num))
+		_current_game = stage_menu.create_game(int(stg_num),num_in_propedia)
 		if _current_game.has_method("get_stage_quest"):
 			var stg_qst = _current_game.get_stage_quest()
 			if stg_qst.has_signal("answer_given"):
@@ -65,15 +76,18 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 				#print(stg_qst.answer_given.get_connections())
 			if ("menu_screen_node" in stg_qst):
 				stg_qst.menu_screen_node = self
+			if ("max_num" in stg_qst):
+				stg_qst.max_num = num_of_stages
+			if ("num_in_propedia" in stg_qst):
+				stg_qst.num_in_propedia = num_in_propedia
 
 func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bool = false) -> void:
 	#print("Enabling stage "+str(num))
-	_game_stats["stage_"+str(num)] = end_stats
-	_game_stats["highscore"] = _calc_highscore()
+	if(not user_died):
+		_game_stats["stage_"+str(num)] = end_stats
+		_game_stats["highscore"] = _calc_highscore()
 	#_stages_en[num] = 1
 	_cloud_save_data()
-	if(user_died):
-		return
 	unlock_enabled_stages()
 
 func _on_controls_button_pressed() -> void:
@@ -264,3 +278,9 @@ func _calc_highscore() -> int:
 			score += find_the_score(_game_stats[stat])
 	
 	return score
+
+func _on_request_completed(result,response_code,headers,body):
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	print("Data found from the api:")
+	print(json)
+	

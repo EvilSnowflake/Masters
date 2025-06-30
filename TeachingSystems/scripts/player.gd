@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var _speed: int = 200:
+@export var _speed: int :
 	set(value):
 		_speed = value
 	get:
@@ -9,11 +9,18 @@ extends CharacterBody2D
 var _lvl_req = 3
 var _died: bool = false
 
-@export var _health: float = 20.0
-@export var _max_health: float = 20.0
-@export var _damage_rate: float = 5.0
-@export var _char_level: int = 1
-@export var _resources_to_lvl: int = 0
+var _health: float
+var _max_health: float
+var _damage_rate: float
+var _char_level: int
+var _resources_to_lvl: int
+
+@export var default_health : float = 20.0
+@export var default_max_health: float = 20.0
+@export var default_damage_rate: float = 5.0
+@export var default_char_level: int = 1
+@export var default_resources_to_lvl: int = 0
+@export var default_speed: int = 200
 
 @onready var gun = %Gun
 @onready var cyborg_player = %Cyborg_Player
@@ -27,6 +34,9 @@ enum Reward {NEGATIVE = -1, SMALL = 0, MEDIUM = 1, LARGE = 2}
 var stats_num: int = 5
 
 func _ready():
+	print("reset char")
+	reset_values()
+	
 	_health = _max_health
 	game = get_parent()
 	_resources_to_lvl = _lvl_req
@@ -147,3 +157,13 @@ func give_reward(rwrd: Reward) -> Array[String]:
 				add_bullet_persistance(1)
 				return(["PERSISTANCE","HEALTH"])
 	return(["NONE"])
+
+func reset_values():
+	_health = default_health
+	_max_health = default_max_health
+	_damage_rate = default_damage_rate
+	_char_level = default_char_level
+	_resources_to_lvl = default_resources_to_lvl
+	_speed = default_speed
+	if "set_default_values" in gun:
+		gun.set_default_values()
