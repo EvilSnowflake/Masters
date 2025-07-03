@@ -218,6 +218,7 @@ visible = false
 layout_mode = 1
 
 [node name="NumberRequests" type="HTTPRequest" parent="."]
+timeout = 1.0
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/Controls_Button" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/Exit" to="." method="_on_exit_pressed"]

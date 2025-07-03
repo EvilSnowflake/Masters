@@ -5,7 +5,8 @@ const LOGINSCENE = "res://scenes/login_screen.tscn"
 const LEADERBOARDSCENE = "res://scenes/leaderboard_scene.tscn"
 const STAGE_BUTTON = preload("res://scenes/stage_button.tscn")
 const STAGE_BUTTON_BOX = preload("res://scenes/stage_button_box.tscn")
-const API_URL = "https://localhost:7218/api/Numbers/1"
+const HTTPS_API_URL = "https://localhost:7218/api/Numbers/2"
+const API_URL = "http://localhost:5000/api/Numbers/1"
 #FILE SAVE ON %APPDATA%\Godot\app_userdata\TeachingSystems
 var stage_menu
 var save_path = "user://SavedData.save"
@@ -32,19 +33,10 @@ var _current_game
 
 
 func _ready():
-	var rest = num_of_stages%7
-	var numOfTimes = floor(num_of_stages/max_num_stage_buttons)
-	var button_num = 0
-	if(stage_box_container.get_child_count() == 0):
-		while numOfTimes > 0:
-			button_num = _add_stage_and_button(max_num_stage_buttons,button_num)
-			numOfTimes -= 1
-		button_num = _add_stage_and_button(rest,button_num)
-	stage_menu = get_tree().get_root().get_node("Stage_Menu")
+	#API STUFF
+	_number_req_https.request_completed.connect(_on_request_completed)
+	_number_req_https.request(API_URL)
 	
-	#BUTTONS STUFF
-	for button in stage_buttons:
-		button.pressed.connect(_on_stage_button_pressed.bind(button.text))
 	_register_button.pressed.connect(_on_register_button_pressed.bind())
 	_login_button.pressed.connect(_on_login_button_pressed.bind())
 	_logout_button.pressed.connect(_on_logout_button_pressed)
@@ -61,9 +53,7 @@ func _ready():
 	SilentWolf.Auth.auto_login_player()
 	#unlock_enabled_stages()
 	
-	#API STUFF
-	_number_req_https.request_completed.connect(_on_request_completed)
-	_number_req_https.request(API_URL)
+
 
 func _on_stage_button_pressed(stg_num: String) -> void:
 	if(stage_menu.has_method("create_game")):
@@ -114,6 +104,7 @@ func save_data() -> void:
 	print("SAVED!")
 
 func load_data() -> void:
+	
 	var file = FileAccess.open(save_path,FileAccess.READ)
 	if not file:
 		print("No File")
@@ -128,7 +119,7 @@ func load_data() -> void:
 			_game_stats = current_line
 		print(_game_stats)
 		#_stages_en = file.get_var()
-		unlock_enabled_stages()
+		
 	else:
 		print("NO SAVED DATA FOUND!")
 
@@ -193,6 +184,7 @@ func update_login_state_label() -> void:
 		_login_button.show()
 
 func _add_stage_and_button(number: int, button_num: int) -> int:
+	
 	var stage_box = STAGE_BUTTON_BOX.instantiate()
 	stage_box_container.add_child(stage_box)
 	for i in range(number):
@@ -280,7 +272,31 @@ func _calc_highscore() -> int:
 	return score
 
 func _on_request_completed(result,response_code,headers,body):
-	var json = JSON.parse_string(body.get_string_from_utf8())
-	print("Data found from the api:")
-	print(json)
+	print("Request result : "+str(result))
+	if result == HTTPRequest.RESULT_SUCCESS:
+		var json = JSON.parse_string(body.get_string_from_utf8())
+		print("Data found from the api")
+		num_of_stages = int(json["numberOne"])
+		num_in_propedia = int(json["numberTwo"])
+		setupButtons()
+	else:
+		setupButtons()
 	
+func setupButtons():
+	print("setting up buttons")
+	if(stage_box_container.get_child_count() > 0):
+		print("Buttons found, operation stopped")
+		return
+	var rest = int(num_of_stages)%7
+	var numOfTimes = floor(num_of_stages/max_num_stage_buttons)
+	var button_num = 0
+	while numOfTimes > 0:
+		button_num = _add_stage_and_button(max_num_stage_buttons,button_num)
+		numOfTimes -= 1
+	button_num = _add_stage_and_button(rest,button_num)
+	stage_menu = get_tree().get_root().get_node("Stage_Menu")
+	
+	#BUTTONS STUFF
+	for button in stage_buttons:
+		button.pressed.connect(_on_stage_button_pressed.bind(button.text))
+	unlock_enabled_stages()
