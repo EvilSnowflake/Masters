@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bv2uqp01l1qbi"]
+[gd_scene load_steps=11 format=3 uid="uid://bv2uqp01l1qbi"]
 
 [ext_resource type="Script" uid="uid://ce74vlad7dvj8" path="res://scripts/menu_screen.gd" id="1_tejro"]
 [ext_resource type="Texture2D" uid="uid://cdu8fh8kvdj02" path="res://assets/CityBackground/1 Backgrounds/1/Day/1.png" id="1_wxxc3"]
@@ -9,8 +9,9 @@
 [ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="6_6ogre"]
 [ext_resource type="PackedScene" uid="uid://vo06pvm6giba" path="res://scenes/controls.tscn" id="8_5dsp7"]
 [ext_resource type="FontFile" uid="uid://sab7pg0qk2nn" path="res://assets/GUI/10 Font/CyberpunkCraftpixPixel.otf" id="8_yuakj"]
+[ext_resource type="PackedScene" uid="uid://6tjmbpgcspdy" path="res://scenes/statistics_scene.tscn" id="10_0m60l"]
 
-[node name="MenuScreen" type="Control"]
+[node name="MenuScreen" type="Control" node_paths=PackedStringArray("statistics_scn")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +19,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tejro")
+statistics_scn = NodePath("statistics_scene")
 
 [node name="Background" type="Control" parent="."]
 layout_mode = 1
@@ -130,6 +132,11 @@ layout_mode = 2
 theme = ExtResource("6_6ogre")
 text = "EXIT"
 
+[node name="Statistics" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
+layout_mode = 2
+theme = ExtResource("6_6ogre")
+text = "STATS"
+
 [node name="Clear_Data" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
 theme = ExtResource("6_6ogre")
@@ -219,6 +226,10 @@ layout_mode = 1
 
 [node name="NumberRequests" type="HTTPRequest" parent="."]
 timeout = 1.0
+
+[node name="statistics_scene" parent="." instance=ExtResource("10_0m60l")]
+visible = false
+layout_mode = 1
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/Controls_Button" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/Exit" to="." method="_on_exit_pressed"]

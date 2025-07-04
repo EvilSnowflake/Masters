@@ -18,6 +18,7 @@ var _current_game
 @export var num_of_stages = 10
 @export var num_in_propedia = 10
 @export var _codes: Array[String] = ["12345678910","2468101214161820","36912151821242730","481216202428323640","5101520253035404550","6121824303642485460","7142128354249566370","8162432404856647280","9182736455463728190","102030405060708090100"]
+@export var statistics_scn: Control
 
 @onready var _register_button =  $MarginContainer/HBoxContainer/TitleItems/HBoxContainer2/Register
 @onready var _login_button = $MarginContainer/HBoxContainer/TitleItems/HBoxContainer2/Login
@@ -30,6 +31,8 @@ var _current_game
 @onready var _load_data_button = $MarginContainer/HBoxContainer/TitleItems/HBoxContainer3/LoadData
 @onready var _leaderboard_button = $MarginContainer/HBoxContainer/TitleItems/Leaderboards
 @onready var _number_req_https = $NumberRequests
+@onready var _statistics_button = $MarginContainer/HBoxContainer/TitleItems/Statistics
+
 
 
 func _ready():
@@ -43,6 +46,7 @@ func _ready():
 	_save_data_button.pressed.connect(_cloud_save_data)
 	_load_data_button.pressed.connect(_cloud_load_data)
 	_leaderboard_button.pressed.connect(_on_leader_button_pressed)
+	_statistics_button.pressed.connect(_enableStatsScreen)
 	load_data()
 	#_game_stats["highscore"] = _calc_highscore()
 	
@@ -300,3 +304,9 @@ func setupButtons():
 	for button in stage_buttons:
 		button.pressed.connect(_on_stage_button_pressed.bind(button.text))
 	unlock_enabled_stages()
+
+func _enableStatsScreen():
+	if(statistics_scn != null and statistics_scn.has_method("set_player_stats")):
+		statistics_scn.set_player_stats(_game_stats)
+		statistics_scn.show()
+		
