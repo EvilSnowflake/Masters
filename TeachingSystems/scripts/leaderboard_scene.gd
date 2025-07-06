@@ -17,8 +17,8 @@ var max_scores = 10
 
 func _ready():
 	back_button.pressed.connect(_on_CloseButton_pressed)
-	#print("SilentWolf.Scores.leaderboards: " + str(SilentWolf.Scores.leaderboards))
-	#print("SilentWolf.Scores.ldboard_config: " + str(SilentWolf.Scores.ldboard_config))
+	#print_debug("SilentWolf.Scores.leaderboards: " + str(SilentWolf.Scores.leaderboards))
+	#print_debug("SilentWolf.Scores.ldboard_config: " + str(SilentWolf.Scores.ldboard_config))
 	var scores = SilentWolf.Scores.scores
 	#var scores = []
 	if ld_name in SilentWolf.Scores.leaderboards:

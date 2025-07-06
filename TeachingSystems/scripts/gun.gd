@@ -33,7 +33,7 @@ func _physics_process(_delta):
 		white_red_gun.flip_v = false
 
 func set_default_values():
-	print("reset gun values")
+	print_debug("reset gun values")
 	set_bullet_persistance(default_bullet_persistance)
 	set_bullet_damage(default_bullet_damage)
 	set_range(default_range)

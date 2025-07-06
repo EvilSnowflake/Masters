@@ -35,7 +35,7 @@ enum Reward {NEGATIVE = -1, SMALL = 0, MEDIUM = 1, LARGE = 2}
 var stats_num: int = 5
 
 func _ready():
-	print("reset char")
+	print_debug("reset char")
 	reset_values()
 	
 	_health = _max_health
@@ -78,7 +78,7 @@ func play_run_animation() -> void:
 func add_pickup():
 	_resources_to_lvl -= 1
 	if(_resources_to_lvl == 0):
-		print("Level Up")
+		print_debug("Level Up")
 		level_up()
 	if(game.has_method("update_pickups")):
 		game.update_pickups(_char_level, _lvl_req - _resources_to_lvl , _lvl_req)
@@ -88,8 +88,8 @@ func level_up():
 	_lvl_req = int(_lvl_req * 1.5)
 	_resources_to_lvl = _lvl_req
 	
-	print(str(_char_level%5))
-	print(str(_char_level%10))
+	print_debug(str(_char_level%5))
+	print_debug(str(_char_level%10))
 	var stat_change: Array[String] = []
 	if(_char_level%10 == 0):
 		stat_change = give_reward(Reward.LARGE)

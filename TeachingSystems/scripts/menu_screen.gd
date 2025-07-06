@@ -67,7 +67,7 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 			if stg_qst.has_signal("answer_given"):
 				stg_qst.answer_given.connect(_update_answrs)
 				#stg_qst.correct_answer.connect(_update_answrs)
-				#print(stg_qst.answer_given.get_connections())
+				#print_debug(stg_qst.answer_given.get_connections())
 			if ("menu_screen_node" in stg_qst):
 				stg_qst.menu_screen_node = self
 			if ("max_num" in stg_qst):
@@ -76,12 +76,21 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 				stg_qst.num_in_propedia = num_in_propedia
 
 func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bool = false) -> void:
-	#print("Enabling stage "+str(num))
+	#print_debug("Enabling stage "+str(num))
 	
 	if not user_died:
 		end_stats["score"] = find_the_score(end_stats)
+		
 	else:
-		end_stats["score"] = 0
+		if not _game_stats.has("stage_"+str(num)):
+			end_stats["score"] = 0
+		else:
+			if _game_stats["stage_"+str(num)]["score"] > 0:
+				var new_score = find_the_score(end_stats)
+				if new_score < _game_stats["stage_"+str(num)]["score"]:
+					return
+				else:
+					end_stats["score"] = new_score
 	
 	_game_stats["stage_"+str(num)] = end_stats
 	_game_stats["highscore"] = _calc_highscore()
@@ -118,29 +127,29 @@ func save_data() -> void:
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
 	var jstr = JSON.stringify(_game_stats)
 	file.store_line(jstr)
-	print(_game_stats)
+	print_debug(_game_stats)
 	#file.store_line(jstr)
-	print("SAVED!")
+	print_debug("SAVED!")
 
 func load_data() -> void:
 	
 	var file = FileAccess.open(save_path,FileAccess.READ)
 	if not file:
-		print("No File")
+		print_debug("No File")
 		return
 	if file == null:
-		print("File Empty")
+		print_debug("File Empty")
 		return
 	if(FileAccess.file_exists(save_path) and not file.eof_reached()):
-		print("Found Stats")
+		print_debug("Found Stats")
 		var current_line = JSON.parse_string(file.get_line())
 		if current_line:
 			_game_stats = current_line
-		print(_game_stats)
+		print_debug(_game_stats)
 		#_stages_en = file.get_var()
 		
 	else:
-		print("NO SAVED DATA FOUND!")
+		print_debug("NO SAVED DATA FOUND!")
 
 func delete_data() -> void:
 	if(FileAccess.file_exists(save_path)):
@@ -155,7 +164,7 @@ func delete_data() -> void:
 		#		_stages_en[i] =0
 		#file.store_var(_stages_en)
 		unlock_enabled_stages()
-		print("PROGRESS DELETED!")
+		print_debug("PROGRESS DELETED!")
 		
 func _on_clear_data_pressed() -> void:
 	delete_data()
@@ -222,11 +231,11 @@ func _update_answrs(numbers: String, result: bool) -> void:
 
 func _cloud_load_data() -> void:
 	if SilentWolf.Auth.logged_in_player:
-		print("Loading data from cloud")
+		print_debug("Loading data from cloud")
 		
 		#load data async
 		var sw_result = await SilentWolf.Players.get_player_data(SilentWolf.Auth.logged_in_player).sw_get_player_data_complete
-		print("Player data from cloud: " + str(sw_result.player_data))
+		print_debug("Player data from cloud: " + str(sw_result.player_data))
 		
 		#show results
 		if sw_result and sw_result.success and sw_result.player_data:
@@ -234,25 +243,25 @@ func _cloud_load_data() -> void:
 			save_data()
 			_cloud_save_data()
 			unlock_enabled_stages()
-			print("Found data on cloud")
+			print_debug("Found data on cloud")
 		else:
-			print("Load failed from cloud")
+			print_debug("Load failed from cloud")
 
 func _cloud_save_data():
 	save_data()
 	if SilentWolf.Auth.logged_in_player:
-		print("Saving to cloud")
+		print_debug("Saving to cloud")
 		var sw_result = await SilentWolf.Players.save_player_data(SilentWolf.Auth.logged_in_player, _game_stats).sw_save_player_data_complete
 		if(sw_result and sw_result.success):
-			print("Saved to cloud")
+			print_debug("Saved to cloud")
 			upload_lead_score()
 		else:
-			print("Save failed")
+			print_debug("Save failed")
 
 func find_the_score(stats: Dictionary) -> int:
 	var score = 0
 	if stats == {}:
-		print("Empty stats")
+		print_debug("Empty stats")
 		return score
 	var total_en: int = stats["total_enemies"]
 	var total_t: int = stats["total_time"]
@@ -264,7 +273,7 @@ func find_the_score(stats: Dictionary) -> int:
 	var points_for_wrng_answ: int = 2
 	var points_for_lvl: int = 1
 	var expctd: int = total_en * time_for_en
-	var base_score: int = 100
+	var base_score: int = num_of_stages*num_of_stages
 	
 	score = base_score + (total_corr*points_for_answ) - (total_wrng*points_for_wrng_answ) + (points_for_lvl*total_lvl)
 	if total_t < expctd:
@@ -276,14 +285,14 @@ func upload_lead_score():
 	if not _game_stats.has("highscore") or not SilentWolf.Auth.logged_in_player:
 		return
 	var sw_result = await SilentWolf.Scores.get_top_score_by_player(SilentWolf.Auth.logged_in_player).sw_top_player_score_complete
-	print(sw_result)
+	print_debug(sw_result)
 	if sw_result == null:
 		return
 	if sw_result["top_score"]["score"]== _game_stats["highscore"]:
-		print("Highscore has not changed")
+		print_debug("Highscore has not changed")
 		return
 	var sw_score_result: Dictionary = await SilentWolf.Scores.save_score(SilentWolf.Auth.logged_in_player, _game_stats["highscore"]).sw_save_score_complete
-	print("Score persisted successfully: " + str(sw_score_result.score_id))
+	print_debug("Score persisted successfully: " + str(sw_score_result.score_id))
 
 func _calc_highscore() -> int:
 	var score: int = 0
@@ -294,10 +303,10 @@ func _calc_highscore() -> int:
 	return score
 
 func _on_request_completed(result,_response_code,_headers,body):
-	#print("Request result : "+str(result))
+	#print_debug("Request result : "+str(result))
 	if result == HTTPRequest.RESULT_SUCCESS:
 		var json = JSON.parse_string(body.get_string_from_utf8())
-		print("Data found from the api")
+		print_debug("Data found from the api")
 		num_of_stages = int(json["numberOne"])
 		num_in_propedia = int(json["numberTwo"])
 		setupButtons()
@@ -306,7 +315,7 @@ func _on_request_completed(result,_response_code,_headers,body):
 	
 func setupButtons():
 	if(stage_box_container.get_child_count() > 0):
-		print("Buttons found, operation stopped")
+		print_debug("Buttons found, operation stopped")
 		return
 	var rest = int(num_of_stages)%7
 	var numOfTimes = floor(num_of_stages/max_num_stage_buttons)
@@ -323,8 +332,10 @@ func setupButtons():
 	unlock_enabled_stages()
 
 func _enableStatsScreen():
-	if(statistics_scn != null and statistics_scn.has_method("set_player_stats") and statistics_scn.has_method("set_stages_button_up")):
+	if(statistics_scn != null and statistics_scn.has_method("set_player_stats") and statistics_scn.has_method("set_stages_button_up") and statistics_scn.has_method("set_num_of_stages") and statistics_scn.has_method("set_num_in_propedia")):
 		statistics_scn.set_player_stats(_game_stats)
 		statistics_scn.set_stages_button_up()
+		statistics_scn.set_num_of_stages(num_of_stages)
+		statistics_scn.set_num_in_propedia(num_of_stages)
 		statistics_scn.show()
 		

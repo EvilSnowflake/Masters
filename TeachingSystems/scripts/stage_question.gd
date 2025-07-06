@@ -55,27 +55,27 @@ func create_question():
 			false_indexes.append(i)
 		else:
 			true_indexes.append(i)
-	print(false_indexes)
-	print(true_indexes)
+	print_debug(false_indexes)
+	print_debug(true_indexes)
 	
 	var ran_num = randi_range(0,2)
-	print(ran_num)
+	print_debug(ran_num)
 	
 	
-	print("False previous answers")
+	print_debug("False previous answers")
 	var false_prev_answers: Array[String] = [] 
 	for index in false_indexes:
 		var false_prev: String = keys[index]
 		if false_prev.begins_with(str(_stage_num)) and int(false_prev.right(1))<=num_in_propedia:
 			false_prev_answers.append(false_prev)
-	print(false_prev_answers)
-	print("Correct previous answers")
+	print_debug(false_prev_answers)
+	print_debug("Correct previous answers")
 	var true_prev_answers: Array[String] = [] 
 	for index in true_indexes:
 		var true_prev : String = keys[index]
 		if true_prev.begins_with(str(_stage_num)) and int(true_prev.right(1))<=num_in_propedia:
 			true_prev_answers.append(true_prev)
-	print(true_prev_answers)
+	print_debug(true_prev_answers)
 	
 	if true_prev_answers.size() == num_in_propedia:
 		first_num = randi_range(1,max_num)

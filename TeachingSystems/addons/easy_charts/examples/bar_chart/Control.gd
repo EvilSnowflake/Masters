@@ -21,7 +21,7 @@ func _ready():
 	cp.colors.grid = Color("#283442")
 	cp.colors.ticks = Color("#283442")
 	cp.colors.text = Color.WHITE_SMOKE
-	print(chart.int)
+	#print(chart.int)
 	cp.y_scale = 10
 	cp.draw_origin = true
 	cp.draw_bounding_box = false

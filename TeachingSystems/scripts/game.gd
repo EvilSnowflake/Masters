@@ -128,9 +128,9 @@ func read_stage_menu(menu: Node2D) -> void:
 
 func return_to_stage_menu() -> void:
 	if(stage_menu.has_method("unlock_next_stage")):
-		print("Total enemies fought : " + str(end_stats["total_enemies"]))
-		print("Total time needed : " + str(end_stats["total_time"]))
-		print("Total right answers : " + str(end_stats["correct_answers"]) + " and wrong ones : " + str(end_stats["wrong_answers"]))
+		print_debug("Total enemies fought : " + str(end_stats["total_enemies"]))
+		print_debug("Total time needed : " + str(end_stats["total_time"]))
+		print_debug("Total right answers : " + str(end_stats["correct_answers"]) + " and wrong ones : " + str(end_stats["wrong_answers"]))
 		stage_menu.unlock_next_stage(_propedia_num,end_stats, _user_died)
 	if(stage_menu.has_method("exit_game")):
 		queue_free()
