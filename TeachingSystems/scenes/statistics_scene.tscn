@@ -88,56 +88,46 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="Enemies_Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
+[node name="total_enemies" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
-theme_override_colors/font_color = Color(1, 0.124572, 0.0864938, 1)
 theme_override_font_sizes/font_size = 18
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Time_Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
+[node name="total_time" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
-theme_override_colors/font_color = Color(1, 0.124572, 0.0864938, 1)
 theme_override_font_sizes/font_size = 18
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CorrAns_Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
+[node name="correct_answers" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
-theme_override_colors/font_color = Color(1, 0.124572, 0.0864938, 1)
 theme_override_font_sizes/font_size = 18
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WrongAns_Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
+[node name="wrong_answers" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
-theme_override_colors/font_color = Color(1, 0.124572, 0.0864938, 1)
 theme_override_font_sizes/font_size = 18
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Seperator" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="Score_Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
+[node name="score" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
-theme_override_colors/font_color = Color(1, 0.124572, 0.0864938, 1)
 theme_override_font_sizes/font_size = 18
 text = "0"
 horizontal_alignment = 1
@@ -171,7 +161,7 @@ custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
 theme_override_font_sizes/font_size = 18
-text = "C.ANSWERS"
+text = "C. ANSWERS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -184,11 +174,7 @@ text = "W. ANSWERS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Score_Text" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/Labels2Container"]
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-
-[node name="Label5" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Labels2Container"]
+[node name="Score_Text" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Labels2Container"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
@@ -208,5 +194,5 @@ theme_override_font_sizes/font_size = 30
 selected = 0
 fit_to_longest_item = false
 item_count = 1
-popup/item_0/text = "Stages"
+popup/item_0/text = "stages"
 popup/item_0/id = 0

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MultiplicactionTeachingSystem"
-config/version="1_3"
+config/version="0_1"
 run/main_scene="res://scenes/StageMenu.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(1, 1, 1, 1)
@@ -29,6 +29,7 @@ gdscript/warnings/integer_division=0
 
 [display]
 
+window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="res://assets/GUI/8 Cursors/1.png"
 
 [editor_plugins]

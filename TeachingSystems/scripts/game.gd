@@ -28,11 +28,13 @@ var end_stats : Dictionary = {
 	"total_enemies" = 0.0,
 	"total_time" = 0.0,
 	"correct_answers" = 0.0,
-	"wrong_answers" = 0.0
+	"wrong_answers" = 0.0,
+	"level" = 0.0
 }
 
 func _ready():
 	time_timer.timeout.connect(_on_time_timer_timeout)
+	player.on_levelup.connect(_player_lvlup)
 	spawn_timer.start()
 	if pauses.get_child(1).has_signal("answer_given"):
 		pauses.get_child(1).answer_given.connect(_on_stage_question_answer)
@@ -151,7 +153,7 @@ func update_pickups(level: int, current_resources: int, res_to_lvl: int) -> void
 	items_announcer.text = "LEVEL: " + str(level)
 	level_bar.value = int((100 * current_resources)/res_to_lvl)
 
-func _on_stage_question_answer(numbers: String, result: bool) -> void:
+func _on_stage_question_answer(_numbers: String, result: bool) -> void:
 	pause(1)
 	if result == true:
 		end_stats["correct_answers"] += 1
@@ -189,3 +191,8 @@ func get_stage_quest():
 
 func set_max_waves(num: int):
 	_max_waves = num
+
+func _player_lvlup(change: String, clr: Color, lvl: int):
+	spawn_stat_notification(change, clr)
+	end_stats["level"] = lvl
+	

@@ -29,6 +29,7 @@ var _resources_to_lvl: int
 @onready var health_bar = %Health_Bar
 
 signal health_depleted
+signal on_levelup(change: String, clr: Color, lvl: int)
 var game
 enum Reward {NEGATIVE = -1, SMALL = 0, MEDIUM = 1, LARGE = 2}
 var stats_num: int = 5
@@ -86,6 +87,7 @@ func level_up():
 	_char_level += 1
 	_lvl_req = int(_lvl_req * 1.5)
 	_resources_to_lvl = _lvl_req
+	
 	print(str(_char_level%5))
 	print(str(_char_level%10))
 	var stat_change: Array[String] = []
@@ -97,8 +99,7 @@ func level_up():
 		stat_change = give_reward(Reward.SMALL)
 		
 	for change in stat_change:
-		if(game.has_method("spawn_stat_notification")):
-			game.spawn_stat_notification(change + " INCREASED!",Color.GREEN)
+		on_levelup.emit(change + " INCREASED!", Color.GREEN, _char_level)
 
 func _on_pickup_box_body_entered(body):
 	if(body.has_method("assign_picker")):

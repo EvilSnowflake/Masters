@@ -77,9 +77,14 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 
 func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bool = false) -> void:
 	#print("Enabling stage "+str(num))
-	if(not user_died):
-		_game_stats["stage_"+str(num)] = end_stats
-		_game_stats["highscore"] = _calc_highscore()
+	
+	if not user_died:
+		end_stats["score"] = find_the_score(end_stats)
+	else:
+		end_stats["score"] = 0
+	
+	_game_stats["stage_"+str(num)] = end_stats
+	_game_stats["highscore"] = _calc_highscore()
 	#_stages_en[num] = 1
 	_cloud_save_data()
 	unlock_enabled_stages()
@@ -92,10 +97,20 @@ func _on_exit_pressed() -> void:
 
 func unlock_enabled_stages() -> void:
 	for i in range(num_of_stages):
-		if _game_stats.has("stage_"+str(i)) or i == 0:
+		if i == 0:
 			stage_buttons[i].disabled = false
-		else:
+			continue
+		if not _game_stats.has("stage_"+str(i)):
 			stage_buttons[i].disabled = true
+			continue
+		if not _game_stats["stage_"+str(i)].has("score"):
+			stage_buttons[i].disabled = true
+			continue
+		if _game_stats["stage_"+str(i)]["score"] <= 0:
+			stage_buttons[i].disabled = true
+			continue
+		stage_buttons[i].disabled = false
+		
 		#if _game_stats.has("stage_"+str(i)):
 		#	stage_buttons[i+1].disabled = false
 
@@ -158,13 +173,13 @@ func _on_register_button_pressed() -> void:
 func _on_login_button_pressed() -> void:
 	get_tree().change_scene_to_file(LOGINSCENE)
 
-func _on_login_complete(sw_result) -> void:
+func _on_login_complete(_sw_result) -> void:
 	update_login_state_label()
 
 func _on_logout_button_pressed() -> void:
 	SilentWolf.Auth.logout_player()
 
-func _on_logout_complete(a,b) -> void:
+func _on_logout_complete(_a,_b) -> void:
 	update_login_state_label()
 
 func _on_leader_button_pressed() -> void:
@@ -243,12 +258,15 @@ func find_the_score(stats: Dictionary) -> int:
 	var total_t: int = stats["total_time"]
 	var total_corr: int = stats["correct_answers"]
 	var total_wrng: int = stats["wrong_answers"]
+	var total_lvl: int = stats["level"]
 	var time_for_en: int = 3
 	var points_for_answ: int = 5
+	var points_for_wrng_answ: int = 2
+	var points_for_lvl: int = 1
 	var expctd: int = total_en * time_for_en
 	var base_score: int = 100
 	
-	score = base_score + (total_corr*points_for_answ) - (total_wrng*points_for_answ)
+	score = base_score + (total_corr*points_for_answ) - (total_wrng*points_for_wrng_answ) + (points_for_lvl*total_lvl)
 	if total_t < expctd:
 		score += expctd-total_t
 	
@@ -271,12 +289,12 @@ func _calc_highscore() -> int:
 	var score: int = 0
 	for stat : String in _game_stats:
 		if stat.begins_with("stage"):
-			score += find_the_score(_game_stats[stat])
+			score += _game_stats[stat]["score"]
 	
 	return score
 
-func _on_request_completed(result,response_code,headers,body):
-	print("Request result : "+str(result))
+func _on_request_completed(result,_response_code,_headers,body):
+	#print("Request result : "+str(result))
 	if result == HTTPRequest.RESULT_SUCCESS:
 		var json = JSON.parse_string(body.get_string_from_utf8())
 		print("Data found from the api")
@@ -287,7 +305,6 @@ func _on_request_completed(result,response_code,headers,body):
 		setupButtons()
 	
 func setupButtons():
-	print("setting up buttons")
 	if(stage_box_container.get_child_count() > 0):
 		print("Buttons found, operation stopped")
 		return
@@ -306,7 +323,8 @@ func setupButtons():
 	unlock_enabled_stages()
 
 func _enableStatsScreen():
-	if(statistics_scn != null and statistics_scn.has_method("set_player_stats")):
+	if(statistics_scn != null and statistics_scn.has_method("set_player_stats") and statistics_scn.has_method("set_stages_button_up")):
 		statistics_scn.set_player_stats(_game_stats)
+		statistics_scn.set_stages_button_up()
 		statistics_scn.show()
 		
