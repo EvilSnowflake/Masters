@@ -19,7 +19,11 @@ var login_scene = "res://scenes/login_screen.tscn"
 @onready var pwd_code_line_edit = $MarginContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits/CodeLineEdit
 @onready var pwd_password_line_edit = $MarginContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits/PasswordLineEdit
 @onready var pwd_confirm_pass_line_edit = $MarginContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits/ConfirmPassLineEdit
+@onready var button_audio_player = %ButtonAudioPlayer
+@onready var wait_timer = %WaitTimer
+@onready var anti_click_panel = %AntiClickPanel
 
+signal play_button_sound()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,27 +36,42 @@ func _ready():
 	back_button.pressed.connect(_on_backButton_pressed)
 	rf_submit_button.pressed.connect(_on_rf_submitButton_pressed)
 	pwd_submit_button.pressed.connect(_on_pwd_submitButton_pressed)
+	play_button_sound.connect(_on_button_play_sound)
+	wait_timer.timeout.connect(_on_wait_timer_timout)
 	if "login_scene" in SilentWolf.Auth:
 		login_scene = SilentWolf.Auth.login_scene
 
 func _on_backButton_pressed() -> void:
+	play_button_sound.emit()
+	anti_click_panel.show()
+	wait_timer.start()
+	await wait_timer.timeout
 	get_tree().change_scene_to_file(login_scene)
 
 func _on_closeButton_pressed() -> void:
+	play_button_sound.emit()
+	anti_click_panel.show()
+	wait_timer.start()
+	await wait_timer.timeout
 	get_tree().change_scene_to_file(login_scene)
 
 func _on_send_code_complete(sw_result: Dictionary) -> void:
+	anti_click_panel.hide()
 	if sw_result.success:
 		send_code_success()
 	else:
 		send_code_failure(sw_result.error)
 
 func _on_rf_submitButton_pressed() -> void:
+	play_button_sound.emit()
 	player_name = rf_name_line_edit.text
+	anti_click_panel.show()
 	SilentWolf.Auth.request_player_password_reset(player_name)
 	_show_rf_info("Processing")
 
 func _on_pwd_submitButton_pressed() -> void:
+	play_button_sound.emit()
+	anti_click_panel.show()
 	var code = pwd_code_line_edit.text
 	var password = pwd_password_line_edit.text
 	var confirm_password = pwd_confirm_pass_line_edit.text
@@ -68,6 +87,7 @@ func send_code_failure(error: String) -> void:
 	_show_rf_info("Could not send confirmation code. " + str(error),RED)
 	
 func _on_reset_complete(sw_result: Dictionary) -> void:
+	anti_click_panel.hide()
 	if sw_result.success:
 		reset_success()
 	else:
@@ -96,3 +116,9 @@ func _show_rf_info(text: String, colr: Color = WHITE) -> void:
 
 func _hide_rf_info() -> void:
 	request_form_info_label.hide()
+
+func _on_button_play_sound() -> void:
+	button_audio_player.play()
+
+func _on_wait_timer_timout() -> void:
+	anti_click_panel.hide()

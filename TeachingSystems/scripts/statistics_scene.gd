@@ -1,5 +1,9 @@
 extends Control
 
+const RED = Color(1.0,0.0,0.0,1.0)
+const WHITE = Color(1.0,1.0,1.0,1.0)
+const GREEN = Color(0.0,1.0,0.0,1.0)
+
 @export var back_button: Button 
 @export var labels_container: HBoxContainer
 @export var texts_container: HBoxContainer
@@ -8,24 +12,32 @@ extends Control
 var _num_of_stages
 var _num_in_propedia
 var _player_stats: Dictionary
+
 signal calculate_score()
+signal play_button_sound()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	stages_button.select(0)
 	back_button.pressed.connect(_on_back_button_pressed)
+	stages_button.pressed.connect(_on_option_button_pressed)
 	stages_button.item_selected.connect(_on_stages_button_item_selected)
 
 func set_player_stats(pstats: Dictionary):
 	_player_stats = pstats
 
 func _on_back_button_pressed():
+	play_button_sound.emit()
 	stages_button.clear()
 	stages_button.add_item("stages",0)
 	update_labels()
 	self.hide()
 
+func _on_option_button_pressed():
+	play_button_sound.emit()
+
 func _on_stages_button_item_selected(index: int):
+	play_button_sound.emit()
 	var stage_name = "stage_"+str(index)
 	if not _player_stats.has(stage_name):
 		update_labels()
@@ -44,7 +56,7 @@ func update_labels(stats: Dictionary = {}, stage_num: int = 0):
 	for label: Label in labels_container.get_children():
 		if stats == {}:
 			label.text = "0"
-			label.set("theme_override_colors/font_color",Color.RED)
+			label.set("theme_override_colors/font_color",RED)
 		else:
 			var lbl_name: String = str(label.name)
 			if stats.has(lbl_name):
@@ -59,31 +71,31 @@ func set_num_in_propedia(num: int):
 
 func check_numbers(stat_name: String, stat_number: int, stage_num: int) -> Color:
 	if _num_of_stages == null or _num_in_propedia == null:
-		return Color.WHITE
+		return WHITE
 	if stat_name == "total_enemies":
 		if stat_number < stage_num*_num_in_propedia:
-			return Color.RED
+			return RED
 		else:
-			return Color.GREEN
+			return GREEN
 	elif stat_name == "total_time":
 		if stat_number > stage_num*_num_in_propedia*3:
-			return Color.RED
+			return RED
 		else:
-			return Color.GREEN
+			return GREEN
 	elif stat_name == "correct_answers":
 		if stat_number == 0:
-			return Color.RED
+			return RED
 		else:
-			return Color.GREEN
+			return GREEN
 	elif stat_name == "wrong_answers":
 		if stat_number > 0:
-			return Color.RED
+			return RED
 		else:
-			return Color.GREEN
+			return GREEN
 	elif stat_name == "score":
 		if stat_number < _num_of_stages*_num_in_propedia:
-			return Color.RED
+			return RED
 		else:
-			return Color.GREEN
+			return GREEN
 	else:
-		return Color.WHITE
+		return WHITE

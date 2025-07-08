@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://crm453n8pg0dy"]
+[gd_scene load_steps=4 format=3 uid="uid://crm453n8pg0dy"]
 
 [ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_dpxav"]
 [ext_resource type="Script" uid="uid://bejvcq0y2w68t" path="res://scripts/confirmmail_scene.gd" id="1_v1ofm"]
+[ext_resource type="PackedScene" uid="uid://ob0kfrivfnka" path="res://scenes/button_audio_player.tscn" id="2_dpxav"]
 
 [node name="confirmmail_scene" type="Control"]
 layout_mode = 3
@@ -11,6 +12,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v1ofm")
+
+[node name="ButtonAudioPlayer" parent="." instance=ExtResource("2_dpxav")]
+unique_name_in_owner = true
+
+[node name="WaitTimer" type="Timer" parent="."]
+unique_name_in_owner = true
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -108,3 +115,8 @@ text = "RESEND CODE"
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
+
+[node name="AntiClickPanel" type="Panel" parent="MarginContainer"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2

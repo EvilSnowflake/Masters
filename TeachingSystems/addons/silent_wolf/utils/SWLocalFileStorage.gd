@@ -36,7 +36,7 @@ static func get_data(path: String) -> Dictionary:
 	if FileAccess.file_exists(path):
 		var file = FileAccess.open(path, FileAccess.READ)
 		var text_content = file.get_as_text()
-		print(text_content.length())
+		#print("text content length: "+str(text_content.length()))
 		if text_content == null or text_content == '' or text_content.length() == 0 or text_content.length() == 1:
 			SWLogger.debug("Empty file in local storage at " + str(path))
 		else:

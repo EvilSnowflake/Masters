@@ -15,6 +15,7 @@ var menu_screen_node : Control
 
 var correct_answer_num = 0
 signal answer_given(numbers: String, result: bool)
+signal play_button_sound()
 
 func _ready():
 	pass
@@ -124,6 +125,7 @@ func create_question():
 			last_answer = wrong_answer_num
 
 func _on_question_button_pressed(answer: int):
+	play_button_sound.emit()
 	for i in range(possible_answers.get_child_count()):
 		if(i == correct_answer_num):
 			possible_answers.get_child(i).pressed.disconnect(_on_question_button_pressed)

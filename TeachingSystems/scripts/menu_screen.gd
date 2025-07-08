@@ -11,7 +11,7 @@ const API_URL = "http://localhost:5000/api/Numbers/1"
 var stage_menu
 var save_path = "user://SavedData.save"
 var _game_stats : Dictionary = {}
-var _current_game
+var _current_game: Object
 
 @export var max_num_stage_buttons = 7
 @export var stage_buttons: Array[Button] = []
@@ -32,10 +32,22 @@ var _current_game
 @onready var _leaderboard_button = $MarginContainer/HBoxContainer/TitleItems/Leaderboards
 @onready var _number_req_https = $NumberRequests
 @onready var _statistics_button = $MarginContainer/HBoxContainer/TitleItems/Statistics
+@onready var button_sounds = %ButtonAudioPlayer
+@onready var anti_click_panel = %AntiClickPanel
+@onready var wait_timer = %WaitTimer
+@onready var info_label: Label = %InfoLabel
 
-
+signal play_button_sound()
+signal show_anti_click()
 
 func _ready():
+	play_button_sound.connect(_on_button_play_sound)
+	show_anti_click.connect(_on_anticlick_called)
+	if(controls.has_signal("play_button_sound")):
+		controls.play_button_sound.connect(_on_button_play_sound)
+	if(statistics_scn.has_signal("play_button_sound")):
+		statistics_scn.play_button_sound.connect(_on_button_play_sound)
+	
 	#API STUFF
 	_number_req_https.request_completed.connect(_on_request_completed)
 	_number_req_https.request(API_URL)
@@ -43,8 +55,8 @@ func _ready():
 	_register_button.pressed.connect(_on_register_button_pressed.bind())
 	_login_button.pressed.connect(_on_login_button_pressed.bind())
 	_logout_button.pressed.connect(_on_logout_button_pressed)
-	_save_data_button.pressed.connect(_cloud_save_data)
-	_load_data_button.pressed.connect(_cloud_load_data)
+	_save_data_button.pressed.connect(_on_cloud_save_data_pressed)
+	_load_data_button.pressed.connect(_on_cloud_load_button_pressed)
 	_leaderboard_button.pressed.connect(_on_leader_button_pressed)
 	_statistics_button.pressed.connect(_enableStatsScreen)
 	load_data()
@@ -55,11 +67,17 @@ func _ready():
 	SilentWolf.Auth.sw_login_complete.connect(_on_login_complete)
 	SilentWolf.Auth.sw_logout_complete.connect(_on_logout_complete)
 	SilentWolf.Auth.auto_login_player()
+	info_label.text = "LOGGING IN"
 	#unlock_enabled_stages()
 	
 
 
 func _on_stage_button_pressed(stg_num: String) -> void:
+	play_button_sound.emit()
+	show_anti_click.emit()
+	wait_timer.start()
+	await wait_timer.timeout
+	
 	if(stage_menu.has_method("create_game")):
 		_current_game = stage_menu.create_game(int(stg_num),num_in_propedia)
 		if _current_game.has_method("get_stage_quest"):
@@ -74,10 +92,13 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 				stg_qst.max_num = num_of_stages
 			if ("num_in_propedia" in stg_qst):
 				stg_qst.num_in_propedia = num_in_propedia
+			if (stg_qst.has_signal("play_button_sound")):
+				stg_qst.play_button_sound.connect(_on_button_play_sound)
+		if _current_game.has_signal("play_button_sound"):
+			_current_game.play_button_sound.connect(_on_button_play_sound)
 
 func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bool = false) -> void:
 	#print_debug("Enabling stage "+str(num))
-	
 	if not user_died:
 		end_stats["score"] = find_the_score(end_stats)
 		
@@ -99,9 +120,14 @@ func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bo
 	unlock_enabled_stages()
 
 func _on_controls_button_pressed() -> void:
+	play_button_sound.emit()
 	controls.show()
 
 func _on_exit_pressed() -> void:
+	play_button_sound.emit()
+	show_anti_click.emit()
+	wait_timer.start()
+	await wait_timer.timeout
 	get_tree().quit()
 
 func unlock_enabled_stages() -> void:
@@ -132,7 +158,6 @@ func save_data() -> void:
 	print_debug("SAVED!")
 
 func load_data() -> void:
-	
 	var file = FileAccess.open(save_path,FileAccess.READ)
 	if not file:
 		print_debug("No File")
@@ -167,6 +192,7 @@ func delete_data() -> void:
 		print_debug("PROGRESS DELETED!")
 		
 func _on_clear_data_pressed() -> void:
+	play_button_sound.emit()
 	delete_data()
 
 func _on_code_button_pressed() -> void:
@@ -177,21 +203,35 @@ func _on_code_button_pressed() -> void:
 	code_input.clear()
 
 func _on_register_button_pressed() -> void:
+	play_button_sound.emit()
+	show_anti_click.emit()
+	wait_timer.start()
+	await wait_timer.timeout
 	get_tree().change_scene_to_file(REGISTERSCENE)
 
 func _on_login_button_pressed() -> void:
+	play_button_sound.emit()
+	show_anti_click.emit()
+	wait_timer.start()
+	await wait_timer.timeout
 	get_tree().change_scene_to_file(LOGINSCENE)
 
 func _on_login_complete(_sw_result) -> void:
+	info_label.text = ""
 	update_login_state_label()
 
 func _on_logout_button_pressed() -> void:
+	play_button_sound.emit()
 	SilentWolf.Auth.logout_player()
 
 func _on_logout_complete(_a,_b) -> void:
 	update_login_state_label()
 
 func _on_leader_button_pressed() -> void:
+	play_button_sound.emit()
+	show_anti_click.emit()
+	wait_timer.start()
+	await wait_timer.timeout
 	get_tree().change_scene_to_file(LEADERBOARDSCENE)
 
 func update_login_state_label() -> void:
@@ -212,7 +252,6 @@ func update_login_state_label() -> void:
 		_login_button.show()
 
 func _add_stage_and_button(number: int, button_num: int) -> int:
-	
 	var stage_box = STAGE_BUTTON_BOX.instantiate()
 	stage_box_container.add_child(stage_box)
 	for i in range(number):
@@ -229,9 +268,14 @@ func _update_answrs(numbers: String, result: bool) -> void:
 		_game_stats["answers"] = {}
 	_game_stats["answers"][numbers] = result
 
+func _on_cloud_load_button_pressed() -> void:
+	play_button_sound.emit()
+	_cloud_load_data()
+
 func _cloud_load_data() -> void:
 	if SilentWolf.Auth.logged_in_player:
 		print_debug("Loading data from cloud")
+		info_label.text = "LOADING DATA"
 		
 		#load data async
 		var sw_result = await SilentWolf.Players.get_player_data(SilentWolf.Auth.logged_in_player).sw_get_player_data_complete
@@ -246,10 +290,16 @@ func _cloud_load_data() -> void:
 			print_debug("Found data on cloud")
 		else:
 			print_debug("Load failed from cloud")
+		info_label.text = ""
 
-func _cloud_save_data():
+func _on_cloud_save_data_pressed() -> void:
+	play_button_sound.emit()
+	_cloud_save_data()
+
+func _cloud_save_data() -> void:
 	save_data()
 	if SilentWolf.Auth.logged_in_player:
+		info_label.text = "SAVING DATA"
 		print_debug("Saving to cloud")
 		var sw_result = await SilentWolf.Players.save_player_data(SilentWolf.Auth.logged_in_player, _game_stats).sw_save_player_data_complete
 		if(sw_result and sw_result.success):
@@ -257,6 +307,7 @@ func _cloud_save_data():
 			upload_lead_score()
 		else:
 			print_debug("Save failed")
+		info_label.text = ""
 
 func find_the_score(stats: Dictionary) -> int:
 	var score = 0
@@ -288,10 +339,14 @@ func upload_lead_score():
 	print_debug(sw_result)
 	if sw_result == null:
 		return
-	if sw_result["top_score"]["score"]== _game_stats["highscore"]:
-		print_debug("Highscore has not changed")
+	print_debug(sw_result["top_score"]["score"])
+	print_debug(_game_stats["highscore"])
+	if sw_result["top_score"]["score"] >= _game_stats["highscore"]:
+		print_debug("Highscore has not changed or improved")
 		return
+	info_label.text = "SAVING HIGHSCORE"
 	var sw_score_result: Dictionary = await SilentWolf.Scores.save_score(SilentWolf.Auth.logged_in_player, _game_stats["highscore"]).sw_save_score_complete
+	info_label.text = ""
 	print_debug("Score persisted successfully: " + str(sw_score_result.score_id))
 
 func _calc_highscore() -> int:
@@ -302,7 +357,7 @@ func _calc_highscore() -> int:
 	
 	return score
 
-func _on_request_completed(result,_response_code,_headers,body):
+func _on_request_completed(result,_response_code,_headers,body) -> void:
 	#print_debug("Request result : "+str(result))
 	if result == HTTPRequest.RESULT_SUCCESS:
 		var json = JSON.parse_string(body.get_string_from_utf8())
@@ -313,7 +368,7 @@ func _on_request_completed(result,_response_code,_headers,body):
 	else:
 		setupButtons()
 	
-func setupButtons():
+func setupButtons() -> void:
 	if(stage_box_container.get_child_count() > 0):
 		print_debug("Buttons found, operation stopped")
 		return
@@ -331,7 +386,8 @@ func setupButtons():
 		button.pressed.connect(_on_stage_button_pressed.bind(button.text))
 	unlock_enabled_stages()
 
-func _enableStatsScreen():
+func _enableStatsScreen() -> void:
+	#play_button_sound.emit()
 	if(statistics_scn != null and statistics_scn.has_method("set_player_stats") and statistics_scn.has_method("set_stages_button_up") and statistics_scn.has_method("set_num_of_stages") and statistics_scn.has_method("set_num_in_propedia")):
 		statistics_scn.set_player_stats(_game_stats)
 		statistics_scn.set_stages_button_up()
@@ -339,3 +395,11 @@ func _enableStatsScreen():
 		statistics_scn.set_num_in_propedia(num_of_stages)
 		statistics_scn.show()
 		
+func _on_button_play_sound() -> void:
+	button_sounds.play()
+	
+func _on_anticlick_called() -> void:
+	anti_click_panel.show()
+
+func _on_wait_timer_timeout() -> void:
+	anti_click_panel.hide()

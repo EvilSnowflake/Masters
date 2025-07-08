@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bevwk1yc65svm"]
+[gd_scene load_steps=4 format=3 uid="uid://bevwk1yc65svm"]
 
 [ext_resource type="Script" uid="uid://jss17aspfsqh" path="res://scripts/loginscreen.gd" id="1_e8ckn"]
 [ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_frse4"]
+[ext_resource type="PackedScene" uid="uid://ob0kfrivfnka" path="res://scenes/button_audio_player.tscn" id="2_8q002"]
 
 [node name="login_screen" type="Control"]
 layout_mode = 3
@@ -11,6 +12,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e8ckn")
+
+[node name="ButtonAudioPlayer" parent="." instance=ExtResource("2_8q002")]
+unique_name_in_owner = true
+
+[node name="WaitTimer" type="Timer" parent="."]
+unique_name_in_owner = true
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -138,3 +145,9 @@ text = "LOGIN"
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
+
+[node name="AntiClickPanel" type="Panel" parent="MarginContainer"]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2

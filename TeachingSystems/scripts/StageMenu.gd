@@ -4,7 +4,7 @@ extends Node2D
 @onready var color_rect = %ColorRect
 @onready var menu_music = %Menu_Music
 
-func create_game(num: int, propedia_end_num: int):
+func create_game(num: int, propedia_end_num: int) -> Object:
 	menu_music.playing = false
 	const GAME = preload("res://scenes/game.tscn")
 	var new_game = GAME.instantiate()

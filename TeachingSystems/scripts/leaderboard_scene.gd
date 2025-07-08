@@ -9,14 +9,21 @@ const LOADING = "LOADING SCORES..."
 var list_index = 0
 # Replace the leaderboard name if you're not using the default leaderboard
 var ld_name = "main"
-var max_scores = 10
+var max_scores = 5
+
 @onready var back_button = $MarginContainer/VBoxContainer/HBoxContainer/BackButton
 @onready var message_label = $MarginContainer/VBoxContainer/HBoxContainer3/MessageLabel
 @onready var leader_container = $MarginContainer/VBoxContainer/LeaderContainer
+@onready var button_audio_player = %ButtonAudioPlayer
+@onready var wait_timer = %WaitTimer
+@onready var anti_click_panel = %AntiClickPanel
 
+signal play_button_sound()
 
 func _ready():
 	back_button.pressed.connect(_on_CloseButton_pressed)
+	play_button_sound.connect(_on_button_play_sound)
+	wait_timer.timeout.connect(_on_wait_timer_timout)
 	#print_debug("SilentWolf.Scores.leaderboards: " + str(SilentWolf.Scores.leaderboards))
 	#print_debug("SilentWolf.Scores.ldboard_config: " + str(SilentWolf.Scores.ldboard_config))
 	var scores = SilentWolf.Scores.scores
@@ -109,7 +116,17 @@ func clear_leaderboard() -> void:
 			c.queue_free()
 
 func _on_CloseButton_pressed() -> void:
+	play_button_sound.emit()
+	anti_click_panel.show()
+	wait_timer.start()
+	await wait_timer.timeout
 	var scene_name = SilentWolf.scores_config.open_scene_on_close
 	SWLogger.info("Closing SilentWolf leaderboard, switching to scene: " + str(scene_name))
 	#global.reset()
 	get_tree().change_scene_to_file(scene_name)
+
+func _on_button_play_sound() -> void:
+	button_audio_player.play()
+
+func _on_wait_timer_timout() -> void:
+	anti_click_panel.hide()

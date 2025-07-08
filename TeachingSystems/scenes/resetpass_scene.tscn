@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://11g8r3bgs0lg"]
+[gd_scene load_steps=4 format=3 uid="uid://11g8r3bgs0lg"]
 
 [ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_ervq3"]
 [ext_resource type="Script" uid="uid://b3m3m04ibi5tr" path="res://scripts/resetpass_scene.gd" id="1_v03yq"]
+[ext_resource type="PackedScene" uid="uid://ob0kfrivfnka" path="res://scenes/button_audio_player.tscn" id="2_ervq3"]
 
 [node name="resetpass_scene" type="Control"]
 layout_mode = 3
@@ -11,6 +12,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v03yq")
+
+[node name="ButtonAudioPlayer" parent="." instance=ExtResource("2_ervq3")]
+unique_name_in_owner = true
+
+[node name="WaitTimer" type="Timer" parent="."]
+unique_name_in_owner = true
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -223,7 +230,7 @@ autowrap_mode = 1
 layout_mode = 2
 theme = ExtResource("1_ervq3")
 theme_type_variation = &"LeaderboardsButton"
-text = "Submit"
+text = "SUBMIT"
 
 [node name="PasswordChangedContainer" type="VBoxContainer" parent="MarginContainer"]
 visible = false
@@ -270,3 +277,9 @@ layout_mode = 2
 theme = ExtResource("1_ervq3")
 theme_type_variation = &"LeaderboardsButton"
 text = "CLOSE"
+
+[node name="AntiClickPanel" type="Panel" parent="MarginContainer"]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2

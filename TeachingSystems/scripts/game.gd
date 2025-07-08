@@ -32,6 +32,8 @@ var end_stats : Dictionary = {
 	"level" = 0.0
 }
 
+signal play_button_sound()
+
 func _ready():
 	time_timer.timeout.connect(_on_time_timer_timeout)
 	player.on_levelup.connect(_player_lvlup)
@@ -77,6 +79,7 @@ func _on_spawn_timer_timeout() -> void:
 		return_to_stage_menu()
 
 func pause(pause_kind: int) -> void:
+	
 	if(_paused):
 		if(pause_kind == 0):
 			game_music.stream_paused = false
@@ -101,6 +104,7 @@ func pause(pause_kind: int) -> void:
 	_paused = !_paused
 
 func _on_resume_button_pressed() -> void:
+	play_button_sound.emit()
 	pause(0)
 
 func change_propedia(num: int) -> void:
@@ -139,6 +143,8 @@ func return_to_stage_menu() -> void:
 		get_tree().quit()
 
 func _on_exit_button_pressed() -> void:
+	print_debug("Exit button pressed")
+	play_button_sound.emit()
 	pause(0)
 	_user_died = true
 	return_to_stage_menu()
@@ -189,10 +195,9 @@ func _on_time_timer_timeout() -> void:
 func get_stage_quest():
 	return pauses.get_child(1)
 
-func set_max_waves(num: int):
+func set_max_waves(num: int) -> void:
 	_max_waves = num
 
-func _player_lvlup(change: String, clr: Color, lvl: int):
+func _player_lvlup(change: String, clr: Color, lvl: int) -> void:
 	spawn_stat_notification(change, clr)
 	end_stats["level"] = lvl
-	

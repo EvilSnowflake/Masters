@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bv2uqp01l1qbi"]
+[gd_scene load_steps=12 format=3 uid="uid://bv2uqp01l1qbi"]
 
 [ext_resource type="Script" uid="uid://ce74vlad7dvj8" path="res://scripts/menu_screen.gd" id="1_tejro"]
 [ext_resource type="Texture2D" uid="uid://cdu8fh8kvdj02" path="res://assets/CityBackground/1 Backgrounds/1/Day/1.png" id="1_wxxc3"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://vo06pvm6giba" path="res://scenes/controls.tscn" id="8_5dsp7"]
 [ext_resource type="FontFile" uid="uid://sab7pg0qk2nn" path="res://assets/GUI/10 Font/CyberpunkCraftpixPixel.otf" id="8_yuakj"]
 [ext_resource type="PackedScene" uid="uid://6tjmbpgcspdy" path="res://scenes/statistics_scene.tscn" id="10_0m60l"]
+[ext_resource type="PackedScene" uid="uid://ob0kfrivfnka" path="res://scenes/button_audio_player.tscn" id="11_5aq17"]
 
 [node name="MenuScreen" type="Control" node_paths=PackedStringArray("statistics_scn")]
 layout_mode = 3
@@ -92,8 +93,11 @@ grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("6_6ogre")
 theme_override_colors/font_color = Color(0.728296, 0.475923, 0.0822524, 1)
-text = "CREATED BY PANAGIOTIS VAILAKIS MPSP2305
-ASSETS BY https://craftpix.net/
+theme_override_font_sizes/font_size = 10
+text = "CREATED BY 
+PANAGIOTIS VAILAKIS MPSP2305
+ASSETS BY 
+https://craftpix.net/
 MUSIC BY 
 https://found.ee/chromonicci
 https://found.ee/weirdinside
@@ -114,8 +118,19 @@ theme_override_constants/margin_bottom = 12
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 256
+theme_override_constants/separation = 125
 alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="InfoLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 14
 
 [node name="TitleItems" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -219,6 +234,12 @@ layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 2
 
+[node name="AntiClickPanel" type="Panel" parent="MarginContainer"]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
 [node name="Controls" parent="." instance=ExtResource("8_5dsp7")]
 unique_name_in_owner = true
 visible = false
@@ -230,6 +251,14 @@ timeout = 1.0
 [node name="statistics_scene" parent="." instance=ExtResource("10_0m60l")]
 visible = false
 layout_mode = 1
+
+[node name="ButtonAudioPlayer" parent="." instance=ExtResource("11_5aq17")]
+unique_name_in_owner = true
+
+[node name="WaitTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+one_shot = true
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/Controls_Button" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/Exit" to="." method="_on_exit_pressed"]

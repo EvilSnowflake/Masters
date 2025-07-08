@@ -9,12 +9,18 @@ const PROCESSING = "PROCESSING"
 @onready var submit_button = $MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer2/SubmitButton
 @onready var resend_button = $MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer2/ResendButton
 @onready var code_line_edit = $MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits/CodeLineEdit
+@onready var wait_timer = %WaitTimer
+@onready var button_audio_player = %ButtonAudioPlayer
+@onready var anti_click_panel = %AntiClickPanel
+
+signal play_button_sound()
 
 func _ready():
 	SilentWolf.Auth.sw_email_verif_complete.connect(_on_confirmation_complete)
 	SilentWolf.Auth.sw_resend_conf_code_complete.connect(_on_resend_code_complete)
 	submit_button.pressed.connect(_on_submitButton_pressed)
 	resend_button.pressed.connect(_on_resendButton_pressed)
+	play_button_sound.connect(_on_button_play_sound)
 
 func _on_confirmation_complete(sw_result: Dictionary) -> void:
 	if sw_result.success:
@@ -23,6 +29,7 @@ func _on_confirmation_complete(sw_result: Dictionary) -> void:
 		confirmation_failure(sw_result.error)
 
 func confirmation_success() -> void:
+	anti_click_panel.hide()
 	SWLogger.info("email verification succeeded: " + str(SilentWolf.Auth.logged_in_player))
 	# redirect to configured scene (user is logged in after registration)
 	var scene_name = SilentWolf.auth_config.redirect_to_scene
@@ -30,6 +37,7 @@ func confirmation_success() -> void:
 
 func confirmation_failure(error: String) -> void:
 	_hide_infolabel()
+	anti_click_panel.hide()
 	SWLogger.info("email verification failed: " + str(error))
 	_show_infoLabel(error, RED)
 
@@ -57,6 +65,8 @@ func _hide_infolabel() -> void:
 	info_label.hide()
 
 func _on_submitButton_pressed() -> void:
+	play_button_sound.emit()
+	anti_click_panel.show()
 	var username = SilentWolf.Auth.tmp_username
 	var code = code_line_edit.text
 	SWLogger.debug("Email verification form submitted, code: " + str(code))
@@ -64,7 +74,14 @@ func _on_submitButton_pressed() -> void:
 	_show_infoLabel(PROCESSING)
 
 func _on_resendButton_pressed() -> void:
+	play_button_sound.emit()
 	var username = SilentWolf.Auth.tmp_username
 	SWLogger.debug("Requesting confirmation code resend")
 	SilentWolf.Auth.resend_conf_code(username)
 	_show_infoLabel(PROCESSING)
+
+func _on_button_play_sound() -> void:
+	button_audio_player.play()
+
+func _on_wait_timer_timout() -> void:
+	anti_click_panel.hide()
