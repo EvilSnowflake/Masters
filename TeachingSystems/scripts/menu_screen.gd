@@ -96,6 +96,14 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 				stg_qst.play_button_sound.connect(_on_button_play_sound)
 		if _current_game.has_signal("play_button_sound"):
 			_current_game.play_button_sound.connect(_on_button_play_sound)
+		if _current_game.has_signal("on_step_made"):
+			_current_game.on_step_made.connect(_play_step_sound)
+		if _current_game.has_signal("on_shoot_performed"):
+			_current_game.on_shoot_performed.connect(_play_shoot_sound)
+		if _current_game.has_signal("on_player_leveled_up"):
+			_current_game.on_player_leveled_up.connect(_play_levelup_sound)
+		if _current_game.has_signal("on_player_item_picked_up"):
+			_current_game.on_player_item_picked_up.connect(_play_pickup_sound)
 
 func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bool = false) -> void:
 	#print_debug("Enabling stage "+str(num))
@@ -403,3 +411,15 @@ func _on_anticlick_called() -> void:
 
 func _on_wait_timer_timeout() -> void:
 	anti_click_panel.hide()
+
+func _play_step_sound() -> void:
+	print_debug("Make step sound!")
+
+func _play_shoot_sound() -> void:
+	print_debug("Make shoot sound!")
+
+func _play_pickup_sound() -> void:
+	print_debug("Make pickup sound!")
+
+func _play_levelup_sound() -> void:
+	print_debug("Make levelup sound!")

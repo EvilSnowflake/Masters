@@ -30,6 +30,9 @@ var _resources_to_lvl: int
 
 signal health_depleted
 signal on_levelup(change: String, clr: Color, lvl: int)
+signal on_step_made()
+signal on_shoot_performed()
+signal on_item_picked()
 var game
 enum Reward {NEGATIVE = -1, SMALL = 0, MEDIUM = 1, LARGE = 2}
 var stats_num: int = 5
@@ -41,6 +44,9 @@ func _ready():
 	_health = _max_health
 	game = get_parent()
 	_resources_to_lvl = _lvl_req
+	
+	if gun.has_signal("on_shoot_performed"):
+		gun.on_shoot_performed.connect(emit_shoot_signal)
 
 func _physics_process(delta):
 	var direction = Input.get_vector("Left","Right","Up","Down")
@@ -81,6 +87,7 @@ func add_pickup():
 		print_debug("Level Up")
 		level_up()
 	if(game.has_method("update_pickups")):
+		on_item_picked.emit()
 		game.update_pickups(_char_level, _lvl_req - _resources_to_lvl , _lvl_req)
 	
 func level_up():
@@ -88,8 +95,8 @@ func level_up():
 	_lvl_req = int(_lvl_req * 1.5)
 	_resources_to_lvl = _lvl_req
 	
-	print_debug(str(_char_level%5))
-	print_debug(str(_char_level%10))
+	#print_debug(str(_char_level%5))
+	#print_debug(str(_char_level%10))
 	var stat_change: Array[String] = []
 	if(_char_level%10 == 0):
 		stat_change = give_reward(Reward.LARGE)
@@ -159,7 +166,7 @@ func give_reward(rwrd: Reward) -> Array[String]:
 				return(["PERSISTANCE","HEALTH"])
 	return(["NONE"])
 
-func reset_values():
+func reset_values()-> void:
 	_health = default_health
 	_max_health = default_max_health
 	_damage_rate = default_damage_rate
@@ -168,3 +175,9 @@ func reset_values():
 	_speed = default_speed
 	if "set_default_values" in gun:
 		gun.set_default_values()
+
+func emit_step_signal() -> void:
+	on_step_made.emit()
+
+func emit_shoot_signal() -> void:
+	on_shoot_performed.emit()

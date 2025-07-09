@@ -1,6 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://d258jwu23yfiy"]
+[gd_scene load_steps=11 format=3 uid="uid://d258jwu23yfiy"]
 
 [ext_resource type="Script" uid="uid://cc4ax1tw843cm" path="res://scripts/enemy.gd" id="1_h7ety"]
+[ext_resource type="AudioStream" uid="uid://beb8io7edb04p" path="res://assets/Music/userKilled.wav" id="3_5uy6h"]
+[ext_resource type="AudioStream" uid="uid://yl3a7il17ui" path="res://assets/Music/enemyKilled.wav" id="4_c4w8v"]
 [ext_resource type="Texture2D" uid="uid://dks7q2mfhu0yr" path="res://scenes/Drone1.png" id="6_ifky4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d2au5"]
@@ -138,3 +140,13 @@ libraries = {
 &"": SubResource("AnimationLibrary_frfr0")
 }
 autoplay = "Float"
+
+[node name="TakeDamageAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_5uy6h")
+volume_db = -10.0
+bus = &"SoundEffects"
+
+[node name="DieAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_c4w8v")
+volume_db = -10.0
+bus = &"SoundEffects"

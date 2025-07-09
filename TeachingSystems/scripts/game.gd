@@ -33,11 +33,21 @@ var end_stats : Dictionary = {
 }
 
 signal play_button_sound()
+signal on_step_made()
+signal on_shoot_performed()
+signal on_player_item_picked_up()
+signal on_player_leveled_up()
 
 func _ready():
 	time_timer.timeout.connect(_on_time_timer_timeout)
 	player.on_levelup.connect(_player_lvlup)
 	spawn_timer.start()
+	if player.has_signal("on_shoot_performed"):
+		player.on_shoot_performed.connect(_emit_shoot_signal)
+	if player.has_signal("on_step_made"):
+		player.on_step_made.connect(_emit_on_step_made)
+	if player.has_signal("on_item_picked"):
+		player.on_item_picked.connect(_emit_player_pickup_signal)
 	if pauses.get_child(1).has_signal("answer_given"):
 		pauses.get_child(1).answer_given.connect(_on_stage_question_answer)
 
@@ -54,6 +64,7 @@ func spawn_enemy() -> void:
 	add_child(new_mob)
 	if(new_mob.has_method("set_game")):
 		new_mob.set_game(self)
+		
 
 func spawn_stat_notification(message: String, color: Color) -> void:
 	var new_notification: Label = CHANGED_STATS_LABEL.instantiate()
@@ -158,6 +169,7 @@ func _on_player_health_depleted() -> void:
 func update_pickups(level: int, current_resources: int, res_to_lvl: int) -> void:
 	items_announcer.text = "LEVEL: " + str(level)
 	level_bar.value = int((100 * current_resources)/res_to_lvl)
+	print_debug(res_to_lvl)
 
 func _on_stage_question_answer(_numbers: String, result: bool) -> void:
 	pause(1)
@@ -201,3 +213,13 @@ func set_max_waves(num: int) -> void:
 func _player_lvlup(change: String, clr: Color, lvl: int) -> void:
 	spawn_stat_notification(change, clr)
 	end_stats["level"] = lvl
+	on_player_leveled_up.emit()
+
+func _emit_on_step_made() -> void:
+	on_step_made.emit()
+	
+func _emit_shoot_signal() -> void:
+	on_shoot_performed.emit()
+
+func _emit_player_pickup_signal() -> void:
+	on_player_item_picked_up.emit()

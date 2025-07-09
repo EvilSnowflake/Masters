@@ -3,6 +3,8 @@ extends CharacterBody2D
 @onready var game
 @onready var player = $"../Player"
 @onready var drone_player = $Drone_Player
+@onready var take_damage_audio = $TakeDamageAudio
+@onready var die_audio = $DieAudio
 
 @export var _speed: int = 50
 @export var _health: int = 4
@@ -17,9 +19,11 @@ func _physics_process(_delta):
 		move_and_slide()
 
 func take_damage(amount: int):
+	
 	_health -= amount
 	drone_player.play("Hit")
 	if(_health <= 0):
+		die_audio.play()
 		if(game == null):
 			game = get_parent()
 		if(game.has_method("decrease_enemy_number_by_one")):
@@ -29,6 +33,7 @@ func take_damage(amount: int):
 		game.call_deferred("add_child",drop_down)
 		drop_down.global_position = global_position
 	else:
+		take_damage_audio.play()
 		drone_player.queue("Float")
 
 func receive_knockback(knockback_strength: float):

@@ -14,6 +14,8 @@ var bullet_damage: int
 @export var default_range: int = 150
 @export var default_attack_speed : float = 0.5 
 
+signal on_shoot_performed()
+
 func _physics_process(_delta):
 	#Test comment
 	var enemies_in_range = get_overlapping_bodies()
@@ -40,6 +42,7 @@ func set_default_values():
 	set_attack_speed(default_attack_speed)
 
 func shoot():
+	on_shoot_performed.emit()
 	const BULLET = preload("res://scenes/bullet.tscn")
 	var new_bullet = BULLET.instantiate()
 	new_bullet.global_position = shooting_point.global_position
