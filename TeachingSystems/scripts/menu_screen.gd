@@ -36,6 +36,13 @@ var _current_game: Object
 @onready var anti_click_panel = %AntiClickPanel
 @onready var wait_timer = %WaitTimer
 @onready var info_label: Label = %InfoLabel
+@onready var shoot_audio_player: AudioStreamPlayer2D = %ShootAudioPlayer
+@onready var pickup_audio_player: AudioStreamPlayer2D = %PickupAudioPlayer
+@onready var poweredown_audio_player: AudioStreamPlayer2D = %PoweredownAudioPlayer
+@onready var powerup_audio_player: AudioStreamPlayer2D = %PowerupAudioPlayer
+@onready var step_audio_player: AudioStreamPlayer2D = %StepAudioPlayer
+@onready var user_killed_audio_player: AudioStreamPlayer2D = %UserKilledAudioPlayer
+
 
 signal play_button_sound()
 signal show_anti_click()
@@ -43,6 +50,7 @@ signal show_anti_click()
 func _ready():
 	play_button_sound.connect(_on_button_play_sound)
 	show_anti_click.connect(_on_anticlick_called)
+	wait_timer.timeout.connect(_on_wait_timer_timeout)
 	if(controls.has_signal("play_button_sound")):
 		controls.play_button_sound.connect(_on_button_play_sound)
 	if(statistics_scn.has_signal("play_button_sound")):
@@ -104,6 +112,10 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 			_current_game.on_player_leveled_up.connect(_play_levelup_sound)
 		if _current_game.has_signal("on_player_item_picked_up"):
 			_current_game.on_player_item_picked_up.connect(_play_pickup_sound)
+		if _current_game.has_signal("on_user_die"):
+			_current_game.on_user_die.connect(_play_on_die_sound)
+		if _current_game.has_signal("on_player_rewarded"):
+			_current_game.on_player_rewarded.connect(_play_rewarded_sound)
 
 func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bool = false) -> void:
 	#print_debug("Enabling stage "+str(num))
@@ -113,13 +125,16 @@ func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bo
 	else:
 		if not _game_stats.has("stage_"+str(num)):
 			end_stats["score"] = 0
-		else:
+		elif _game_stats.has("stage_"+str(num)) and _game_stats["stage_"+str(num)].has("score"):
 			if _game_stats["stage_"+str(num)]["score"] > 0:
 				var new_score = find_the_score(end_stats)
 				if new_score < _game_stats["stage_"+str(num)]["score"]:
 					return
 				else:
 					end_stats["score"] = new_score
+		elif _game_stats.has("stage_"+str(num)) and not _game_stats["stage_"+str(num)].has("score"):
+			end_stats["score"] = 0
+			
 	
 	_game_stats["stage_"+str(num)] = end_stats
 	_game_stats["highscore"] = _calc_highscore()
@@ -361,7 +376,8 @@ func _calc_highscore() -> int:
 	var score: int = 0
 	for stat : String in _game_stats:
 		if stat.begins_with("stage"):
-			score += _game_stats[stat]["score"]
+			if _game_stats[stat].has("score"):
+				score += _game_stats[stat]["score"]
 	
 	return score
 
@@ -395,7 +411,7 @@ func setupButtons() -> void:
 	unlock_enabled_stages()
 
 func _enableStatsScreen() -> void:
-	#play_button_sound.emit()
+	play_button_sound.emit()
 	if(statistics_scn != null and statistics_scn.has_method("set_player_stats") and statistics_scn.has_method("set_stages_button_up") and statistics_scn.has_method("set_num_of_stages") and statistics_scn.has_method("set_num_in_propedia")):
 		statistics_scn.set_player_stats(_game_stats)
 		statistics_scn.set_stages_button_up()
@@ -407,19 +423,30 @@ func _on_button_play_sound() -> void:
 	button_sounds.play()
 	
 func _on_anticlick_called() -> void:
+	print_debug("Acticlick showed!")
 	anti_click_panel.show()
 
 func _on_wait_timer_timeout() -> void:
+	print_debug("Acticlick hid!")
 	anti_click_panel.hide()
 
 func _play_step_sound() -> void:
-	print_debug("Make step sound!")
+	step_audio_player.play()
 
 func _play_shoot_sound() -> void:
-	print_debug("Make shoot sound!")
+	shoot_audio_player.play()
 
 func _play_pickup_sound() -> void:
-	print_debug("Make pickup sound!")
+	pickup_audio_player.play()
 
 func _play_levelup_sound() -> void:
 	print_debug("Make levelup sound!")
+
+func _play_on_die_sound() -> void:
+	user_killed_audio_player.play()
+
+func _play_rewarded_sound(powered: bool) -> void:
+	if powered:
+		powerup_audio_player.play()
+	else:
+		poweredown_audio_player.play()

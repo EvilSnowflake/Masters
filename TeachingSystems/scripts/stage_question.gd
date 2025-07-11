@@ -41,8 +41,9 @@ func create_question():
 	var game_sts: Dictionary = {}
 	if "_game_stats" in menu_screen_node:
 		game_sts = menu_screen_node._game_stats
-	if game_sts != {}:
-		prev_answers = menu_screen_node._game_stats["answers"]
+	print(game_sts)
+	if game_sts != {} and game_sts.has("answers"):
+		prev_answers = game_sts["answers"]
 		
 	var values = []
 	var keys = []

@@ -8,6 +8,7 @@ extends CharacterBody2D
 		
 var _lvl_req = 3
 var _died: bool = false
+var _paused_game: bool = false
 
 var _health: float
 var _max_health: float
@@ -33,6 +34,8 @@ signal on_levelup(change: String, clr: Color, lvl: int)
 signal on_step_made()
 signal on_shoot_performed()
 signal on_item_picked()
+signal on_rewarded(powered: bool)
+
 var game
 enum Reward {NEGATIVE = -1, SMALL = 0, MEDIUM = 1, LARGE = 2}
 var stats_num: int = 5
@@ -49,6 +52,8 @@ func _ready():
 		gun.on_shoot_performed.connect(emit_shoot_signal)
 
 func _physics_process(delta):
+	if _paused_game == true:
+		return
 	var direction = Input.get_vector("Left","Right","Up","Down")
 	velocity = direction * _speed
 	move_and_slide()
@@ -139,9 +144,11 @@ func give_reward(rwrd: Reward) -> Array[String]:
 
 	match rwrd:
 		Reward.NEGATIVE:
+			on_rewarded.emit(false)
 			disempower()
 			return(["HP","MOVE SPEED","RANGE","PERSISTANCE","DAMAGE"])
 		Reward.SMALL:
+			on_rewarded.emit(true)
 			_max_health += 1
 			_health += 1
 			if(rand_stat == 1):
@@ -151,11 +158,13 @@ func give_reward(rwrd: Reward) -> Array[String]:
 				add_range(5)
 				return(["RANGE","HEALTH"])
 		Reward.MEDIUM:
+			on_rewarded.emit(true)
 			_max_health += 5
 			_health += 5
 			add_gun_attack_speed(0.1)
 			return(["FIRE SPEED","HEALTH"])
 		Reward.LARGE:
+			on_rewarded.emit(true)
 			_max_health += 10
 			_health = _max_health
 			if(rand_stat == 1):
@@ -175,6 +184,9 @@ func reset_values()-> void:
 	_speed = default_speed
 	if "set_default_values" in gun:
 		gun.set_default_values()
+
+func set_paused_status(value: bool) -> void:
+	_paused_game = value
 
 func emit_step_signal() -> void:
 	on_step_made.emit()

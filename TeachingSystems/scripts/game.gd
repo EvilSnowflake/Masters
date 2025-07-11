@@ -37,6 +37,8 @@ signal on_step_made()
 signal on_shoot_performed()
 signal on_player_item_picked_up()
 signal on_player_leveled_up()
+signal on_user_die()
+signal on_player_rewarded(powered: bool)
 
 func _ready():
 	time_timer.timeout.connect(_on_time_timer_timeout)
@@ -48,8 +50,11 @@ func _ready():
 		player.on_step_made.connect(_emit_on_step_made)
 	if player.has_signal("on_item_picked"):
 		player.on_item_picked.connect(_emit_player_pickup_signal)
+	if player.has_signal("on_rewarded"):
+		player.on_rewarded.connect(_emit_player_rewarded)
 	if pauses.get_child(1).has_signal("answer_given"):
 		pauses.get_child(1).answer_given.connect(_on_stage_question_answer)
+	
 
 func _process(_delta):
 	if(Input.is_action_just_pressed("Escape")):
@@ -113,6 +118,8 @@ func pause(pause_kind: int) -> void:
 			stgMat = stgMat.left(stgMat.length()-1)
 			pauses.get_child(pause_kind).change_labels(str(_propedia_num),stgMat)
 	_paused = !_paused
+	if player.has_method("set_paused_status"):
+		player.set_paused_status(_paused)
 
 func _on_resume_button_pressed() -> void:
 	play_button_sound.emit()
@@ -162,6 +169,7 @@ func _on_exit_button_pressed() -> void:
 
 
 func _on_player_health_depleted() -> void:
+	on_user_die.emit()
 	_user_died = true
 	await get_tree().create_timer(2.0).timeout
 	return_to_stage_menu()
@@ -223,3 +231,6 @@ func _emit_shoot_signal() -> void:
 
 func _emit_player_pickup_signal() -> void:
 	on_player_item_picked_up.emit()
+
+func _emit_player_rewarded(powered: bool) -> void:
+	on_player_rewarded.emit(powered)

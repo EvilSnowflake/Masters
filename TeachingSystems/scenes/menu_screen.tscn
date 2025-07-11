@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bv2uqp01l1qbi"]
+[gd_scene load_steps=18 format=3 uid="uid://bv2uqp01l1qbi"]
 
 [ext_resource type="Script" uid="uid://ce74vlad7dvj8" path="res://scripts/menu_screen.gd" id="1_tejro"]
 [ext_resource type="Texture2D" uid="uid://cdu8fh8kvdj02" path="res://assets/CityBackground/1 Backgrounds/1/Day/1.png" id="1_wxxc3"]
@@ -11,6 +11,12 @@
 [ext_resource type="FontFile" uid="uid://sab7pg0qk2nn" path="res://assets/GUI/10 Font/CyberpunkCraftpixPixel.otf" id="8_yuakj"]
 [ext_resource type="PackedScene" uid="uid://6tjmbpgcspdy" path="res://scenes/statistics_scene.tscn" id="10_0m60l"]
 [ext_resource type="PackedScene" uid="uid://ob0kfrivfnka" path="res://scenes/button_audio_player.tscn" id="11_5aq17"]
+[ext_resource type="AudioStream" uid="uid://cy43n54jwjny2" path="res://assets/Music/laserShoot.wav" id="12_isoii"]
+[ext_resource type="AudioStream" uid="uid://pcls8wbphv4k" path="res://assets/Music/pickupCoin.wav" id="13_sx8ls"]
+[ext_resource type="AudioStream" uid="uid://dkylds85aypui" path="res://assets/Music/powerDown.wav" id="14_abkyv"]
+[ext_resource type="AudioStream" uid="uid://cmuyxxdhfrhga" path="res://assets/Music/powerUp.wav" id="15_teb4y"]
+[ext_resource type="AudioStream" uid="uid://dgiyhilqp2bb5" path="res://assets/Music/step_2.wav" id="16_isoii"]
+[ext_resource type="AudioStream" uid="uid://d0up2o0ws8rww" path="res://assets/Music/userKilled2.wav" id="17_n6a75"]
 
 [node name="MenuScreen" type="Control" node_paths=PackedStringArray("statistics_scn")]
 layout_mode = 3
@@ -252,13 +258,46 @@ timeout = 1.0
 visible = false
 layout_mode = 1
 
-[node name="ButtonAudioPlayer" parent="." instance=ExtResource("11_5aq17")]
-unique_name_in_owner = true
-
 [node name="WaitTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 0.5
 one_shot = true
+
+[node name="SoundNodes" type="Node" parent="."]
+
+[node name="ButtonAudioPlayer" parent="SoundNodes" instance=ExtResource("11_5aq17")]
+unique_name_in_owner = true
+
+[node name="ShootAudioPlayer" type="AudioStreamPlayer2D" parent="SoundNodes"]
+unique_name_in_owner = true
+stream = ExtResource("12_isoii")
+bus = &"SoundEffects"
+
+[node name="PickupAudioPlayer" type="AudioStreamPlayer2D" parent="SoundNodes"]
+unique_name_in_owner = true
+stream = ExtResource("13_sx8ls")
+bus = &"SoundEffects"
+
+[node name="PoweredownAudioPlayer" type="AudioStreamPlayer2D" parent="SoundNodes"]
+unique_name_in_owner = true
+stream = ExtResource("14_abkyv")
+bus = &"SoundEffects"
+
+[node name="PowerupAudioPlayer" type="AudioStreamPlayer2D" parent="SoundNodes"]
+unique_name_in_owner = true
+stream = ExtResource("15_teb4y")
+bus = &"SoundEffects"
+
+[node name="StepAudioPlayer" type="AudioStreamPlayer2D" parent="SoundNodes"]
+unique_name_in_owner = true
+stream = ExtResource("16_isoii")
+volume_db = -17.829
+bus = &"SoundEffects"
+
+[node name="UserKilledAudioPlayer" type="AudioStreamPlayer2D" parent="SoundNodes"]
+unique_name_in_owner = true
+stream = ExtResource("17_n6a75")
+bus = &"SoundEffects"
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/Controls_Button" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/Exit" to="." method="_on_exit_pressed"]
