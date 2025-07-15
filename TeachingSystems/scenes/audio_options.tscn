@@ -1,0 +1,95 @@
+[gd_scene load_steps=4 format=3 uid="uid://ck3ws17qm08if"]
+
+[ext_resource type="Script" uid="uid://d4b1qpbtonabn" path="res://scripts/audio_options.gd" id="1_h8f1n"]
+[ext_resource type="Texture2D" uid="uid://b8uxk8qxuiy3i" path="res://assets/GUI/6 Buttons/7/7_08.png" id="2_e8p51"]
+[ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="3_xxsh8"]
+
+[node name="AudioOptions" type="Control" node_paths=PackedStringArray("master_slider", "sfx_slider", "music_slider", "return_button", "save_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h8f1n")
+master_slider = NodePath("TextureRect/MarginContainer/VBoxContainer/MasterSlider")
+sfx_slider = NodePath("TextureRect/MarginContainer/VBoxContainer/SFXSlider")
+music_slider = NodePath("TextureRect/MarginContainer/VBoxContainer/MusicSlider")
+return_button = NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/ReturnButton")
+save_button = NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/SaveButton")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_e8p51")
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 150
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="MasterLabel" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_xxsh8")
+text = "MASTER"
+horizontal_alignment = 1
+
+[node name="MasterSlider" type="HSlider" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_xxsh8")
+max_value = 1.0
+step = 0.05
+
+[node name="MusicLabel" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_xxsh8")
+text = "MUSIC"
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_xxsh8")
+max_value = 1.0
+step = 0.05
+
+[node name="SFXLabel" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_xxsh8")
+text = "SFX
+"
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_xxsh8")
+max_value = 1.0
+step = 0.05
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ReturnButton" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_xxsh8")
+text = "RETURN"
+
+[node name="SaveButton" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_xxsh8")
+text = "SAVE VALUES"

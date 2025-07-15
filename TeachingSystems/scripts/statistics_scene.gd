@@ -13,7 +13,7 @@ var _num_of_stages
 var _num_in_propedia
 var _player_stats: Dictionary
 
-signal calculate_score()
+#signal calculate_score()
 signal play_button_sound()
 
 # Called when the node enters the scene tree for the first time.

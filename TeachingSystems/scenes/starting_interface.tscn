@@ -120,8 +120,8 @@ vertical_alignment = 1
 [node name="Subtitle" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("5_35nuw")
-text = "Assignment Created by Panagiotis Vailakis MPSP2305
-Ysing Godot Game Engine
+text = "Project Created by Panagiotis Vailakis MPSP2305
+Using Godot Game Engine
 Assets Created by craftpix.net
 MUSIC TRACKS : 
 \"PASSENGERS\" BY CHROMONICCI

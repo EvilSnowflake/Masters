@@ -19,6 +19,7 @@ const CHANGED_STATS_LABEL = preload("res://scenes/changed_stats_label.tscn")
 @export var _enemies_left: int = 0
 @export var _enemies_left_alive: int = 0
 @export var _wave: int = 0
+@export var audio_button: Button
 
 var _user_died = false
 var _max_waves: int = 10
@@ -39,6 +40,7 @@ signal on_player_item_picked_up()
 signal on_player_leveled_up()
 signal on_user_die()
 signal on_player_rewarded(powered: bool)
+signal show_audio_frame()
 
 func _ready():
 	time_timer.timeout.connect(_on_time_timer_timeout)
@@ -54,6 +56,8 @@ func _ready():
 		player.on_rewarded.connect(_emit_player_rewarded)
 	if pauses.get_child(1).has_signal("answer_given"):
 		pauses.get_child(1).answer_given.connect(_on_stage_question_answer)
+	if audio_button != null:
+		audio_button.pressed.connect(_on_audio_button_pressed)
 	
 
 func _process(_delta):
@@ -177,7 +181,7 @@ func _on_player_health_depleted() -> void:
 func update_pickups(level: int, current_resources: int, res_to_lvl: int) -> void:
 	items_announcer.text = "LEVEL: " + str(level)
 	level_bar.value = int((100 * current_resources)/res_to_lvl)
-	print_debug(res_to_lvl)
+	#print_debug(res_to_lvl)
 
 func _on_stage_question_answer(_numbers: String, result: bool) -> void:
 	pause(1)
@@ -234,3 +238,6 @@ func _emit_player_pickup_signal() -> void:
 
 func _emit_player_rewarded(powered: bool) -> void:
 	on_player_rewarded.emit(powered)
+
+func _on_audio_button_pressed() -> void:
+	show_audio_frame.emit()

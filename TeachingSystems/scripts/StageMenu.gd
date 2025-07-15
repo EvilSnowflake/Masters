@@ -4,6 +4,15 @@ extends Node2D
 @onready var color_rect = %ColorRect
 @onready var menu_music = %Menu_Music
 
+@export var audio_options: Control
+@export var rebind_menu: Control
+
+func _ready() -> void:
+	if menu_screen.has_method("set_audio_options") and audio_options != null:
+		menu_screen.set_audio_options(audio_options)
+	if menu_screen.has_method("set_rebind_menu") and rebind_menu != null:
+		menu_screen.set_rebind_menu(rebind_menu)
+
 func create_game(num: int, propedia_end_num: int) -> Object:
 	menu_music.playing = false
 	const GAME = preload("res://scenes/game.tscn")

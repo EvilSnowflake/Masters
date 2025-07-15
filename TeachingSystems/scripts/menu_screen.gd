@@ -12,6 +12,8 @@ var stage_menu
 var save_path = "user://SavedData.save"
 var _game_stats : Dictionary = {}
 var _current_game: Object
+var _audio_options: Control
+var _rebind_menu: Control
 
 @export var max_num_stage_buttons = 7
 @export var stage_buttons: Array[Button] = []
@@ -19,6 +21,8 @@ var _current_game: Object
 @export var num_in_propedia = 10
 @export var _codes: Array[String] = ["12345678910","2468101214161820","36912151821242730","481216202428323640","5101520253035404550","6121824303642485460","7142128354249566370","8162432404856647280","9182736455463728190","102030405060708090100"]
 @export var statistics_scn: Control
+@export var audio_options_button: Button
+@export var rebind_button: Button
 
 @onready var _register_button =  $MarginContainer/HBoxContainer/TitleItems/HBoxContainer2/Register
 @onready var _login_button = $MarginContainer/HBoxContainer/TitleItems/HBoxContainer2/Login
@@ -42,6 +46,7 @@ var _current_game: Object
 @onready var powerup_audio_player: AudioStreamPlayer2D = %PowerupAudioPlayer
 @onready var step_audio_player: AudioStreamPlayer2D = %StepAudioPlayer
 @onready var user_killed_audio_player: AudioStreamPlayer2D = %UserKilledAudioPlayer
+@onready var slider_audio_player: AudioStreamPlayer2D = %SliderAudioPlayer
 
 
 signal play_button_sound()
@@ -67,7 +72,12 @@ func _ready():
 	_load_data_button.pressed.connect(_on_cloud_load_button_pressed)
 	_leaderboard_button.pressed.connect(_on_leader_button_pressed)
 	_statistics_button.pressed.connect(_enableStatsScreen)
+	if rebind_button != null:
+		rebind_button.pressed.connect(_on_rebind_button_pressed)
 	load_data()
+	
+
+	
 	#_game_stats["highscore"] = _calc_highscore()
 	
 	#SILENTWOLF STTUFF
@@ -116,6 +126,8 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 			_current_game.on_user_die.connect(_play_on_die_sound)
 		if _current_game.has_signal("on_player_rewarded"):
 			_current_game.on_player_rewarded.connect(_play_rewarded_sound)
+		if _current_game.has_signal("show_audio_frame"):
+			_current_game.show_audio_frame.connect(_on_audio_options_button_pressed)
 
 func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bool = false) -> void:
 	#print_debug("Enabling stage "+str(num))
@@ -422,12 +434,13 @@ func _enableStatsScreen() -> void:
 func _on_button_play_sound() -> void:
 	button_sounds.play()
 	
+func _on_slider_value_changed_sound() -> void:
+	slider_audio_player.play()
+	
 func _on_anticlick_called() -> void:
-	print_debug("Acticlick showed!")
 	anti_click_panel.show()
 
 func _on_wait_timer_timeout() -> void:
-	print_debug("Acticlick hid!")
 	anti_click_panel.hide()
 
 func _play_step_sound() -> void:
@@ -450,3 +463,70 @@ func _play_rewarded_sound(powered: bool) -> void:
 		powerup_audio_player.play()
 	else:
 		poweredown_audio_player.play()
+
+func _on_audio_options_button_pressed():
+	play_button_sound.emit()
+	_audio_options.show()
+
+func set_audio_options(opt: Control) -> void:
+	if opt == null:
+		print_debug("No options panel given!")
+		return
+	_audio_options = opt
+	audio_options_button.pressed.connect(_on_audio_options_button_pressed)
+	if _audio_options.has_method("initialiase_values"):
+		_audio_options.initialiase_values()
+	if _audio_options.has_method("load_values") and _game_stats.has("sound"):
+		_audio_options.load_values(_game_stats["sound"]["master"],_game_stats["sound"]["music"],_game_stats["sound"]["sfx"])
+	if _audio_options.has_signal("audio_values_changed"):
+		_audio_options.audio_values_changed.connect(_on_audio_values_changed)
+	if _audio_options.has_signal("on_button_pressed"):
+		_audio_options.on_button_pressed.connect(_on_button_play_sound)
+	if _audio_options.has_signal("sliders_value_change"):
+		_audio_options.sliders_value_change.connect(_on_slider_value_changed_sound)
+
+func set_rebind_menu(reb: Control) -> void:
+	if reb == null:
+		print_debug("No rebind menu given")
+		return
+	_rebind_menu = reb
+	if _rebind_menu.has_signal("keycode_changed"):
+		_rebind_menu.keycode_changed.connect(_on_rebind_happen)
+	if _rebind_menu.has_signal("on_button_pressed"):
+		_rebind_menu.on_button_pressed.connect(_on_button_play_sound)
+	if _rebind_menu.has_signal("on_reset_pressed"):
+		_rebind_menu.on_reset_pressed.connect(_clear_rebound_values)
+	if _game_stats.has("rebinds"):
+		for rebind in _game_stats["rebinds"]:
+			if _rebind_menu.has_method("change_input"):
+				_rebind_menu.change_input(rebind, _game_stats["rebinds"][rebind])
+
+func _on_audio_values_changed(master: float, music: float, sfx: float):
+	#print_debug("master volume: "+ str(master))
+	#print_debug("music volume: "+ str(music))
+	#print_debug("sfx volume: "+ str(sfx))
+	if not _game_stats.has("sound"):
+		_game_stats["sound"] = {}
+	_game_stats["sound"]["master"] = master
+	_game_stats["sound"]["music"] = music
+	_game_stats["sound"]["sfx"] = sfx
+	_cloud_save_data()
+	
+func _on_rebind_happen(action_to_remap : String, event_text: String) -> void:
+	print_debug("Rebind happened with: " + str(action_to_remap) + " " + str(event_text))
+	if not _game_stats.has("rebinds"):
+		_game_stats["rebinds"] = {}
+	_game_stats["rebinds"][action_to_remap] = event_text
+	_cloud_save_data()
+
+func _on_rebind_button_pressed() -> void:
+	play_button_sound.emit()
+	if _rebind_menu != null:
+		_rebind_menu.show()
+
+func _clear_rebound_values() -> void:
+	if _game_stats.has("rebinds"):
+		_game_stats["rebinds"] = {}
+		_cloud_save_data()
+	else:
+		print_debug("No rebound values found")

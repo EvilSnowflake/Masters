@@ -159,4 +159,7 @@ position = Vector2(2, 10)
 shape = SubResource("CircleShape2D_l18yk")
 debug_color = Color(0.585714, 0.379266, 1, 0.42)
 
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
 [connection signal="body_entered" from="Pickup_Box" to="." method="_on_pickup_box_body_entered"]

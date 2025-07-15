@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bv2uqp01l1qbi"]
+[gd_scene load_steps=19 format=3 uid="uid://bv2uqp01l1qbi"]
 
 [ext_resource type="Script" uid="uid://ce74vlad7dvj8" path="res://scripts/menu_screen.gd" id="1_tejro"]
 [ext_resource type="Texture2D" uid="uid://cdu8fh8kvdj02" path="res://assets/CityBackground/1 Backgrounds/1/Day/1.png" id="1_wxxc3"]
@@ -17,8 +17,9 @@
 [ext_resource type="AudioStream" uid="uid://cmuyxxdhfrhga" path="res://assets/Music/powerUp.wav" id="15_teb4y"]
 [ext_resource type="AudioStream" uid="uid://dgiyhilqp2bb5" path="res://assets/Music/step_2.wav" id="16_isoii"]
 [ext_resource type="AudioStream" uid="uid://d0up2o0ws8rww" path="res://assets/Music/userKilled2.wav" id="17_n6a75"]
+[ext_resource type="AudioStream" uid="uid://cdas04ym34e1q" path="res://assets/Music/slider_sound.wav" id="19_abkyv"]
 
-[node name="MenuScreen" type="Control" node_paths=PackedStringArray("statistics_scn")]
+[node name="MenuScreen" type="Control" node_paths=PackedStringArray("statistics_scn", "audio_options_button", "rebind_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,6 +28,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tejro")
 statistics_scn = NodePath("statistics_scene")
+audio_options_button = NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer4/AudioOptionsButton")
+rebind_button = NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer5/RebindButton")
 
 [node name="Background" type="Control" parent="."]
 layout_mode = 1
@@ -86,30 +89,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_jkl2y")
 
-[node name="Credits_Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1128.0
-offset_top = -39.0
-grow_horizontal = 0
-grow_vertical = 0
-theme = ExtResource("6_6ogre")
-theme_override_colors/font_color = Color(0.728296, 0.475923, 0.0822524, 1)
-theme_override_font_sizes/font_size = 10
-text = "CREATED BY 
-PANAGIOTIS VAILAKIS MPSP2305
-ASSETS BY 
-https://craftpix.net/
-MUSIC BY 
-https://found.ee/chromonicci
-https://found.ee/weirdinside
-"
-horizontal_alignment = 2
-
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -143,15 +122,35 @@ layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="Controls_Button" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
+
+[node name="Controls_Button" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
 text = "CONTROLS"
 
-[node name="Exit" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
+[node name="AudioOptionsButton" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer4"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_6ogre")
+text = "AUDIO"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TitleItems"]
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
 text = "EXIT"
+
+[node name="RebindButton" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_6ogre")
+text = "REBIND"
 
 [node name="Statistics" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
@@ -186,11 +185,13 @@ layout_mode = 2
 
 [node name="Register" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
 text = "REGISTER"
 
 [node name="Login" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
 text = "LOGIN"
 
@@ -206,6 +207,7 @@ layout_mode = 2
 [node name="SaveData" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer3"]
 visible = false
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
 theme_override_font_sizes/font_size = 20
 text = "SAVE"
@@ -213,6 +215,7 @@ text = "SAVE"
 [node name="LoadData" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer3"]
 visible = false
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
 theme_override_font_sizes/font_size = 20
 text = "LOAD FROM CLOUD"
@@ -240,10 +243,27 @@ layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 2
 
+[node name="Credits_Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("6_6ogre")
+theme_override_colors/font_color = Color(0.728296, 0.475923, 0.0822524, 1)
+theme_override_font_sizes/font_size = 10
+text = "CREATED BY 
+PANAGIOTIS VAILAKIS MPSP2305
+ASSETS BY 
+https://craftpix.net/
+MUSIC BY 
+https://found.ee/chromonicci
+https://found.ee/weirdinside
+"
+horizontal_alignment = 2
+
 [node name="AntiClickPanel" type="Panel" parent="MarginContainer"]
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(1, 1, 1, 0)
+z_index = 2
 layout_mode = 2
 
 [node name="Controls" parent="." instance=ExtResource("8_5dsp7")]
@@ -267,39 +287,52 @@ one_shot = true
 
 [node name="ButtonAudioPlayer" parent="SoundNodes" instance=ExtResource("11_5aq17")]
 unique_name_in_owner = true
+attenuation = 0.0
 
 [node name="ShootAudioPlayer" type="AudioStreamPlayer2D" parent="SoundNodes"]
 unique_name_in_owner = true
 stream = ExtResource("12_isoii")
+attenuation = 0.0
 bus = &"SoundEffects"
 
 [node name="PickupAudioPlayer" type="AudioStreamPlayer2D" parent="SoundNodes"]
 unique_name_in_owner = true
 stream = ExtResource("13_sx8ls")
+attenuation = 0.0
 bus = &"SoundEffects"
 
 [node name="PoweredownAudioPlayer" type="AudioStreamPlayer2D" parent="SoundNodes"]
 unique_name_in_owner = true
 stream = ExtResource("14_abkyv")
+attenuation = 0.0
 bus = &"SoundEffects"
 
 [node name="PowerupAudioPlayer" type="AudioStreamPlayer2D" parent="SoundNodes"]
 unique_name_in_owner = true
 stream = ExtResource("15_teb4y")
+attenuation = 0.0
 bus = &"SoundEffects"
 
 [node name="StepAudioPlayer" type="AudioStreamPlayer2D" parent="SoundNodes"]
 unique_name_in_owner = true
 stream = ExtResource("16_isoii")
 volume_db = -17.829
+attenuation = 0.0
 bus = &"SoundEffects"
 
 [node name="UserKilledAudioPlayer" type="AudioStreamPlayer2D" parent="SoundNodes"]
 unique_name_in_owner = true
 stream = ExtResource("17_n6a75")
+attenuation = 0.0
 bus = &"SoundEffects"
 
-[connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/Controls_Button" to="." method="_on_controls_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/Exit" to="." method="_on_exit_pressed"]
+[node name="SliderAudioPlayer" type="AudioStreamPlayer2D" parent="SoundNodes"]
+unique_name_in_owner = true
+stream = ExtResource("19_abkyv")
+attenuation = 0.0
+bus = &"SoundEffects"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/HBoxContainer4/Controls_Button" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/HBoxContainer5/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/Clear_Data" to="." method="_on_clear_data_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/TitleItems/HBoxContainer/Code_Button" to="." method="_on_code_button_pressed"]

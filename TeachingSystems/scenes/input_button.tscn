@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtmkm5718eexc"]
+
+[ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_xvydj"]
+
+[node name="InputButton" type="Button"]
+custom_minimum_size = Vector2(0, 36)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+focus_mode = 0
+theme = ExtResource("1_xvydj")
+theme_type_variation = &"RebindItemsButton"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="LabelAction" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "ACTION NAME"
+
+[node name="Seperator" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="LabelInput" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "ACTION INPUT"
