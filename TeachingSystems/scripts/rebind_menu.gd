@@ -1,5 +1,6 @@
 extends Control
 
+const PRESS_KEY: String = "PRESSKEY_TEXT"
 
 @onready var input_button_scene = preload("res://scenes/input_button.tscn")
 
@@ -57,7 +58,7 @@ func _on_input_button_pressed(button: Button, action: String) -> void:
 		_is_remapping = true
 		_action_to_remap = action
 		_remapping_button = button
-		button.find_child("LabelInput").text = "Press key to bind..."
+		button.find_child("LabelInput").text = tr(PRESS_KEY)
 
 func _input(event) -> void:
 	if _is_remapping:

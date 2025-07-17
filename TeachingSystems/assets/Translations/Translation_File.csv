@@ -1,0 +1,108 @@
+key,en,el
+TITLE_TEXT,"MULTIPLICATION
+TEACHING SYSTEM","ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ
+ΕΚΜΑΘΗΣΗΣ ΠΡΟΠΕΔΙΑΣ"
+SUBTITLE_TEXT,"Project Created by Panagiotis Vailakis MPSP2305
+Using Godot Game Engine
+Assets Created by craftpix.net
+MUSIC TRACKS : 
+""PASSENGERS"" BY CHROMONICCI
+""MANIFOLD"" BY WEIRD INSIDE","Το έργο αυτό υλοποιήθηκε από τον Παναγιώτη Βαϊλάκη ΜΠΣΠ2305
+Χρησιμοποιώντας την παιχνιδομηχανή Godot
+Εικονικά υλικά δημιουργήθηκαν από το craftpix.net
+ΜΟΥΣΙΚΑ ΚΟΜΜΑΤΙΑ:
+""PASSENGERS"" ΑΠΟ CHROMONICCI
+""MANIFOLD"" ΑΠΟ WEIRD INSIDE"
+STARTING_INTERFACE_CONTINUE,LEFT CLICK TO CONTINUE,ΠΑΤΗΣΤΕ ΤΟ ΑΡΙΣΤΕΡΟ ΚΛΙΚ ΓΙΑ ΝΑ ΠΡΟΧΩΡΗΣΕΤΕ
+MENU_SCREEN_CREDITS_LABEL,"CREATED BY 
+PANAGIOTIS VAILAKIS MPSP2305
+ASSETS BY 
+https://craftpix.net/
+MUSIC BY 
+https://found.ee/chromonicci
+https://found.ee/weirdinside","ΔΗΙΟΥΡΓΗΘΗΚΕ ΑΠΟ ΤΟΝ
+ΠΑΝΑΓΙΩΤΗΣ ΒΑΙΛΑΚΗΣ ΜΠΣΠ2305
+ΕΙΚΟΝΙΚΑ ΥΛΙΚΑ ΑΠΟ
+https://craftpix.net/
+ΜΟΥΣΙΚΗ ΑΠΟ
+https://found.ee/chromonicci
+https://found.ee/weirdinside"
+CONTROLS_BUTTON,CONTROLS,ΧΕΙΡΙΣΜΟΙ
+AUDIO_BUTTON,AUDIO,ΗΧΟΣ
+EXIT_BUTTON,EXIT,ΕΞΟΔΟΣ
+REBIND_BUTTON,REBIND,ΕΠΑΝΑΔΕΣΜΕΥΣΗ
+STATISTICS_BUTTON,STATS,ΣΤΑΤΙΣΤΙΚΑ
+CLEAR_DATA_BUTTON,CLEAR DATA,ΕΚΚΑΘΑΡΙΣΗ ΔΕΔΟΜΕΝΩΝ
+CODE_BUTTON,APPLY CODE,ΕΦΑΡΜΟΣΕ ΤΟΝ ΚΩΔΙΚΟ
+LOGIN_BUTTON,LOGIN,ΣΥΝΔΕΣΗ
+LOGOUT_BUTTON,LOGOUT,ΑΠΟΣΥΝΔΕΣΗ
+SAVE_DATA_BUTTON,SAVE DATA,ΑΠΟΘΗΚΕΥΣΗ
+LOAD_DATA_BUTTON,LOAD FROM CLOUD,ΦΟΡΤΩΣΕ ΔΕΔΟΜΕΝΑ ΑΠΟ ΤΟ ΝΕΦΟΣ
+LEADERBOARD_BUTTON,LEADERBOARDS,ΠΙΝΑΚΑΣ ΑΠΟΤΕΛΕΣΜΑΤΩΝ
+RESUME_BUTTON,RESUME,ΣΥΝΕΧΙΣΕ
+RETURN_TO_MENU_BUTTON,RETURN TO MENU,ΕΠΙΣΤΡΟΦΗ ΣΤΟ ΜΕΝΟΥ
+ENEMIES_LEFT_LABEL,ENEMIES LEFT: ,ΕΝΑΠΟΜΕΙΝΑΝΤΕΣ ΕΧΘΡΟΙ: 
+RESET_BUTTON,RESET VALUES,ΕΠΑΝΑΦΟΡΑ ΔΕΔΟΜΕΝΩΝ
+SAVE_VALUES_BUTTON,SAVE VALUES,ΑΠΟΘΗΚΕΥΣΗ ΔΕΔΟΜΕΝΩΝ
+MASTER_LABEL,MASTER,ΚΥΡΙΟ
+MUSIC_LABEL,MUSIC,ΜΟΥΣΙΚΗ
+SFX_LABEL,SFX,ΕΙΔΙΚΑ ΕΦΕ
+DISMISS_LABEL,LEFT CLICK TO DISMISS,ΑΡΙΣΤΕΡΟ ΚΛΙΚ ΓΙΑ ΝΑ ΠΡΟΧΩΡΗΣΕΤΕ
+PRE_QUESTION_LABEL,"QUESTION, HOW MUCH IS :","ΕΡΩΤΗΣΗ, ΠΟΣΟ ΚΑΝΕΙ :"
+CONFIRM_EMAIL_LABEL,CONFIRM YOUR EMAIL ADDRESS,ΕΠΒΕΒΑΙΩΣΕ ΤΟ EMAIL ΣΟΥ
+CODE_LABEL,CODE:,ΚΩΔΙΚΟΣ:
+SUBMIT_BUTTON,SUBMIT,ΥΠΟΒΟΛΗ
+RESEND_CODE_BUTTON,RESEND CODE,ΞΑΝΑ ΣΤΕΙΛΕ ΤΟΝ ΚΩΔΙΚΟ
+BACK_BUTTON,BACK,ΠΙΣΩ
+LOGIN_LABEL,LOGIN,ΣΥΝΔΕΣΗ
+USERNAME_LABEL,USERNAME:,ΟΝΟΜΑ ΧΡΗΣΤΗ:
+PASSWORD_LABEL,PASSWORD:,ΚΩΔΙΚΟΣ:
+FORGOT_PASSWORD_LINK_BUTTON,FORGOT PASSWORD?,ΞΕΧΑΣΑ ΤΟΝ ΚΩΔΙΚΟ;
+STAY_SIGNED_IN_CHECK_BUTTON,STAY SIGNED IN FOR 30 DAYS,ΝΑ ΠΑΡΑΜΕΙΝΩ ΣΥΝΔΕΔΕΜΕΝΟΣ ΓΙΑ 30 ΜΕΡΕΣ
+SIGNUP_TITLE,SIGN UP,ΕΓΓΡΑΦΗ
+EMAIL_LABEL,EMAIL:,EMAIL:
+CONFIRM_PASSWORD_LABEL,CONFIRM PASSWORD:,ΕΠΙΒΕΒΑΙΩΣΗ ΚΩΔΙΚΟΥ:
+RESET_PASSWORD_LABEL,RESET PASSWORD,ΑΛΛΑΓΗ ΚΩΔΙΚΟΥ
+RESET_PASSWORD_LABEL_2,PLEASE ENTER YOUR NAME BELOW,ΠΑΡΑΚΑΛΩ ΓΡΑΨΤΕ ΤΟ ΟΝΟΜΑ ΣΑΣ ΠΑΡΑΚΑΤΩ
+NAME_LABEL,NAME:,ΟΝΟΜΑ:
+RESET_PASSWORD_LABEL_3,"PLEASE ENTER BELOW THE CODE WE SENT YOU BY EMAIL 
+AND YOUR NEW PASSWORD TWICE","ΠΑΡΑΚΑΛΩ ΓΡΑΨΤΕ ΤΟΝ ΚΩΔΙΚΟ ΠΟΥ ΣΤΕΙΛΑΜΕ ΜΕΣΩ EMAIL ΠΑΡΑΚΑΤΩ
+ΚΑΙ ΤΟΝ ΝΕΟ ΚΩΔΙΚΟ ΣΑΣ ΔΥΟ ΦΟΡΕΣ"
+PASSWORD_RESET_LABEL,PASSWORD RESET,ΚΩΔΙΚΟΣ ΑΛΛΑΧΘΗΚΕ
+RESET_PASSWORD_LABEL_4,YOUR PASSWORD WAS CHANGED SUCCESSFULLY,Ο ΚΩΔΙΚΟΣ ΣΑΣ ΑΛΛΑΧΘΗΚΕ ΕΠΙΤΥΧΩΣ
+ENEMIES_TEXT,ENEMIES,ΕΧΘΡΟΙ
+TIME_TEXT,TIME,ΧΡΟΝΟΣ
+CORRECT_ANSWERS_TEXT,C. ANSWERS,Σ. ΑΠΑΝΤΗΣΕΙΣ
+WRONG_ANSWERS_TEXT,W. ANSWERS,Λ. ΑΠΑΝΤΗΣΕΙΣ
+SCORE_TEXT,SCORE,ΒΑΘΜΟΛΟΓΙΑ
+STAGES_TEXT,stages,στάδια
+LOGGING_IN_TEXT,LOGGIING IN,ΣΥΝΔΕΣΗ
+LOGGED_IN_TEXT,LOGGED IN AS ,ΣΥΝΔΕΔΕΜΕΝΟΣ ΩΣ
+LOADING_DATA_TEXT,LOADING DATA,ΦΟΡΤΩΣΗ ΔΕΔΟΜΕΝΩΝ
+SAVING_DATA_TEXT,SAVING DATA,ΑΠΟΘΗΚΕΥΣΗ ΔΕΔΟΜΕΝΩΝ
+SAVING_HIGHSCORE_TEXT,SAVING HIGHSCORE,ΑΠΟΘΗΚΕΥΣΗ ΥΨΗΛΩΝ ΒΑΘΜΟΛΟΓΙΩΝ 
+INCREASED_TEXT, INCREASED!, ΑΥΞΗΘΗΚΕ!
+DECREASED_TEXT, DECREASED!, ΜΕΙΩΘΗΚΕ!
+HEALTH_TEXT,HEALTH,ΖΩΗ
+MOVE_SPEED_TEXT,MOVE SPEED,ΤΑΧΥΤΗΤΑ ΚΙΝΗΣΗΣ
+RANGE_TEXT,RANGE,ΕΜΒΕΛΕΙΑ
+PERSISTANCE_TEXT,PERSISTΕNCE,ΔΙΑΤΡΗΣΗ
+DAMAGE_TEXT,DAMAGE,ΖΗΜΙΑ
+NONE_TEXT,NONE,ΚΑΝΕΝΑ
+FIRE_SPEED_TEXT,FIRE SPEED,ΤΑΧΥΤΗΤΑ ΕΠΙΘΕΣΗΣ
+PROCESSING_TEXT,PROCESSING,ΕΠΕΞΕΡΓΑΣΙΑ
+CODE_RESENT_TEXT,Confirmation code was resent to your email address. Please check your inbox (and your spam).,Κωδικός επιβεβαίωσης αποστάλθηκε ξανά στο email σας. Παρακαλώ ελέγξτε τα εισερχόμενα σας (και την ανεπιθύμητη αλληλογραφία)
+CODE_CANT_RESENT_TEXT,Confirmation code could not be resent,Δεν μπόρεσε να σταλθεί ξανά κωδικός επιβεβαίωσης
+NO_SCORES_TEXT,NO SCORES YET!,ΑΚΟΜΑ ΚΑΜΙΑ ΒΑΘΜΟΛΟΓΙΑ!
+LOADING_SCORES_TEXT,LOADING SCORES…,ΦΟΡΤΩΣΗ ΒΑΘΜΟΛΟΓΙΩΝ…
+PRESSKEY_TEXT,Press key to bind…,Πατήστε ένα κουμπί για δέσμευση..
+USER_HELP_MESSAGE_TEXT,USERNAME SHOULD CONTAIN AT LEAST 6 CHARACTERS (LETTERS OR NUMBERS) AND NO SPACES,ΤΟ ΟΝΟΜΑ ΧΡΗΣΤΗ ΠΡΕΠΕΙ ΝΑ ΠΕΡΙΕΧΕΙ ΤΟΥΛΑΧΙΣΤΩΝ 6 ΧΑΡΑΚΤΗΡΕΣ (ΓΡΑΜΜΑΤΑ Η ΑΡΙΘΜΟΥΣ) ΚΑΙ ΚΑΘΟΛΟΥ ΚΕΝΑ
+PASS_HELP_MESSAGE_TEXT,"PASSWORD SHOULD CONTAIN AT LEAST 8 CHARACTERS INCLUDING UPPERCASE AND LOWERCASE LETTERS, NUMBERS AND (OPTIONALLY) SPECIAL CHARACTERS","Ο ΚΩΔΙΚΟΣ ΠΡΕΠΕΙ ΝΑ ΠΕΡΙΕΧΕΙ ΤΟΥΛΑΧΙΣΤΩΝ 8 ΧΑΡΑΚΤΗΡΕΣ ΣΥΜΠΕΡΙΛΑΜΒΑΝΟΜΕΝΟΥ ΚΕΦΑΛΑΙΩΝ ΚΑΙ ΜΙΚΡΩΝ ΓΡΑΜΜΑΤΩΝ, ΑΡΙΘΜΩΝ ΚΑΙ (ΠΡΟΑΙΡΕΤΙΚΑ) ΕΙΔΙΚΟΥΣ ΧΑΡΑΚΤΗΡΕΣ"
+CODE_CANT_SENT_TEXT,Could not send confirmation code. ,"Δεν μπορούσε να σταλθεί κωδικός επιβεβαίωσης, "
+PASS_CANT_RESET_TEXT,Could not reset password. ,Δεν μπορούσε να αλλαχθεί ο κωδικός πρόσβασης.
+STAGE_WORD_TEXT,STAGE,ΣΤΑΔΙΟ
+MATERIAL_WORD_TEXT,MATERIAL,ΥΛΙΚΟ
+NOT_LOGGED_IN_TEXT,NOT LOGGED IN,ΔΕΝ ΕΧΕΤΕ ΣΥΝΔΕΘΕΙ
+LEVEL_LABEL,LEVEL,ΕΠΙΠΕΔΟ
+ENGLISH_WORD,ENGLISH,ΑΓΓΛΙΚΑ
+GREEK_WORD,GREEK,ΕΛΛΗΝΙΚΑ

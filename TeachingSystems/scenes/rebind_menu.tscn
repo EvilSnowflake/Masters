@@ -60,11 +60,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_o1vsv")
 theme_type_variation = &"LeaderboardsButton"
-text = "RESET VALUES"
+text = "RESET_BUTTON"
 
 [node name="ExitButton" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_o1vsv")
 theme_type_variation = &"LeaderboardsButton"
-text = "EXIT"
+text = "EXIT_BUTTON"

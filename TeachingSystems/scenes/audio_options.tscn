@@ -15,7 +15,7 @@ script = ExtResource("1_h8f1n")
 master_slider = NodePath("TextureRect/MarginContainer/VBoxContainer/MasterSlider")
 sfx_slider = NodePath("TextureRect/MarginContainer/VBoxContainer/SFXSlider")
 music_slider = NodePath("TextureRect/MarginContainer/VBoxContainer/MusicSlider")
-return_button = NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/ReturnButton")
+return_button = NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/ExitButton")
 save_button = NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/SaveButton")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -46,7 +46,7 @@ theme_override_constants/separation = 15
 [node name="MasterLabel" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_xxsh8")
-text = "MASTER"
+text = "MASTER_LABEL"
 horizontal_alignment = 1
 
 [node name="MasterSlider" type="HSlider" parent="TextureRect/MarginContainer/VBoxContainer"]
@@ -58,7 +58,7 @@ step = 0.05
 [node name="MusicLabel" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_xxsh8")
-text = "MUSIC"
+text = "MUSIC_LABEL"
 horizontal_alignment = 1
 
 [node name="MusicSlider" type="HSlider" parent="TextureRect/MarginContainer/VBoxContainer"]
@@ -70,8 +70,7 @@ step = 0.05
 [node name="SFXLabel" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_xxsh8")
-text = "SFX
-"
+text = "SFX_LABEL"
 horizontal_alignment = 1
 
 [node name="SFXSlider" type="HSlider" parent="TextureRect/MarginContainer/VBoxContainer"]
@@ -80,16 +79,22 @@ theme = ExtResource("3_xxsh8")
 max_value = 1.0
 step = 0.05
 
+[node name="Seperator" type="Control" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Seperator2" type="Control" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="ReturnButton" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ExitButton" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_xxsh8")
-text = "RETURN"
+text = "EXIT_BUTTON"
 
 [node name="SaveButton" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_xxsh8")
-text = "SAVE VALUES"
+text = "SAVE_VALUES_BUTTON"

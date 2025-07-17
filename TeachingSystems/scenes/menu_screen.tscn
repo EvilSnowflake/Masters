@@ -19,7 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://d0up2o0ws8rww" path="res://assets/Music/userKilled2.wav" id="17_n6a75"]
 [ext_resource type="AudioStream" uid="uid://cdas04ym34e1q" path="res://assets/Music/slider_sound.wav" id="19_abkyv"]
 
-[node name="MenuScreen" type="Control" node_paths=PackedStringArray("statistics_scn", "audio_options_button", "rebind_button")]
+[node name="MenuScreen" type="Control" node_paths=PackedStringArray("statistics_scn", "audio_options_button", "rebind_button", "locale_options")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +30,7 @@ script = ExtResource("1_tejro")
 statistics_scn = NodePath("statistics_scene")
 audio_options_button = NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer4/AudioOptionsButton")
 rebind_button = NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer5/RebindButton")
+locale_options = NodePath("MarginContainer/HBoxContainer/TitleItems/LocaleOptions")
 
 [node name="Background" type="Control" parent="."]
 layout_mode = 1
@@ -129,13 +130,13 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
-text = "CONTROLS"
+text = "CONTROLS_BUTTON"
 
 [node name="AudioOptionsButton" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
-text = "AUDIO"
+text = "AUDIO_BUTTON"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
@@ -144,23 +145,23 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
-text = "EXIT"
+text = "EXIT_BUTTON"
 
 [node name="RebindButton" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
-text = "REBIND"
+text = "REBIND_BUTTON"
 
 [node name="Statistics" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
 theme = ExtResource("6_6ogre")
-text = "STATS"
+text = "STATISTICS_BUTTON"
 
 [node name="Clear_Data" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
 theme = ExtResource("6_6ogre")
-text = "CLEAR DATA"
+text = "CLEAR_DATA_BUTTON"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TitleItems"]
 visible = false
@@ -178,7 +179,7 @@ alignment = 1
 [node name="Code_Button" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("6_6ogre")
-text = "Apply Code"
+text = "CODE_BUTTON"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
@@ -187,19 +188,19 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
-text = "REGISTER"
+text = "SIGNUP_TITLE"
 
 [node name="Login" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
-text = "LOGIN"
+text = "LOGIN_BUTTON"
 
 [node name="Logout" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
 visible = false
 layout_mode = 2
 theme = ExtResource("6_6ogre")
-text = "LOGOUT"
+text = "LOGOUT_BUTTON"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
@@ -210,7 +211,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
 theme_override_font_sizes/font_size = 20
-text = "SAVE"
+text = "SAVE_DATA_BUTTON"
 
 [node name="LoadData" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer3"]
 visible = false
@@ -218,18 +219,32 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
 theme_override_font_sizes/font_size = 20
-text = "LOAD FROM CLOUD"
+text = "LOAD_DATA_BUTTON"
 
 [node name="Leaderboards" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
 visible = false
 layout_mode = 2
 theme = ExtResource("6_6ogre")
 theme_override_font_sizes/font_size = 20
-text = "LEADERBOARD"
+text = "LEADERBOARD_BUTTON"
 
 [node name="PlayerLoginLabel" type="Label" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
 theme = ExtResource("6_6ogre")
+
+[node name="LocaleOptions" type="OptionButton" parent="MarginContainer/HBoxContainer/TitleItems"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 12
+selected = 0
+fit_to_longest_item = false
+item_count = 2
+popup/item_0/text = "ENGLISH_WORD"
+popup/item_0/id = 0
+popup/item_1/text = "GREEK_WORD"
+popup/item_1/id = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -249,14 +264,7 @@ size_flags_vertical = 8
 theme = ExtResource("6_6ogre")
 theme_override_colors/font_color = Color(0.728296, 0.475923, 0.0822524, 1)
 theme_override_font_sizes/font_size = 10
-text = "CREATED BY 
-PANAGIOTIS VAILAKIS MPSP2305
-ASSETS BY 
-https://craftpix.net/
-MUSIC BY 
-https://found.ee/chromonicci
-https://found.ee/weirdinside
-"
+text = "MENU_SCREEN_CREDITS_LABEL"
 horizontal_alignment = 2
 
 [node name="AntiClickPanel" type="Panel" parent="MarginContainer"]

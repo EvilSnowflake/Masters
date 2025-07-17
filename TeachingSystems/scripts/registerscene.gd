@@ -1,11 +1,12 @@
 extends Control
 
-const USERHELPMESSAGE = "USERNAME SHOULD CONTAIN AT LEAST 6 CHARACTERS (LETTERS OR NUMBERS) AND NO SPACES"
-const PASSHELPMESSAGE = "PASSWORD SHOULD CONTAIN AT LEAST 8 CHARACTERS INCLUDING UPPERCASE AND LOWERCASE LETTERS, NUMBERS AND (OPTIONALLY) SPECIAL CHARACTERS"
-const RED = Color(1.0,0.0,0.0,1.0)
-const WHITE = Color(1.0,1.0,1.0,1.0)
+const USERHELPMESSAGE: String = "USER_HELP_MESSAGE_TEXT"
+const PASSHELPMESSAGE: String = "PASS_HELP_MESSAGE_TEXT"
+const PROCESSING: String = "PROCESSING_TEXT"
+const RED: Color = Color(1.0,0.0,0.0,1.0)
+const WHITE: Color = Color(1.0,1.0,1.0,1.0)
 const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
-const PROCESSING = "PROCESSING"
+
 
 @onready var info_label = $MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer/InfoLabel
 @onready var submit_button = $MarginContainer/VBoxContainer/HBoxContainer5/SubmitButton
@@ -86,7 +87,7 @@ func _on_submit_button_pressed() -> void:
 	var password = children[2].text
 	var confirm_password = children[3].text
 	SilentWolf.Auth.register_player(player_name, email, password, confirm_password)
-	_show_infolabel(PROCESSING)
+	_show_infolabel(tr(PROCESSING))
 
 func _on_submit_up_button_pressed() -> void:
 	play_button_sound.emit()
@@ -95,7 +96,7 @@ func _on_submit_up_button_pressed() -> void:
 	var password = children[2].text
 	var confirm_password = children[3].text
 	SilentWolf.Auth.register_player_user_password(player_name, password, confirm_password)
-	_show_infolabel(PROCESSING)
+	_show_infolabel(tr(PROCESSING))
 
 func _on_back_button_pressed() -> void:
 	play_button_sound.emit()
@@ -105,13 +106,13 @@ func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file(SilentWolf.auth_config.redirect_to_scene)
 
 func _on_usernametoolbutton_mouse_entered() -> void:
-	_show_infolabel(USERHELPMESSAGE)
+	_show_infolabel(tr(USERHELPMESSAGE))
 
 func _on_usernametoolbutton_mouse_exited() -> void:
 	_hide_infolabel()
 
 func _on_passwordtoolbutton_mouse_entered() -> void:
-	_show_infolabel(PASSHELPMESSAGE)
+	_show_infolabel(tr(PASSHELPMESSAGE))
 
 func _on_passwordtoolbutton_mouse_exited() -> void:
 	_hide_infolabel()

@@ -131,6 +131,6 @@ texture = ExtResource("2_pmdow")
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_4l3fi")
-text = "RETURN"
+text = "EXIT_BUTTON"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Return_Button" to="." method="_on_return_button_pressed"]

@@ -513,22 +513,40 @@ theme_override_constants/separation = 10
 [node name="Seperator" type="Control" parent="CanvasLayer/Game_Menu/Statistics_Container"]
 layout_mode = 2
 
-[node name="Enemies_Announcer" type="Label" parent="CanvasLayer/Game_Menu/Statistics_Container"]
-unique_name_in_owner = true
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Game_Menu/Statistics_Container"]
+layout_mode = 2
+alignment = 2
+
+[node name="Enemies_Left_Label" type="Label" parent="CanvasLayer/Game_Menu/Statistics_Container/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_yo6n8")
-theme_override_font_sizes/font_size = 24
-text = "ENEMIES LEFT: 0"
-horizontal_alignment = 2
-vertical_alignment = 1
+theme_override_font_sizes/font_size = 18
+text = "ENEMIES_LEFT_LABEL"
 
-[node name="Items_Announcer" type="Label" parent="CanvasLayer/Game_Menu/Statistics_Container"]
+[node name="Enemies_Announcer" type="Label" parent="CanvasLayer/Game_Menu/Statistics_Container/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("4_yo6n8")
 theme_override_font_sizes/font_size = 18
-text = "LEVEL: 0"
-horizontal_alignment = 2
+text = "0"
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Game_Menu/Statistics_Container"]
+layout_mode = 2
+alignment = 2
+
+[node name="LEVEL_LABEL" type="Label" parent="CanvasLayer/Game_Menu/Statistics_Container/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("4_yo6n8")
+theme_override_font_sizes/font_size = 18
+text = "LEVEL_LABEL"
+
+[node name="Items_Announcer" type="Label" parent="CanvasLayer/Game_Menu/Statistics_Container/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_yo6n8")
+theme_override_font_sizes/font_size = 18
+text = "0"
 vertical_alignment = 1
 
 [node name="Level_Bar" type="ProgressBar" parent="CanvasLayer/Game_Menu/Statistics_Container"]
@@ -608,18 +626,18 @@ layout_mode = 2
 [node name="Resume_Button" type="Button" parent="CanvasLayer/Game_Menu/Pauses/Pause_Menu/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_yo6n8")
-text = "RESUME"
+text = "RESUME_BUTTON"
 icon_alignment = 1
 
 [node name="Exit_Button" type="Button" parent="CanvasLayer/Game_Menu/Pauses/Pause_Menu/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_yo6n8")
-text = "RETURN TO MENU"
+text = "EXIT_BUTTON"
 
 [node name="AudioButton" type="Button" parent="CanvasLayer/Game_Menu/Pauses/Pause_Menu/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_yo6n8")
-text = "AUDIO"
+text = "AUDIO_BUTTON"
 
 [node name="Stage_Question" parent="CanvasLayer/Game_Menu/Pauses" instance=ExtResource("6_edvp2")]
 visible = false

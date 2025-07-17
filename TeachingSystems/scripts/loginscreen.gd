@@ -3,7 +3,7 @@ extends Control
 const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
 const RED = Color(1.0,0.0,0.0,1.0)
 const WHITE = Color(1.0,1.0,1.0,1.0)
-const PROCESSING = "PROCESSING"
+const PROCESSING = "PROCESSING_TEXT"
 
 @onready var info_label = $MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer/InfoLabel
 @onready var back_button = $MarginContainer/VBoxContainer/HBoxContainer2/BackButton
@@ -77,7 +77,7 @@ func _on_login_button_pressed() -> void:
 	var remember_me = stay_signed_check_box.is_pressed()
 	SWLogger.debug("Login form submitted, remember_me: " + str(remember_me))
 	SilentWolf.Auth.login_player(username, password, remember_me)
-	_show_infolabel(PROCESSING)
+	_show_infolabel(tr(PROCESSING))
 
 func _on_button_play_sound() -> void:
 	button_audio_player.play()

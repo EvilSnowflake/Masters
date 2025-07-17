@@ -52,7 +52,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_frse4")
 theme_type_variation = &"LeaderboardsButton"
-text = "BACK"
+text = "BACK_BUTTON"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -63,7 +63,7 @@ layout_mode = 2
 theme = ExtResource("1_frse4")
 theme_override_colors/font_color = Color(0.54099, 0.54099, 0.54099, 1)
 theme_override_font_sizes/font_size = 50
-text = "LOGIN"
+text = "LOGIN_LABEL"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(480.995, 60)
@@ -79,13 +79,13 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("1_frse4")
 theme_override_font_sizes/font_size = 40
-text = "USERNAME:"
+text = "USERNAME_LABEL"
 
 [node name="PasswordLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3/VBox_Labels"]
 layout_mode = 2
 theme = ExtResource("1_frse4")
 theme_override_font_sizes/font_size = 40
-text = "PASSWORD:"
+text = "PASSWORD_LABEL"
 
 [node name="VBoxLineEdits" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(300, 0)
@@ -110,7 +110,7 @@ alignment = 1
 [node name="ForgotPassword_LinkButton" type="LinkButton" parent="MarginContainer/VBoxContainer/HBoxContainer6"]
 layout_mode = 2
 theme = ExtResource("1_frse4")
-text = "FORGOT PASSWORD?"
+text = "FORGOT_PASSWORD_LINK_BUTTON"
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -120,7 +120,7 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("1_frse4")
 theme_override_font_sizes/font_size = 20
-text = "STAY SIGNED IN FOR 30 DAYS"
+text = "STAY_SIGNED_IN_CHECK_BUTTON"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -140,7 +140,7 @@ autowrap_mode = 1
 layout_mode = 2
 theme = ExtResource("1_frse4")
 theme_type_variation = &"LeaderboardsButton"
-text = "LOGIN"
+text = "LOGIN_BUTTON"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

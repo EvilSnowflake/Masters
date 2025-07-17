@@ -5,8 +5,29 @@ const LOGINSCENE = "res://scenes/login_screen.tscn"
 const LEADERBOARDSCENE = "res://scenes/leaderboard_scene.tscn"
 const STAGE_BUTTON = preload("res://scenes/stage_button.tscn")
 const STAGE_BUTTON_BOX = preload("res://scenes/stage_button_box.tscn")
-const HTTPS_API_URL = "https://localhost:7218/api/Numbers/2"
-const API_URL = "http://localhost:5000/api/Numbers/1"
+const HTTPS_API_URL: String = "https://localhost:7218/api/Numbers/2"
+const API_URL: String = "http://localhost:5000/api/Numbers/1"
+const STAGE_PREFIX: String = "stage_"
+const LANGUAGE_TEXT: String = "language"
+const ENGLISH_LOC: String = "en"
+const GREEK_LOC: String = "el"
+const SCORE_TEXT: String = "score"
+const HIGHSCORE_TEXT: String = "highscore"
+const ANSWERS_TEXT: String = "answers"
+const SOUND_TEXT: String = "sound"
+const MASTER_TEXT: String = "master"
+const MUSIC_TEXT: String = "music"
+const SFX_TEXT: String = "sfx"
+const LOGGING_IN: String = "LOGGING_IN_TEXT"
+const LOGGED_IN_AS: String = "LOGGED_IN_TEXT"
+const NOT_LOGGED_IN: String = "NOT_LOGGED_IN_TEXT"
+const LOADING_DATA: String = "LOADING_DATA_TEXT"
+const SAVING_DATA: String = "SAVING_DATA_TEXT"
+const SAVING_HIGHSCORE: String = "SAVING_HIGHSCORE_TEXT"
+const ENGLISH: String = "ENGLISH_WORD"
+const GREEK: String = "GREEK_WORD"
+
+
 #FILE SAVE ON %APPDATA%\Godot\app_userdata\TeachingSystems
 var stage_menu
 var save_path = "user://SavedData.save"
@@ -23,6 +44,7 @@ var _rebind_menu: Control
 @export var statistics_scn: Control
 @export var audio_options_button: Button
 @export var rebind_button: Button
+@export var locale_options: OptionButton
 
 @onready var _register_button =  $MarginContainer/HBoxContainer/TitleItems/HBoxContainer2/Register
 @onready var _login_button = $MarginContainer/HBoxContainer/TitleItems/HBoxContainer2/Login
@@ -74,6 +96,8 @@ func _ready():
 	_statistics_button.pressed.connect(_enableStatsScreen)
 	if rebind_button != null:
 		rebind_button.pressed.connect(_on_rebind_button_pressed)
+	if locale_options != null:
+		locale_options.item_selected.connect(_on_locale_options_item_selected)
 	load_data()
 	
 
@@ -85,7 +109,7 @@ func _ready():
 	SilentWolf.Auth.sw_login_complete.connect(_on_login_complete)
 	SilentWolf.Auth.sw_logout_complete.connect(_on_logout_complete)
 	SilentWolf.Auth.auto_login_player()
-	info_label.text = "LOGGING IN"
+	info_label.text = tr(LOGGING_IN)
 	#unlock_enabled_stages()
 	
 
@@ -132,24 +156,24 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bool = false) -> void:
 	#print_debug("Enabling stage "+str(num))
 	if not user_died:
-		end_stats["score"] = find_the_score(end_stats)
+		end_stats[SCORE_TEXT] = find_the_score(end_stats)
 		
 	else:
-		if not _game_stats.has("stage_"+str(num)):
-			end_stats["score"] = 0
-		elif _game_stats.has("stage_"+str(num)) and _game_stats["stage_"+str(num)].has("score"):
-			if _game_stats["stage_"+str(num)]["score"] > 0:
+		if not _game_stats.has(STAGE_PREFIX+str(num)):
+			end_stats[SCORE_TEXT] = 0
+		elif _game_stats.has(STAGE_PREFIX+str(num)) and _game_stats[STAGE_PREFIX+str(num)].has(SCORE_TEXT):
+			if _game_stats[STAGE_PREFIX+str(num)][SCORE_TEXT] > 0:
 				var new_score = find_the_score(end_stats)
-				if new_score < _game_stats["stage_"+str(num)]["score"]:
+				if new_score < _game_stats[STAGE_PREFIX+str(num)][SCORE_TEXT]:
 					return
 				else:
-					end_stats["score"] = new_score
-		elif _game_stats.has("stage_"+str(num)) and not _game_stats["stage_"+str(num)].has("score"):
-			end_stats["score"] = 0
+					end_stats[SCORE_TEXT] = new_score
+		elif _game_stats.has(STAGE_PREFIX+str(num)) and not _game_stats[STAGE_PREFIX+str(num)].has(SCORE_TEXT):
+			end_stats[SCORE_TEXT] = 0
 			
 	
-	_game_stats["stage_"+str(num)] = end_stats
-	_game_stats["highscore"] = _calc_highscore()
+	_game_stats[STAGE_PREFIX+str(num)] = end_stats
+	_game_stats[HIGHSCORE_TEXT] = _calc_highscore()
 	#_stages_en[num] = 1
 	_cloud_save_data()
 	unlock_enabled_stages()
@@ -170,18 +194,18 @@ func unlock_enabled_stages() -> void:
 		if i == 0:
 			stage_buttons[i].disabled = false
 			continue
-		if not _game_stats.has("stage_"+str(i)):
+		if not _game_stats.has(STAGE_PREFIX+str(i)):
 			stage_buttons[i].disabled = true
 			continue
-		if not _game_stats["stage_"+str(i)].has("score"):
+		if not _game_stats[STAGE_PREFIX+str(i)].has(SCORE_TEXT):
 			stage_buttons[i].disabled = true
 			continue
-		if _game_stats["stage_"+str(i)]["score"] <= 0:
+		if _game_stats[STAGE_PREFIX+str(i)][SCORE_TEXT] <= 0:
 			stage_buttons[i].disabled = true
 			continue
 		stage_buttons[i].disabled = false
 		
-		#if _game_stats.has("stage_"+str(i)):
+		#if _game_stats.has(STAGE_PREFIX+str(i)):
 		#	stage_buttons[i+1].disabled = false
 
 func save_data() -> void:
@@ -206,6 +230,9 @@ func load_data() -> void:
 		if current_line:
 			_game_stats = current_line
 		print_debug(_game_stats)
+		_setup_audio_settings()
+		_setup_rebind_settings()
+		_setup_locale()
 		#_stages_en = file.get_var()
 		
 	else:
@@ -272,7 +299,7 @@ func _on_leader_button_pressed() -> void:
 func update_login_state_label() -> void:
 	if SilentWolf.Auth.logged_in_player:
 		var username = SilentWolf.Auth.logged_in_player
-		login_state_label.text = "LOGGED IN AS " + username
+		login_state_label.text = tr(LOGGED_IN_AS) + username
 		_cloud_load_data()
 		_logout_button.show()
 		_save_data_button.show()
@@ -280,7 +307,7 @@ func update_login_state_label() -> void:
 		_leaderboard_button.show()
 		_login_button.hide()
 	else:
-		login_state_label.text = "NOT LOGGED IN"
+		login_state_label.text = tr(NOT_LOGGED_IN)
 		_logout_button.hide()
 		_save_data_button.hide()
 		_load_data_button.hide()
@@ -299,9 +326,9 @@ func _add_stage_and_button(number: int, button_num: int) -> int:
 	return button_num
 
 func _update_answrs(numbers: String, result: bool) -> void:
-	if not _game_stats.has("answers"):
-		_game_stats["answers"] = {}
-	_game_stats["answers"][numbers] = result
+	if not _game_stats.has(ANSWERS_TEXT):
+		_game_stats[ANSWERS_TEXT] = {}
+	_game_stats[ANSWERS_TEXT][numbers] = result
 
 func _on_cloud_load_button_pressed() -> void:
 	play_button_sound.emit()
@@ -310,7 +337,7 @@ func _on_cloud_load_button_pressed() -> void:
 func _cloud_load_data() -> void:
 	if SilentWolf.Auth.logged_in_player:
 		print_debug("Loading data from cloud")
-		info_label.text = "LOADING DATA"
+		info_label.text = tr(LOADING_DATA)
 		
 		#load data async
 		var sw_result = await SilentWolf.Players.get_player_data(SilentWolf.Auth.logged_in_player).sw_get_player_data_complete
@@ -322,6 +349,9 @@ func _cloud_load_data() -> void:
 			save_data()
 			_cloud_save_data()
 			unlock_enabled_stages()
+			_setup_audio_settings()
+			_setup_rebind_settings()
+			_setup_locale()
 			print_debug("Found data on cloud")
 		else:
 			print_debug("Load failed from cloud")
@@ -334,7 +364,7 @@ func _on_cloud_save_data_pressed() -> void:
 func _cloud_save_data() -> void:
 	save_data()
 	if SilentWolf.Auth.logged_in_player:
-		info_label.text = "SAVING DATA"
+		info_label.text = tr(SAVING_DATA)
 		print_debug("Saving to cloud")
 		var sw_result = await SilentWolf.Players.save_player_data(SilentWolf.Auth.logged_in_player, _game_stats).sw_save_player_data_complete
 		if(sw_result and sw_result.success):
@@ -368,19 +398,19 @@ func find_the_score(stats: Dictionary) -> int:
 	return score
 
 func upload_lead_score():
-	if not _game_stats.has("highscore") or not SilentWolf.Auth.logged_in_player:
+	if not _game_stats.has(HIGHSCORE_TEXT) or not SilentWolf.Auth.logged_in_player:
 		return
 	var sw_result = await SilentWolf.Scores.get_top_score_by_player(SilentWolf.Auth.logged_in_player).sw_top_player_score_complete
 	print_debug(sw_result)
 	if sw_result == null:
 		return
-	print_debug(sw_result["top_score"]["score"])
-	print_debug(_game_stats["highscore"])
-	if sw_result["top_score"]["score"] >= _game_stats["highscore"]:
+	print_debug(sw_result["top_score"][SCORE_TEXT])
+	print_debug(_game_stats[HIGHSCORE_TEXT])
+	if sw_result["top_score"][SCORE_TEXT] >= _game_stats[HIGHSCORE_TEXT]:
 		print_debug("Highscore has not changed or improved")
 		return
-	info_label.text = "SAVING HIGHSCORE"
-	var sw_score_result: Dictionary = await SilentWolf.Scores.save_score(SilentWolf.Auth.logged_in_player, _game_stats["highscore"]).sw_save_score_complete
+	info_label.text = tr(SAVING_HIGHSCORE)
+	var sw_score_result: Dictionary = await SilentWolf.Scores.save_score(SilentWolf.Auth.logged_in_player, _game_stats[HIGHSCORE_TEXT]).sw_save_score_complete
 	info_label.text = ""
 	print_debug("Score persisted successfully: " + str(sw_score_result.score_id))
 
@@ -388,8 +418,8 @@ func _calc_highscore() -> int:
 	var score: int = 0
 	for stat : String in _game_stats:
 		if stat.begins_with("stage"):
-			if _game_stats[stat].has("score"):
-				score += _game_stats[stat]["score"]
+			if _game_stats[stat].has(SCORE_TEXT):
+				score += _game_stats[stat][SCORE_TEXT]
 	
 	return score
 
@@ -421,6 +451,36 @@ func setupButtons() -> void:
 	for button in stage_buttons:
 		button.pressed.connect(_on_stage_button_pressed.bind(button.text))
 	unlock_enabled_stages()
+
+func _setup_audio_settings() -> void:
+	if _audio_options == null:
+		print_debug("No audio options provided")
+		return
+	if _audio_options.has_method("initialiase_values"):
+		_audio_options.initialiase_values()
+	if _audio_options.has_method("load_values") and _game_stats.has(SOUND_TEXT):
+		_audio_options.load_values(_game_stats[SOUND_TEXT][MASTER_TEXT],_game_stats[SOUND_TEXT][MUSIC_TEXT],_game_stats[SOUND_TEXT][SFX_TEXT])
+
+func _setup_rebind_settings() -> void:
+	if _rebind_menu == null:
+		print_debug("No rebind menu provided")
+		return
+	if _game_stats.has("rebinds"):
+		for rebind in _game_stats["rebinds"]:
+			if _rebind_menu.has_method("change_input"):
+				_rebind_menu.change_input(rebind, _game_stats["rebinds"][rebind])
+
+func _setup_locale() -> void:
+	if not _game_stats.has(LANGUAGE_TEXT):
+		print_debug("No saved locale option")
+		TranslationServer.set_locale(ENGLISH_LOC)
+	else:
+		match _game_stats[LANGUAGE_TEXT]:
+			ENGLISH_LOC:
+				locale_options.selected = 0
+			GREEK_LOC:
+				locale_options.selected = 1
+		TranslationServer.set_locale(_game_stats[LANGUAGE_TEXT])
 
 func _enableStatsScreen() -> void:
 	play_button_sound.emit()
@@ -474,10 +534,7 @@ func set_audio_options(opt: Control) -> void:
 		return
 	_audio_options = opt
 	audio_options_button.pressed.connect(_on_audio_options_button_pressed)
-	if _audio_options.has_method("initialiase_values"):
-		_audio_options.initialiase_values()
-	if _audio_options.has_method("load_values") and _game_stats.has("sound"):
-		_audio_options.load_values(_game_stats["sound"]["master"],_game_stats["sound"]["music"],_game_stats["sound"]["sfx"])
+	_setup_audio_settings()
 	if _audio_options.has_signal("audio_values_changed"):
 		_audio_options.audio_values_changed.connect(_on_audio_values_changed)
 	if _audio_options.has_signal("on_button_pressed"):
@@ -496,20 +553,17 @@ func set_rebind_menu(reb: Control) -> void:
 		_rebind_menu.on_button_pressed.connect(_on_button_play_sound)
 	if _rebind_menu.has_signal("on_reset_pressed"):
 		_rebind_menu.on_reset_pressed.connect(_clear_rebound_values)
-	if _game_stats.has("rebinds"):
-		for rebind in _game_stats["rebinds"]:
-			if _rebind_menu.has_method("change_input"):
-				_rebind_menu.change_input(rebind, _game_stats["rebinds"][rebind])
+	_setup_rebind_settings()
 
 func _on_audio_values_changed(master: float, music: float, sfx: float):
 	#print_debug("master volume: "+ str(master))
 	#print_debug("music volume: "+ str(music))
 	#print_debug("sfx volume: "+ str(sfx))
-	if not _game_stats.has("sound"):
-		_game_stats["sound"] = {}
-	_game_stats["sound"]["master"] = master
-	_game_stats["sound"]["music"] = music
-	_game_stats["sound"]["sfx"] = sfx
+	if not _game_stats.has(SOUND_TEXT):
+		_game_stats[SOUND_TEXT] = {}
+	_game_stats[SOUND_TEXT][MASTER_TEXT] = master
+	_game_stats[SOUND_TEXT][MUSIC_TEXT] = music
+	_game_stats[SOUND_TEXT][SFX_TEXT] = sfx
 	_cloud_save_data()
 	
 func _on_rebind_happen(action_to_remap : String, event_text: String) -> void:
@@ -530,3 +584,14 @@ func _clear_rebound_values() -> void:
 		_cloud_save_data()
 	else:
 		print_debug("No rebound values found")
+
+func _on_locale_options_item_selected(index: int) -> void:
+	if not _game_stats.has(LANGUAGE_TEXT):
+		_game_stats[LANGUAGE_TEXT] = {}
+	match index:
+		0:
+			_game_stats[LANGUAGE_TEXT] = ENGLISH_LOC
+		1:
+			_game_stats[LANGUAGE_TEXT] = GREEK_LOC
+	save_data()
+	_setup_locale()

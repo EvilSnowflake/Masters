@@ -3,8 +3,8 @@ extends Control
 
 const SCORE_ITEM = preload("res://scenes/score_item.tscn")
 const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
-const NOSCORES = "NO SCORES YET!"
-const LOADING = "LOADING SCORES..."
+const NOSCORES = "NO_SCORES_TEXT"
+const LOADING = "LOADING_SCORES_TEXT"
 
 var list_index = 0
 # Replace the leaderboard name if you're not using the default leaderboard
@@ -36,7 +36,7 @@ func _ready():
 		render_board(scores, local_scores)
 	else:
 		# use a signal to notify when the high scores have been returned, and show a "loading" animation until it's the case...
-		show_message(LOADING)
+		show_message(tr(LOADING))
 		var sw_result = await SilentWolf.Scores.get_scores().sw_get_scores_complete
 		scores = sw_result.scores
 		hide_message()
@@ -47,10 +47,10 @@ func render_board(scores: Array, local_scores: Array) -> void:
 	if ld_name in SilentWolf.Scores.ldboard_config and is_default_leaderboard(SilentWolf.Scores.ldboard_config[ld_name]):
 		all_scores = merge_scores_with_local_scores(scores, local_scores, max_scores)
 		if scores.is_empty() and local_scores.is_empty():
-			show_message(NOSCORES)
+			show_message(tr(NOSCORES))
 	else:
 		if scores.is_empty():
-			show_message(NOSCORES)
+			show_message(tr(NOSCORES))
 	if all_scores.is_empty():
 		for score in scores:
 			add_item(score.player_name, str(int(score.score)))

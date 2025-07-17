@@ -1,7 +1,10 @@
 extends Control
 
-const RED = Color(1.0,0.0,0.0,1.0)
-const WHITE = Color(1.0,1.0,1.0,1.0)
+const PROCESSING: String = "PROCESSING_TEXT"
+const CODE_CANT_SEND: String = "CODE_CANT_SENT_TEXT"
+const PASS_CANT_RESET: String = "PASS_CANT_RESET_TEXT"
+const RED: Color = Color(1.0,0.0,0.0,1.0)
+const WHITE: Color = Color(1.0,1.0,1.0,1.0)
 
 var player_name = null
 var login_scene = "res://scenes/login_screen.tscn"
@@ -67,7 +70,7 @@ func _on_rf_submitButton_pressed() -> void:
 	player_name = rf_name_line_edit.text
 	anti_click_panel.show()
 	SilentWolf.Auth.request_player_password_reset(player_name)
-	_show_rf_info("Processing")
+	_show_rf_info(tr(PROCESSING))
 
 func _on_pwd_submitButton_pressed() -> void:
 	play_button_sound.emit()
@@ -76,7 +79,7 @@ func _on_pwd_submitButton_pressed() -> void:
 	var password = pwd_password_line_edit.text
 	var confirm_password = pwd_confirm_pass_line_edit.text
 	SilentWolf.Auth.reset_player_password(player_name, code, password, confirm_password)
-	_show_pwdrf_info("Processin")
+	_show_pwdrf_info(tr(PROCESSING))
 
 func send_code_success() -> void:
 	request_form_info_label.hide()
@@ -84,7 +87,7 @@ func send_code_success() -> void:
 	pwd_reset_form_container.show()
 
 func send_code_failure(error: String) -> void:
-	_show_rf_info("Could not send confirmation code. " + str(error),RED)
+	_show_rf_info(tr(CODE_CANT_SEND) + str(error),RED)
 	
 func _on_reset_complete(sw_result: Dictionary) -> void:
 	anti_click_panel.hide()
@@ -99,7 +102,7 @@ func reset_success() -> void:
 	password_changed_container.show()
 
 func reset_failure(error: String) -> void:
-	_show_pwdrf_info("Could not reset password. " + str(error), RED)
+	_show_pwdrf_info(tr(PASS_CANT_RESET) + str(error), RED)
 
 func _show_pwdrf_info(text: String, colr: Color = WHITE) -> void:
 	pwd_reset_info_label.text = text

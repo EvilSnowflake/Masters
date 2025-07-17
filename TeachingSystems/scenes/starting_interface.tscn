@@ -112,20 +112,14 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("5_35nuw")
 theme_override_font_sizes/font_size = 64
-text = "MULTIPLICATION
-TEACHING SYSTEM"
+text = "TITLE_TEXT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Subtitle" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("5_35nuw")
-text = "Project Created by Panagiotis Vailakis MPSP2305
-Using Godot Game Engine
-Assets Created by craftpix.net
-MUSIC TRACKS : 
-\"PASSENGERS\" BY CHROMONICCI
-\"MANIFOLD\" BY WEIRD INSIDE"
+text = "SUBTITLE_TEXT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -136,6 +130,6 @@ theme_override_colors/font_color = Color(0.537011, 0.537011, 0.537011, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 4
-text = "LEFT CLICK TO CONTINUE"
+text = "STARTING_INTERFACE_CONTINUE"
 horizontal_alignment = 1
 vertical_alignment = 1

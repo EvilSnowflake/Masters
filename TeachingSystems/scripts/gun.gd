@@ -76,6 +76,9 @@ func get_bullet_persistance() -> int:
 	return bullet_persistance
 
 func set_attack_speed(value: float):
+	if shooting_timer.wait_time <= 0.05:
+		print_debug("Wait time can't be reduced further")
+		return
 	shooting_timer.wait_time = value
 	
 func get_attack_speed() -> float:

@@ -1,11 +1,15 @@
 extends CharacterBody2D
 
-@export var _speed: int :
-	set(value):
-		_speed = value
-	get:
-		return _speed
-		
+const INCREASED: String = "INCREASED_TEXT"
+const DECREASED: String = "DECREASED_TEXT"
+const HEALTH: String = "HEALTH_TEXT"
+const MOVE_SPEED: String = "MOVE_SPEED_TEXT"
+const RANGE: String = "RANGE_TEXT"
+const PERSISTANCE: String = "PERSISTANCE_TEXT"
+const DAMAGE: String = "DAMAGE_TEXT"
+const NONE: String = "NONE_TEXT"
+const FIRE_SPEED: String = "FIRE_SPEED_TEXT"
+
 var _lvl_req = 3
 var _died: bool = false
 var _paused_game: bool = false
@@ -15,6 +19,8 @@ var _max_health: float
 var _damage_rate: float
 var _char_level: int
 var _resources_to_lvl: int
+var game
+var stats_num: int = 5
 
 @export var default_health : float = 20.0
 @export var default_max_health: float = 20.0
@@ -22,6 +28,11 @@ var _resources_to_lvl: int
 @export var default_char_level: int = 1
 @export var default_resources_to_lvl: int = 0
 @export var default_speed: int = 200
+@export var _speed: int :
+	set(value):
+		_speed = value
+	get:
+		return _speed
 
 @onready var gun = %Gun
 @onready var cyborg_player = %Cyborg_Player
@@ -36,9 +47,7 @@ signal on_shoot_performed()
 signal on_item_picked()
 signal on_rewarded(powered: bool)
 
-var game
 enum Reward {NEGATIVE = -1, SMALL = 0, MEDIUM = 1, LARGE = 2}
-var stats_num: int = 5
 
 func _ready():
 	print_debug("reset char")
@@ -111,7 +120,7 @@ func level_up():
 		stat_change = give_reward(Reward.SMALL)
 		
 	for change in stat_change:
-		on_levelup.emit(change + " INCREASED!", Color.GREEN, _char_level)
+		on_levelup.emit(change + tr(INCREASED), Color.GREEN, _char_level)
 
 func _on_pickup_box_body_entered(body):
 	if(body.has_method("assign_picker")):
@@ -129,7 +138,7 @@ func add_bullet_damage(value: int):
 func add_bullet_persistance(value: int):
 	gun.set_bullet_persistance(gun.get_bullet_persistance() + value)
 func add_gun_attack_speed(value: float):
-	gun.set_attack_speed(gun.get_attack_speed() + value)
+	gun.set_attack_speed(gun.get_attack_speed() - gun.get_attack_speed()*value)
 
 func disempower():
 	_max_health = _max_health*(0.1)
@@ -146,34 +155,34 @@ func give_reward(rwrd: Reward) -> Array[String]:
 		Reward.NEGATIVE:
 			on_rewarded.emit(false)
 			disempower()
-			return(["HP","MOVE SPEED","RANGE","PERSISTANCE","DAMAGE"])
+			return([tr(HEALTH),tr(MOVE_SPEED),tr(RANGE),tr(PERSISTANCE),tr(DAMAGE)])
 		Reward.SMALL:
 			on_rewarded.emit(true)
 			_max_health += 1
 			_health += 1
 			if(rand_stat == 1):
 				add_speed(10)
-				return(["MOVE SPEED","HEALTH"])
+				return([tr(MOVE_SPEED),tr(HEALTH)])
 			else:
 				add_range(5)
-				return(["RANGE","HEALTH"])
+				return([tr(RANGE),tr(HEALTH)])
 		Reward.MEDIUM:
 			on_rewarded.emit(true)
 			_max_health += 5
 			_health += 5
 			add_gun_attack_speed(0.1)
-			return(["FIRE SPEED","HEALTH"])
+			return([tr(FIRE_SPEED),tr(HEALTH)])
 		Reward.LARGE:
 			on_rewarded.emit(true)
 			_max_health += 10
 			_health = _max_health
 			if(rand_stat == 1):
 				add_bullet_damage(1)
-				return(["DAMAGE","HEALTH"])
+				return([tr(DAMAGE),tr(HEALTH)])
 			else:
 				add_bullet_persistance(1)
-				return(["PERSISTANCE","HEALTH"])
-	return(["NONE"])
+				return([tr(PERSISTANCE),tr(HEALTH)])
+	return([tr(NONE)])
 
 func reset_values()-> void:
 	_health = default_health

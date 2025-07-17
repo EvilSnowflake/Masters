@@ -3,7 +3,9 @@ extends Control
 const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
 const RED = Color(1.0,0.0,0.0,1.0)
 const WHITE = Color(1.0,1.0,1.0,1.0)
-const PROCESSING = "PROCESSING"
+const PROCESSING = "PROCESSING_TEXT"
+const CONFIRMATION_RESENT = "CODE_RESENT_TEXT"
+const CONFIRMATION_CANT_RESENT = "CODE_CANT_RESENT_TEXT"
 
 @onready var info_label = $MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer/InfoLabel
 @onready var submit_button = $MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer2/SubmitButton
@@ -49,14 +51,14 @@ func _on_resend_code_complete(sw_result: Dictionary) -> void:
 
 func resend_code_success() -> void:
 	SWLogger.info("Code resend succeeded for player: " + str(SilentWolf.Auth.tmp_username))
-	_show_infoLabel("Confirmation code was resent to your email address. Please check your inbox (and your spam).", RED)
+	_show_infoLabel(tr(CONFIRMATION_RESENT), RED)
 
 func resend_code_failure() -> void:
 	SWLogger.info("Code resend failed for player: " + str(SilentWolf.Auth.tmp_username))
-	_show_infoLabel("Confirmation code could not be resent", RED)
+	_show_infoLabel(tr(CONFIRMATION_CANT_RESENT), RED)
 
 func _show_infoLabel(text: String, colr: Color = WHITE) -> void:
-	info_label.text = text
+	info_label.text = tr(text)
 	info_label.set("theme_override_colors/font_color",colr)
 	info_label.show()
 
@@ -71,14 +73,14 @@ func _on_submitButton_pressed() -> void:
 	var code = code_line_edit.text
 	SWLogger.debug("Email verification form submitted, code: " + str(code))
 	SilentWolf.Auth.verify_email(username, code)
-	_show_infoLabel(PROCESSING)
+	_show_infoLabel(tr(PROCESSING))
 
 func _on_resendButton_pressed() -> void:
 	play_button_sound.emit()
 	var username = SilentWolf.Auth.tmp_username
 	SWLogger.debug("Requesting confirmation code resend")
 	SilentWolf.Auth.resend_conf_code(username)
-	_show_infoLabel(PROCESSING)
+	_show_infoLabel(tr(PROCESSING))
 
 func _on_button_play_sound() -> void:
 	button_audio_player.play()

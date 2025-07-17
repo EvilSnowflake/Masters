@@ -51,7 +51,7 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("1_indre")
 theme_type_variation = &"LeaderboardsButton"
-text = "BACK"
+text = "BACK_BUTTON"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -61,7 +61,7 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("1_indre")
 theme_override_font_sizes/font_size = 75
-text = "LEADERBOARDS"
+text = "LEADERBOARD_BUTTON"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

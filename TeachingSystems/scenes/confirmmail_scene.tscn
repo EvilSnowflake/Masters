@@ -54,7 +54,7 @@ layout_mode = 2
 theme = ExtResource("1_dpxav")
 theme_override_colors/font_color = Color(0.54099, 0.54099, 0.54099, 1)
 theme_override_font_sizes/font_size = 50
-text = "CONFIRM YOUR EMAIL ADDRESS"
+text = "CONFIRM_EMAIL_LABEL"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 60)
@@ -70,7 +70,7 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("1_dpxav")
 theme_override_font_sizes/font_size = 30
-text = "CODE:"
+text = "CODE_LABEL"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -104,13 +104,13 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("1_dpxav")
 theme_type_variation = &"LeaderboardsButton"
-text = "SUBMIT"
+text = "SUBMIT_BUTTON"
 
 [node name="ResendButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("1_dpxav")
 theme_type_variation = &"LeaderboardsButton"
-text = "RESEND CODE"
+text = "RESEND_CODE_BUTTON"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

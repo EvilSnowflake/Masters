@@ -78,7 +78,7 @@ theme = ExtResource("2_24pys")
 theme_type_variation = &"LeaderboardsButton"
 theme_override_fonts/font = ExtResource("1_h3cjw")
 theme_override_font_sizes/font_size = 30
-text = "BACK"
+text = "BACK_BUTTON"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -89,7 +89,7 @@ theme_override_constants/separation = 24
 alignment = 1
 
 [node name="total_enemies" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
 theme_override_font_sizes/font_size = 18
@@ -98,7 +98,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="total_time" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
 theme_override_font_sizes/font_size = 18
@@ -107,7 +107,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="correct_answers" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
 theme_override_font_sizes/font_size = 18
@@ -116,7 +116,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="wrong_answers" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
 theme_override_font_sizes/font_size = 18
@@ -125,7 +125,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="score" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
 theme_override_font_sizes/font_size = 18
@@ -139,47 +139,47 @@ theme_override_constants/separation = 24
 alignment = 1
 
 [node name="Enemies_Text" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Labels2Container"]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
-theme_override_font_sizes/font_size = 18
-text = "ENEMIES"
+theme_override_font_sizes/font_size = 13
+text = "ENEMIES_TEXT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Time_Text" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Labels2Container"]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
-theme_override_font_sizes/font_size = 18
-text = "TIME"
+theme_override_font_sizes/font_size = 13
+text = "TIME_TEXT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CorrAnsw_Text" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Labels2Container"]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
-theme_override_font_sizes/font_size = 18
-text = "C. ANSWERS"
+theme_override_font_sizes/font_size = 13
+text = "CORRECT_ANSWERS_TEXT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="WrongAns_Text" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Labels2Container"]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
-theme_override_font_sizes/font_size = 18
-text = "W. ANSWERS"
+theme_override_font_sizes/font_size = 13
+text = "WRONG_ANSWERS_TEXT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Score_Text" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Labels2Container"]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("2_24pys")
-theme_override_font_sizes/font_size = 18
-text = "SCORE"
+theme_override_font_sizes/font_size = 13
+text = "SCORE_TEXT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -194,5 +194,5 @@ theme_override_font_sizes/font_size = 30
 selected = 0
 fit_to_longest_item = false
 item_count = 1
-popup/item_0/text = "stages"
+popup/item_0/text = "STAGES_TEXT"
 popup/item_0/id = 0
