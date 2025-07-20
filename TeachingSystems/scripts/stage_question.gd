@@ -1,24 +1,38 @@
 extends Control
 
+const MAX_WRONG_NUM: int = 3
+const CORRECT: String = "CORRECT_TEXT"
+const WRONG: String = "WRONG_TEXT"
+const RED: Color = Color(1.0,0.0,0.0,1.0)
+const GREEN: Color = Color(0.0, 1.0, 0.0, 1.0)
+
 var _wave_num: int = 1
 var _stage_num: int = 1
+var _countdown_timer: Timer
+var _outcome_label: Label
+var _answer_given: int = 0
 var first_num: int = 0
 var second_num: int = 0
 var max_num: int = 10
 var num_in_propedia: int = 10
 var menu_screen_node : Control
-
+var correct_answer_num: int = 0
+var wrong_answer_num: int = 0
 
 @onready var possible_answers = %Possible_Answers
 @onready var question_num_1 = %Question_Num_1
 @onready var question_num_2 = %Question_Num_2
 
-var correct_answer_num = 0
+@export var result_item: ColorRect
+
 signal answer_given(numbers: String, result: bool)
 signal play_button_sound()
+signal too_many_wrong_answers()
 
 func _ready():
-	pass
+	_outcome_label = result_item.get_child(0)
+	_countdown_timer = result_item.get_child(1)
+	_countdown_timer.timeout.connect(_on_countdown_timer_timeout)
 
 func set_numbers(wave: int, stage: int):
 	_wave_num = wave
@@ -71,6 +85,7 @@ func create_question():
 		if false_prev.begins_with(str(_stage_num)) and int(false_prev.right(1))<=num_in_propedia:
 			false_prev_answers.append(false_prev)
 	print_debug(false_prev_answers)
+	wrong_answer_num = false_prev_answers.size()
 	print_debug("Correct previous answers")
 	var true_prev_answers: Array[String] = [] 
 	for index in true_indexes:
@@ -127,9 +142,26 @@ func create_question():
 
 func _on_question_button_pressed(answer: int):
 	play_button_sound.emit()
+	_answer_given = answer
 	for i in range(possible_answers.get_child_count()):
 		if(i == correct_answer_num):
 			possible_answers.get_child(i).pressed.disconnect(_on_question_button_pressed)
 		else:
 			possible_answers.get_child(i).pressed.disconnect(_on_question_button_pressed)
-	answer_given.emit(str(first_num)+"|"+str(second_num),answer == first_num*second_num)
+	#answer_given.emit(str(first_num)+"|"+str(second_num),answer == first_num*second_num)
+	#if wrong_answer_num >= MAX_WRONG_NUM:
+	#	too_many_wrong_answers.emit()
+	if answer == first_num*second_num:
+		_outcome_label.text = CORRECT
+		_outcome_label.set("theme_override_colors/font_color",GREEN)
+	else:
+		_outcome_label.text = WRONG
+		_outcome_label.set("theme_override_colors/font_color",RED)
+	result_item.show()
+	_countdown_timer.start()
+
+func _on_countdown_timer_timeout() -> void:
+	result_item.hide()
+	answer_given.emit(str(first_num)+"|"+str(second_num),_answer_given == first_num*second_num)
+	if wrong_answer_num >= MAX_WRONG_NUM and _answer_given != first_num*second_num:
+		too_many_wrong_answers.emit()

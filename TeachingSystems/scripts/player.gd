@@ -61,7 +61,7 @@ func _ready():
 		gun.on_shoot_performed.connect(emit_shoot_signal)
 
 func _physics_process(delta):
-	if _paused_game == true:
+	if _paused_game == true or _died == true:
 		return
 	var direction = Input.get_vector("Left","Right","Up","Down")
 	velocity = direction * _speed

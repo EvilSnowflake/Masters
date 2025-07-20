@@ -1,19 +1,20 @@
 [gd_scene load_steps=10 format=3 uid="uid://fi5ofs2oiks8"]
 
-[ext_resource type="Texture2D" uid="uid://pk4xsycsl7lg" path="res://assets/CityBackground/1 Backgrounds/8/Night/2.png" id="1_1aqtf"]
 [ext_resource type="Script" uid="uid://dpwx1f2wlufee" path="res://scripts/starting_interface.gd" id="1_jkb48"]
-[ext_resource type="Texture2D" uid="uid://co0lk0eyktyqf" path="res://assets/CityBackground/1 Backgrounds/8/Night/3.png" id="2_70umy"]
-[ext_resource type="Texture2D" uid="uid://bai0jy5s51sfj" path="res://assets/CityBackground/1 Backgrounds/8/Night/1.png" id="2_edsu6"]
-[ext_resource type="Texture2D" uid="uid://bi3fbw2cj0mtj" path="res://assets/CityBackground/1 Backgrounds/8/Night/4.png" id="3_m4p18"]
-[ext_resource type="Texture2D" uid="uid://ber3nken3coqd" path="res://assets/CityBackground/1 Backgrounds/8/Night/5.png" id="4_bn742"]
+[ext_resource type="Texture2D" uid="uid://bt55whelrvp6v" path="res://assets/CityBackground/1 Backgrounds/2/Night/1.png" id="2_nx0ll"]
+[ext_resource type="Texture2D" uid="uid://c6by0emc0mkjc" path="res://assets/CityBackground/1 Backgrounds/2/Night/2.png" id="3_tvext"]
+[ext_resource type="Texture2D" uid="uid://d172qcff0ku63" path="res://assets/CityBackground/1 Backgrounds/2/Night/3.png" id="4_bq1j6"]
 [ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="5_35nuw"]
+[ext_resource type="Texture2D" uid="uid://baj5dwhe0p542" path="res://assets/CityBackground/1 Backgrounds/2/Night/4.png" id="5_bai0p"]
+[ext_resource type="Texture2D" uid="uid://ccf1iny5ct7rl" path="res://assets/CityBackground/1 Backgrounds/2/Night/5.png" id="6_ct7ov"]
 
-[sub_resource type="Gradient" id="Gradient_6ob2t"]
-offsets = PackedFloat32Array(0, 0.525974, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.201299, 0.201299, 0.201299, 1, 0.244776, 0.244776, 0.244776, 1)
+[sub_resource type="Gradient" id="Gradient_rpwag"]
+colors = PackedColorArray(0, 0.195909, 1, 1, 0.760784, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_8na5g"]
-gradient = SubResource("Gradient_6ob2t")
+gradient = SubResource("Gradient_rpwag")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
 
 [node name="Starting_Interface" type="Control"]
 layout_mode = 3
@@ -33,49 +34,54 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Background"]
+self_modulate = Color(0.849309, 0.909173, 1, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_edsu6")
+texture = ExtResource("2_nx0ll")
 
 [node name="TextureRect2" type="TextureRect" parent="Background"]
+self_modulate = Color(0.141176, 0.560784, 1, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_1aqtf")
+texture = ExtResource("3_tvext")
 
 [node name="TextureRect3" type="TextureRect" parent="Background"]
+self_modulate = Color(0.141176, 0.560784, 1, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_70umy")
+texture = ExtResource("4_bq1j6")
 
 [node name="TextureRect4" type="TextureRect" parent="Background"]
+self_modulate = Color(0.141176, 0.560784, 1, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_m4p18")
+texture = ExtResource("5_bai0p")
 
 [node name="TextureRect5" type="TextureRect" parent="Background"]
+self_modulate = Color(0.141176, 0.560784, 1, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_bn742")
+texture = ExtResource("6_ct7ov")
 
 [node name="TextureRect6" type="TextureRect" parent="Background"]
 modulate = Color(1, 1, 1, 0.811765)
@@ -126,7 +132,7 @@ vertical_alignment = 1
 [node name="Continue_Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("5_35nuw")
-theme_override_colors/font_color = Color(0.537011, 0.537011, 0.537011, 1)
+theme_override_colors/font_color = Color(0.080511, 0.569452, 0.846651, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 4

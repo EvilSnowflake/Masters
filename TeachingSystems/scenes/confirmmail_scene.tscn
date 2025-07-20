@@ -118,5 +118,6 @@ alignment = 1
 
 [node name="AntiClickPanel" type="Panel" parent="MarginContainer"]
 unique_name_in_owner = true
+visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2

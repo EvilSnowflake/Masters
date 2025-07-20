@@ -33,6 +33,7 @@ func _ready():
 	password_tool_button.mouse_entered.connect(_on_passwordtoolbutton_mouse_entered)
 	password_tool_button.mouse_exited.connect(_on_passwordtoolbutton_mouse_exited)
 	play_button_sound.connect(_on_button_play_sound)
+	wait_timer.timeout.connect(_on_wait_timer_timout)
 
 func _on_registration_complete(sw_result: Dictionary) -> void:
 	if sw_result.success:

@@ -299,8 +299,7 @@ func _on_leader_button_pressed() -> void:
 func update_login_state_label() -> void:
 	if SilentWolf.Auth.logged_in_player:
 		var username = SilentWolf.Auth.logged_in_player
-		login_state_label.text = LOGGED_IN_AS + username
-		_cloud_load_data()
+		login_state_label.text = tr(LOGGED_IN_AS) + " " + username
 		_logout_button.show()
 		_save_data_button.show()
 		_load_data_button.show()

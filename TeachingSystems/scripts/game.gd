@@ -64,6 +64,8 @@ func _ready():
 		player.on_rewarded.connect(_emit_player_rewarded)
 	if pauses.get_child(1).has_signal("answer_given"):
 		pauses.get_child(1).answer_given.connect(_on_stage_question_answer)
+	if pauses.get_child(1).has_signal("too_many_wrong_answers"):
+		pauses.get_child(1).too_many_wrong_answers.connect(_on_too_many_wrong_answers)
 	if audio_button != null:
 		audio_button.pressed.connect(_on_audio_button_pressed)
 	
@@ -109,13 +111,13 @@ func _on_spawn_timer_timeout() -> void:
 func pause(pause_kind: int) -> void:
 	
 	if(_paused):
-		if(pause_kind == 0):
+		if(pause_kind == 0 or pause_kind == 2):
 			game_music.stream_paused = false
 		pauses.get_child(pause_kind).hide()
 		time_timer.start()
 		Engine.time_scale = 1
 	else:
-		if(pause_kind == 0):
+		if(pause_kind == 0 or pause_kind == 2):
 			game_music.stream_paused = true
 		pauses.get_child(pause_kind).show()
 		time_timer.stop()
@@ -126,7 +128,7 @@ func pause(pause_kind: int) -> void:
 		if(pauses.get_child(pause_kind).has_method("change_labels")):
 			var stgMat = ""
 			for i in range(1,_max_waves+1):
-				stgMat += str(_propedia_num)+"x"+str(i)+"="+str(i*_propedia_num)+"|"
+				stgMat += str(_propedia_num)+"x"+str(i)+"="+str(i*_propedia_num)+"\n"
 			stgMat = stgMat.left(stgMat.length()-1)
 			pauses.get_child(pause_kind).change_labels(str(_propedia_num),stgMat)
 	_paused = !_paused
@@ -206,10 +208,13 @@ func _on_stage_question_answer(_numbers: String, result: bool) -> void:
 			var stat_change: Array[String] = player.give_reward(-1)
 			for change in stat_change:
 				spawn_stat_notification(change + tr(DECREASED),Color.RED)
-		
+	#pause(2)
 
 func _on_stage_propedia_pressed_return() -> void:
-	game_music.playing = true
+	#game_music.playing = true
+	#game_music.stream_paused = false
+	if game_music.playing == false and game_music.stream_paused == false:
+		game_music.play()
 	pause(2)
 
 func _on_time_timer_timeout() -> void:
@@ -249,3 +254,6 @@ func _emit_player_rewarded(powered: bool) -> void:
 
 func _on_audio_button_pressed() -> void:
 	show_audio_frame.emit()
+
+func _on_too_many_wrong_answers() -> void:
+	pause(2)

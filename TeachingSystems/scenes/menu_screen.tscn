@@ -1,12 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://bv2uqp01l1qbi"]
+[gd_scene load_steps=23 format=3 uid="uid://bv2uqp01l1qbi"]
 
 [ext_resource type="Script" uid="uid://ce74vlad7dvj8" path="res://scripts/menu_screen.gd" id="1_tejro"]
-[ext_resource type="Texture2D" uid="uid://cdu8fh8kvdj02" path="res://assets/CityBackground/1 Backgrounds/1/Day/1.png" id="1_wxxc3"]
-[ext_resource type="Texture2D" uid="uid://5rlbkjide3bj" path="res://assets/CityBackground/1 Backgrounds/1/Day/2.png" id="2_yh2yd"]
-[ext_resource type="Texture2D" uid="uid://bavasnwyl2t3c" path="res://assets/CityBackground/1 Backgrounds/1/Day/3.png" id="3_avrd5"]
-[ext_resource type="Texture2D" uid="uid://b02hf6odf3740" path="res://assets/CityBackground/1 Backgrounds/1/Day/4.png" id="4_h8pmw"]
-[ext_resource type="Texture2D" uid="uid://c31uatjch3gg1" path="res://assets/CityBackground/1 Backgrounds/1/Day/5.png" id="5_jkl2y"]
+[ext_resource type="Texture2D" uid="uid://7rhwi4sq4uls" path="res://assets/CityBackground/1 Backgrounds/2/Day/1.png" id="2_sx8ls"]
+[ext_resource type="Texture2D" uid="uid://5eyr4bqadrxa" path="res://assets/CityBackground/1 Backgrounds/2/Day/2.png" id="3_abkyv"]
+[ext_resource type="Shader" uid="uid://ctb3dvsilhip4" path="res://assets/Shaders/outline_sh.gdshader" id="3_teb4y"]
+[ext_resource type="Texture2D" uid="uid://by8x18niuqy8p" path="res://assets/CityBackground/1 Backgrounds/2/Day/3.png" id="4_teb4y"]
+[ext_resource type="Texture2D" uid="uid://dwdud8mxksmxb" path="res://assets/CityBackground/1 Backgrounds/2/Day/4.png" id="5_5d4c3"]
 [ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="6_6ogre"]
+[ext_resource type="Texture2D" uid="uid://b8gh6lp4emluv" path="res://assets/CityBackground/1 Backgrounds/2/Day/5.png" id="6_n6a75"]
 [ext_resource type="PackedScene" uid="uid://vo06pvm6giba" path="res://scenes/controls.tscn" id="8_5dsp7"]
 [ext_resource type="FontFile" uid="uid://sab7pg0qk2nn" path="res://assets/GUI/10 Font/CyberpunkCraftpixPixel.otf" id="8_yuakj"]
 [ext_resource type="PackedScene" uid="uid://6tjmbpgcspdy" path="res://scenes/statistics_scene.tscn" id="10_0m60l"]
@@ -18,6 +19,30 @@
 [ext_resource type="AudioStream" uid="uid://dgiyhilqp2bb5" path="res://assets/Music/step_2.wav" id="16_isoii"]
 [ext_resource type="AudioStream" uid="uid://d0up2o0ws8rww" path="res://assets/Music/userKilled2.wav" id="17_n6a75"]
 [ext_resource type="AudioStream" uid="uid://cdas04ym34e1q" path="res://assets/Music/slider_sound.wav" id="19_abkyv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5d4c3"]
+shader = ExtResource("3_teb4y")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.5
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_abkyv"]
+shader = ExtResource("3_teb4y")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.5
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_teb4y"]
+shader = ExtResource("3_teb4y")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.5
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [node name="MenuScreen" type="Control" node_paths=PackedStringArray("statistics_scn", "audio_options_button", "rebind_button", "locale_options")]
 layout_mode = 3
@@ -41,54 +66,58 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Background"]
-modulate = Color(0.620121, 0.966497, 1, 1)
+modulate = Color(1, 0.787272, 0.999333, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_wxxc3")
+texture = ExtResource("2_sx8ls")
 
 [node name="TextureRect2" type="TextureRect" parent="Background"]
-modulate = Color(1, 0.525908, 0.460418, 1)
+modulate = Color(0.367729, 0.754214, 0.999999, 1)
+material = SubResource("ShaderMaterial_5d4c3")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_yh2yd")
+texture = ExtResource("3_abkyv")
 
 [node name="TextureRect3" type="TextureRect" parent="Background"]
-modulate = Color(0.984426, 0.183821, 0, 1)
+modulate = Color(0.0428233, 0.666359, 0.871866, 1)
+material = SubResource("ShaderMaterial_abkyv")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_avrd5")
+texture = ExtResource("4_teb4y")
 
 [node name="TextureRect4" type="TextureRect" parent="Background"]
-modulate = Color(0.796078, 0, 0.0509804, 1)
+modulate = Color(0.592157, 0.839216, 0.898039, 1)
+material = SubResource("ShaderMaterial_teb4y")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_h8pmw")
+texture = ExtResource("5_5d4c3")
 
 [node name="TextureRect5" type="TextureRect" parent="Background"]
-modulate = Color(0.815686, 0, 0, 1)
+modulate = Color(3.85046e-06, 0.501809, 0.693884, 1)
+material = SubResource("ShaderMaterial_teb4y")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_jkl2y")
+texture = ExtResource("6_n6a75")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -130,12 +159,14 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 16
 text = "CONTROLS_BUTTON"
 
 [node name="AudioOptionsButton" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 16
 text = "AUDIO_BUTTON"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TitleItems"]
@@ -145,22 +176,26 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 16
 text = "EXIT_BUTTON"
 
 [node name="RebindButton" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 16
 text = "REBIND_BUTTON"
 
 [node name="Statistics" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
 theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 16
 text = "STATISTICS_BUTTON"
 
 [node name="Clear_Data" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
 theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 16
 text = "CLEAR_DATA_BUTTON"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TitleItems"]
@@ -188,18 +223,21 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 16
 text = "SIGNUP_TITLE"
 
 [node name="Login" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 16
 text = "LOGIN_BUTTON"
 
 [node name="Logout" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
 visible = false
 layout_mode = 2
 theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 16
 text = "LOGOUT_BUTTON"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/HBoxContainer/TitleItems"]
@@ -210,7 +248,7 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
 text = "SAVE_DATA_BUTTON"
 
 [node name="LoadData" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer3"]
@@ -218,19 +256,20 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_6ogre")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
 text = "LOAD_DATA_BUTTON"
 
 [node name="Leaderboards" type="Button" parent="MarginContainer/HBoxContainer/TitleItems"]
 visible = false
 layout_mode = 2
 theme = ExtResource("6_6ogre")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
 text = "LEADERBOARD_BUTTON"
 
 [node name="PlayerLoginLabel" type="Label" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
 theme = ExtResource("6_6ogre")
+theme_override_font_sizes/font_size = 14
 
 [node name="LocaleOptions" type="OptionButton" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
