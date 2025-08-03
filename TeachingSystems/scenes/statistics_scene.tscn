@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://488xyso4pju6" path="res://assets/GUI/10 Font/CustomFont/multfont_3.ttf" id="1_h3cjw"]
 [ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="2_24pys"]
 
-[node name="statistics_scene" type="Control" node_paths=PackedStringArray("back_button", "labels_container", "texts_container", "stages_button")]
+[node name="statistics_scene" type="Control" node_paths=PackedStringArray("back_button", "labels_container", "texts_container", "stages_button", "interactive_items_collection")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,6 +16,8 @@ back_button = NodePath("MarginContainer/VBoxContainer/BackButtonContainer/BackBu
 labels_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer")
 texts_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Labels2Container")
 stages_button = NodePath("MarginContainer/VBoxContainer/OptionsButtonContianer/OptionButton")
+interactive_items_collection = [NodePath("MarginContainer/VBoxContainer/OptionsButtonContianer/OptionButton"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/Labels2Container/Enemies_Text"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/Labels2Container/Time_Text"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/Labels2Container/CorrAnsw_Text"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/Labels2Container/WrongAns_Text"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/Labels2Container/Score_Text"), NodePath("MarginContainer/VBoxContainer/BackButtonContainer/BackButtton")]
+text_for_interactive_items = Array[String](["Stage Selection Button", "Number of Enemies Beaten", "Time Spent is Stage", "Correct Answers Given", "Wrong Answers Given", "Total Score", "Return to Main Menu"])
 
 [node name="Backgrounds" type="Control" parent="."]
 layout_mode = 1

@@ -1,7 +1,6 @@
 extends Node2D
 
 @onready var menu_screen = %MenuScreen
-@onready var color_rect = %ColorRect
 @onready var menu_music = %Menu_Music
 
 @export var audio_options: Control

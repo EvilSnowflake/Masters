@@ -35,7 +35,11 @@ var _game_stats : Dictionary = {}
 var _current_game: Object
 var _audio_options: Control
 var _rebind_menu: Control
+#var interactive_items_collection: Array[Object]
+#var text_for_interactive_items: Array[String]
 
+@export var interactive_items_collection: Array[Control]
+@export var text_for_interactive_items: Array[String]
 @export var max_num_stage_buttons = 7
 @export var stage_buttons: Array[Button] = []
 @export var num_of_stages = 10
@@ -45,6 +49,8 @@ var _rebind_menu: Control
 @export var audio_options_button: Button
 @export var rebind_button: Button
 @export var locale_options: OptionButton
+@export var controls_button: Button
+
 
 @onready var _register_button =  $MarginContainer/HBoxContainer/TitleItems/HBoxContainer2/Register
 @onready var _login_button = $MarginContainer/HBoxContainer/TitleItems/HBoxContainer2/Login
@@ -73,6 +79,9 @@ var _rebind_menu: Control
 
 signal play_button_sound()
 signal show_anti_click()
+signal send_interactive_items(collection: Array[Control], text: Array[String], announcement: String)
+signal send_only_announcement(announcement: String)
+signal send_scene_for_signals(scene)
 
 func _ready():
 	play_button_sound.connect(_on_button_play_sound)
@@ -80,12 +89,13 @@ func _ready():
 	wait_timer.timeout.connect(_on_wait_timer_timeout)
 	if(controls.has_signal("play_button_sound")):
 		controls.play_button_sound.connect(_on_button_play_sound)
+	controls.hidden.connect(_send_data_to_tts)
 	if(statistics_scn.has_signal("play_button_sound")):
 		statistics_scn.play_button_sound.connect(_on_button_play_sound)
 	
 	#API STUFF
 	_number_req_https.request_completed.connect(_on_request_completed)
-	_number_req_https.request(API_URL)
+	_number_req_https.request(HTTPS_API_URL)
 	
 	_register_button.pressed.connect(_on_register_button_pressed.bind())
 	_login_button.pressed.connect(_on_login_button_pressed.bind())
@@ -94,10 +104,14 @@ func _ready():
 	_load_data_button.pressed.connect(_on_cloud_load_button_pressed)
 	_leaderboard_button.pressed.connect(_on_leader_button_pressed)
 	_statistics_button.pressed.connect(_enableStatsScreen)
+	
 	if rebind_button != null:
 		rebind_button.pressed.connect(_on_rebind_button_pressed)
 	if locale_options != null:
 		locale_options.item_selected.connect(_on_locale_options_item_selected)
+		locale_options.item_focused.connect(_on_locale_options_item_focused)
+		locale_options.pressed.connect(_on_locale_options_button_pressed)
+		locale_options.focus_exited.connect(_on_locale_options_focus_exited)
 	load_data()
 	
 
@@ -111,7 +125,8 @@ func _ready():
 	SilentWolf.Auth.auto_login_player()
 	info_label.text = tr(LOGGING_IN)
 	#unlock_enabled_stages()
-	
+	#interactive_items_collection.append([controls_button,_statistics_button])
+	#interactive_items_collection.append([info_label])
 
 
 func _on_stage_button_pressed(stg_num: String) -> void:
@@ -119,7 +134,7 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 	show_anti_click.emit()
 	wait_timer.start()
 	await wait_timer.timeout
-	
+	_send_data_to_tts()
 	if(stage_menu.has_method("create_game")):
 		_current_game = stage_menu.create_game(int(stg_num),num_in_propedia)
 		if _current_game.has_method("get_stage_quest"):
@@ -180,7 +195,8 @@ func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bo
 
 func _on_controls_button_pressed() -> void:
 	play_button_sound.emit()
-	controls.show()
+	if controls.has_method("show_controls_menu"):
+		controls.show_controls_menu(num_in_propedia,num_of_stages)
 
 func _on_exit_pressed() -> void:
 	play_button_sound.emit()
@@ -193,17 +209,22 @@ func unlock_enabled_stages() -> void:
 	for i in range(num_of_stages):
 		if i == 0:
 			stage_buttons[i].disabled = false
+			stage_buttons[i].focus_mode = Control.FOCUS_ALL
 			continue
 		if not _game_stats.has(STAGE_PREFIX+str(i)):
 			stage_buttons[i].disabled = true
+			stage_buttons[i].focus_mode = Control.FOCUS_NONE
 			continue
 		if not _game_stats[STAGE_PREFIX+str(i)].has(SCORE_TEXT):
 			stage_buttons[i].disabled = true
+			stage_buttons[i].focus_mode = Control.FOCUS_NONE
 			continue
 		if _game_stats[STAGE_PREFIX+str(i)][SCORE_TEXT] <= 0:
 			stage_buttons[i].disabled = true
+			stage_buttons[i].focus_mode = Control.FOCUS_NONE
 			continue
 		stage_buttons[i].disabled = false
+		stage_buttons[i].focus_mode = Control.FOCUS_ALL
 		
 		#if _game_stats.has(STAGE_PREFIX+str(i)):
 		#	stage_buttons[i+1].disabled = false
@@ -233,6 +254,7 @@ func load_data() -> void:
 		_setup_audio_settings()
 		_setup_rebind_settings()
 		_setup_locale()
+		_check_text_to_speech_flag()
 		#_stages_en = file.get_var()
 		
 	else:
@@ -311,6 +333,14 @@ func update_login_state_label() -> void:
 		_save_data_button.hide()
 		_load_data_button.hide()
 		_login_button.show()
+	#login_state_label.focus_entered.disconnect_all()
+	#login_state_label.focus_entered.disconnect(_on_label_focused)
+	
+	#Check if there are other signals connected and disconnect them
+	if login_state_label.focus_entered.is_connected(_on_label_focused):
+		login_state_label.disconnect("focus_entered",_on_label_focused)
+	login_state_label.focus_entered.connect(_on_label_focused.bind(tr(login_state_label.text)))
+	
 
 func _add_stage_and_button(number: int, button_num: int) -> int:
 	var stage_box = STAGE_BUTTON_BOX.instantiate()
@@ -448,8 +478,17 @@ func setupButtons() -> void:
 	
 	#BUTTONS STUFF
 	for button in stage_buttons:
+		interactive_items_collection.push_front(button)
+		text_for_interactive_items.push_front("Stage " + button.text)
 		button.pressed.connect(_on_stage_button_pressed.bind(button.text))
 	unlock_enabled_stages()
+	if _game_stats["enableTTS"] == true:
+		print_debug("Game stats have enable tts")
+		#interactive_items_collection = [controls_button,_statistics_button,info_label]
+		#text_for_interactive_items = ["Controls Button", "Statistics Button", "User Name"] #NOT TRANSLATED YET!!
+		var announcement = "Main menu, choose a stage to play or choose a button to press" #NOT TRANSLATED YET!!
+		#print_debug(interactive_items_collection)
+		_send_data_to_tts(announcement)
 
 func _setup_audio_settings() -> void:
 	if _audio_options == null:
@@ -483,12 +522,12 @@ func _setup_locale() -> void:
 
 func _enableStatsScreen() -> void:
 	play_button_sound.emit()
-	if(statistics_scn != null and statistics_scn.has_method("set_player_stats") and statistics_scn.has_method("set_stages_button_up") and statistics_scn.has_method("set_num_of_stages") and statistics_scn.has_method("set_num_in_propedia")):
-		statistics_scn.set_player_stats(_game_stats)
-		statistics_scn.set_stages_button_up()
-		statistics_scn.set_num_of_stages(num_of_stages)
-		statistics_scn.set_num_in_propedia(num_of_stages)
-		statistics_scn.show()
+	statistics_scn.hidden.connect(_send_data_to_tts)
+	if(statistics_scn == null):
+		print_debug("No statistics scene found")
+		return
+	if statistics_scn.has_method("show_statistics_menu"):
+		statistics_scn.show_statistics_menu(_game_stats,num_of_stages,num_in_propedia)
 		
 func _on_button_play_sound() -> void:
 	button_sounds.play()
@@ -524,14 +563,18 @@ func _play_rewarded_sound(powered: bool) -> void:
 		poweredown_audio_player.play()
 
 func _on_audio_options_button_pressed():
+	send_interactive_items.emit([],[])
 	play_button_sound.emit()
-	_audio_options.show()
+	#_audio_options.show()
+	if _audio_options.has_method("show_audio_menu"):
+		_audio_options.show_audio_menu()
 
 func set_audio_options(opt: Control) -> void:
 	if opt == null:
 		print_debug("No options panel given!")
 		return
 	_audio_options = opt
+	send_scene_for_signals.emit(_audio_options)
 	audio_options_button.pressed.connect(_on_audio_options_button_pressed)
 	_setup_audio_settings()
 	if _audio_options.has_signal("audio_values_changed"):
@@ -540,18 +583,21 @@ func set_audio_options(opt: Control) -> void:
 		_audio_options.on_button_pressed.connect(_on_button_play_sound)
 	if _audio_options.has_signal("sliders_value_change"):
 		_audio_options.sliders_value_change.connect(_on_slider_value_changed_sound)
+	_audio_options.hidden.connect(_send_data_to_tts)
 
 func set_rebind_menu(reb: Control) -> void:
 	if reb == null:
 		print_debug("No rebind menu given")
 		return
 	_rebind_menu = reb
+	send_scene_for_signals.emit(_rebind_menu)
 	if _rebind_menu.has_signal("keycode_changed"):
 		_rebind_menu.keycode_changed.connect(_on_rebind_happen)
 	if _rebind_menu.has_signal("on_button_pressed"):
 		_rebind_menu.on_button_pressed.connect(_on_button_play_sound)
 	if _rebind_menu.has_signal("on_reset_pressed"):
 		_rebind_menu.on_reset_pressed.connect(_clear_rebound_values)
+	_rebind_menu.hidden.connect(_send_data_to_tts)
 	_setup_rebind_settings()
 
 func _on_audio_values_changed(master: float, music: float, sfx: float):
@@ -575,7 +621,8 @@ func _on_rebind_happen(action_to_remap : String, event_text: String) -> void:
 func _on_rebind_button_pressed() -> void:
 	play_button_sound.emit()
 	if _rebind_menu != null:
-		_rebind_menu.show()
+		if _rebind_menu.has_method("show_rebind_menu"):
+			_rebind_menu.show_rebind_menu()
 
 func _clear_rebound_values() -> void:
 	if _game_stats.has("rebinds"):
@@ -584,7 +631,19 @@ func _clear_rebound_values() -> void:
 	else:
 		print_debug("No rebound values found")
 
+func _on_locale_options_button_pressed() -> void:
+	send_interactive_items.emit([],[],"Select a language from the given options")
+
+func _on_locale_options_item_focused(index: int) -> void:
+	var item_text = locale_options.get_item_text(index)
+	send_only_announcement.emit(tr(item_text))
+
 func _on_locale_options_item_selected(index: int) -> void:
+	var item_text = locale_options.get_item_text(index)
+	print_debug(interactive_items_collection)
+	print_debug(text_for_interactive_items)
+	_send_data_to_tts("You have chosen " + tr(item_text))
+	
 	if not _game_stats.has(LANGUAGE_TEXT):
 		_game_stats[LANGUAGE_TEXT] = {}
 	match index:
@@ -592,5 +651,25 @@ func _on_locale_options_item_selected(index: int) -> void:
 			_game_stats[LANGUAGE_TEXT] = ENGLISH_LOC
 		1:
 			_game_stats[LANGUAGE_TEXT] = GREEK_LOC
+	
 	save_data()
 	_setup_locale()
+
+func _on_locale_options_focus_exited() -> void:
+	print_debug("focus Exited")
+
+func _check_text_to_speech_flag():
+	if _game_stats == {}:
+		print_debug("Game stats empty")
+		_game_stats["enableTTS"] = false
+		return
+	if not _game_stats.has("enableTTS"):
+		print_debug("Game stats dont have enable tts")
+		_game_stats["enableTTS"] = false
+		return
+	
+func _on_label_focused(labeltext: String):
+	send_only_announcement.emit(labeltext)
+
+func _send_data_to_tts(announcement = null) -> void:
+	send_interactive_items.emit(interactive_items_collection, text_for_interactive_items,announcement)

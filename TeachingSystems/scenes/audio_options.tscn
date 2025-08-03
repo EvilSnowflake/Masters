@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b8uxk8qxuiy3i" path="res://assets/GUI/6 Buttons/7/7_08.png" id="2_e8p51"]
 [ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="3_xxsh8"]
 
-[node name="AudioOptions" type="Control" node_paths=PackedStringArray("master_slider", "sfx_slider", "music_slider", "return_button", "save_button")]
+[node name="AudioOptions" type="Control" node_paths=PackedStringArray("master_slider", "sfx_slider", "music_slider", "return_button", "save_button", "interactive_items_collection")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +17,8 @@ sfx_slider = NodePath("TextureRect/MarginContainer/VBoxContainer/SFXSlider")
 music_slider = NodePath("TextureRect/MarginContainer/VBoxContainer/MusicSlider")
 return_button = NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/ExitButton")
 save_button = NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/SaveButton")
+interactive_items_collection = [NodePath("TextureRect/MarginContainer/VBoxContainer/MasterSlider"), NodePath("TextureRect/MarginContainer/VBoxContainer/MusicSlider"), NodePath("TextureRect/MarginContainer/VBoxContainer/SFXSlider"), NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/SaveButton"), NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/ExitButton")]
+text_for_interactive_items = Array[String](["Master Volume", "Music Volume", "Sound Effect Volume", "Save Settings", "Exit"])
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

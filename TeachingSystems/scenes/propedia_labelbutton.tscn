@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://clpep58rdk2yb"]
+
+[ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_lvqo1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mvm1f"]
+
+[node name="1" type="Button"]
+offset_right = 20.0
+offset_bottom = 20.0
+theme = ExtResource("1_lvqo1")
+theme_override_font_sizes/font_size = 13
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mvm1f")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_mvm1f")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_mvm1f")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_mvm1f")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_mvm1f")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_mvm1f")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mvm1f")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_mvm1f")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mvm1f")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_mvm1f")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mvm1f")

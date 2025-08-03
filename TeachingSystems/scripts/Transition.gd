@@ -2,23 +2,28 @@ extends ColorRect
 
 var _graphicVanish
 var _graphicAppear
+var _color_rect_animations: AnimationPlayer
+@export
+var starting_interface : Control
 
-@onready var color_rect_animations = $ColorRectAnimations
-@onready var menu_screen = %MenuScreen
-@onready var starting_interface = %Starting_Interface
+func _ready() -> void:
+	if get_child_count() > 0:
+		_color_rect_animations = get_child(0)
 
 func _process(_delta):
 	if(color.a == 1):
 		_graphicVanish.visible = false
 		_graphicVanish.mouse_filter = MOUSE_FILTER_IGNORE
-		_graphicAppear.visible = true
-		_graphicAppear.mouse_filter = MOUSE_FILTER_STOP
+		if _graphicAppear != null:
+			_graphicAppear.visible = true
+			_graphicAppear.mouse_filter = MOUSE_FILTER_STOP
 	
 	if(color.a != 0):
 		return
 
-func trans(van, app) -> void:
-	_graphicAppear = app
+func trans(van = null ,app = null) -> void:
 	_graphicVanish = van
-	color_rect_animations.play("Appear")
-	color_rect_animations.queue("Fade")
+	_graphicAppear = app
+	_color_rect_animations.play("Appear")
+	if _graphicAppear != null:
+		_color_rect_animations.queue("Fade")

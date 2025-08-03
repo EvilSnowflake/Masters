@@ -1,15 +1,20 @@
 extends Control
 
 const PRESS_KEY: String = "PRESSKEY_TEXT"
+const ANNOUNCEMENT = "Rebind keys menu. Here you can change the keycodes for each action in the game to another key from the keyboard."
 
 @onready var input_button_scene = preload("res://scenes/input_button.tscn")
 
 @export var action_list: VBoxContainer
 @export var reset_button: Button
 @export var exit_button: Button
+
 var _is_remapping: bool = false
 var _action_to_remap: String = ""
 var _remapping_button: Button = null
+
+@export var interactive_items_collection: Array[Control]
+@export var text_for_interactive_items: Array[String]
 
 const INPUT_ACTIONS = {
 	"Up": "UP",
@@ -17,14 +22,18 @@ const INPUT_ACTIONS = {
 	"Left": "LEFT",
 	"Right": "RIGHT",
 	"Escape": "PAUSE"
+	#"Enter": "ENTER"
 }
 
 signal keycode_changed(action_to_remap: String, event_text: String)
 signal on_button_pressed()
 signal on_reset_pressed()
+signal send_interactive_items(collection: Array[Control], text: Array[String], announcement: String)
+signal send_only_announcement(announcement: String)
 
 func _ready() -> void:
 	_create_action_list()
+	#send_interactive_items.emit(interactive_items_collection, text_for_interactive_items,ANNOUNCEMENT)
 	reset_button.pressed.connect(_on_reset_button_pressed)
 	exit_button.pressed.connect(_on_exit_button_pressed)
 	
@@ -35,7 +44,8 @@ func _create_action_list() -> void:
 		return
 	for item in action_list.get_children():
 		item.queue_free()
-	
+	var temp_ar1: Array
+	var temp_ar2: Array
 	for action in INPUT_ACTIONS:
 		var button = input_button_scene.instantiate()
 		var action_label: Label = button.find_child("LabelAction")
@@ -44,13 +54,22 @@ func _create_action_list() -> void:
 		action_label.text = INPUT_ACTIONS[action]
 		
 		var events = InputMap.action_get_events(action)
+		var text_for_label = ""
 		if events.size() > 0:
-			input_label.text = events[0].as_text().trim_suffix(" (Physical)")
+			text_for_label = events[0].as_text().trim_suffix(" (Physical)")
 		else:
-			input_label.text = ""
-		
+			text_for_label = ""
+		input_label.text = text_for_label
 		action_list.add_child(button)
+		#interactive_items_collection.push_front(button)
+		#text_for_interactive_items.push_front(text_for_label)
+		temp_ar1.push_back(button)
+		temp_ar2.push_back(INPUT_ACTIONS[action])
 		button.pressed.connect(_on_input_button_pressed.bind(button,action))
+	for t1 in temp_ar1:
+		interactive_items_collection.append(t1)
+	for t2 in temp_ar2:
+		text_for_interactive_items.append(t2)
 
 func _on_input_button_pressed(button: Button, action: String) -> void:
 	on_button_pressed.emit()
@@ -62,7 +81,7 @@ func _on_input_button_pressed(button: Button, action: String) -> void:
 
 func _input(event) -> void:
 	if _is_remapping:
-		if (event is InputEventKey) || (event is InputEventMouseButton && event.pressed):
+		if ((event is InputEventKey) || (event is InputEventMouseButton && event.pressed)) && event.as_text() != "Enter":
 			change_input(_action_to_remap,event.as_text())
 			#InputMap.action_erase_events(_action_to_remap)
 			#InputMap.action_add_event(_action_to_remap, event)
@@ -73,10 +92,9 @@ func _input(event) -> void:
 			#print_debug(event2)
 			#_update_action_list(_action_to_remap,event)
 			keycode_changed.emit(_action_to_remap, event.as_text())
-			
 			if event is InputEventMouseButton && event.double_click:
 				event.double_click = false
-			
+			send_only_announcement.emit(" Action to remap : " + _action_to_remap + " , Event : " + event.as_text() + " , Action for remap : " + str(INPUT_ACTIONS[_action_to_remap]))
 			_is_remapping = false
 			_action_to_remap = ""
 			_remapping_button = null
@@ -94,12 +112,15 @@ func _on_reset_button_pressed() -> void:
 	on_reset_pressed.emit()
 	on_button_pressed.emit()
 	_create_action_list()
+	send_only_announcement.emit("Values reset")
+	send_interactive_items.emit(interactive_items_collection, text_for_interactive_items)
 
 func _on_exit_button_pressed() -> void:
 	on_button_pressed.emit()
+	send_interactive_items.emit([],[],"Now returning to main menu")
 	self.hide()
 
-func change_input(action_to_remap: String, event: String):
+func change_input(action_to_remap: String, event: String) -> void:
 	#if action_to_remap == "" or event == "":
 	#	print_debug("Action or Event does not exist")
 	var event2 = InputEventKey.new()
@@ -109,3 +130,6 @@ func change_input(action_to_remap: String, event: String):
 	_update_action_list(action_to_remap,event2)
 	print_debug("Changed rebind " + action_to_remap)
 	
+func show_rebind_menu() -> void:
+	self.show()
+	send_interactive_items.emit(interactive_items_collection, text_for_interactive_items,ANNOUNCEMENT)

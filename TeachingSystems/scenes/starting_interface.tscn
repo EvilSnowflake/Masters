@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://fi5ofs2oiks8"]
+[gd_scene load_steps=16 format=3 uid="uid://fi5ofs2oiks8"]
 
 [ext_resource type="Script" uid="uid://dpwx1f2wlufee" path="res://scripts/starting_interface.gd" id="1_jkb48"]
+[ext_resource type="PackedScene" uid="uid://r1by04mqeljh" path="res://scenes/button_list_function.tscn" id="2_bq1j6"]
 [ext_resource type="Texture2D" uid="uid://bt55whelrvp6v" path="res://assets/CityBackground/1 Backgrounds/2/Night/1.png" id="2_nx0ll"]
 [ext_resource type="Texture2D" uid="uid://c6by0emc0mkjc" path="res://assets/CityBackground/1 Backgrounds/2/Night/2.png" id="3_tvext"]
 [ext_resource type="Texture2D" uid="uid://d172qcff0ku63" path="res://assets/CityBackground/1 Backgrounds/2/Night/3.png" id="4_bq1j6"]
 [ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="5_35nuw"]
 [ext_resource type="Texture2D" uid="uid://baj5dwhe0p542" path="res://assets/CityBackground/1 Backgrounds/2/Night/4.png" id="5_bai0p"]
 [ext_resource type="Texture2D" uid="uid://ccf1iny5ct7rl" path="res://assets/CityBackground/1 Backgrounds/2/Night/5.png" id="6_ct7ov"]
+[ext_resource type="Script" uid="uid://3axyudnaj5q6" path="res://scripts/Transition.gd" id="8_tvext"]
 
 [sub_resource type="Gradient" id="Gradient_rpwag"]
 colors = PackedColorArray(0, 0.195909, 1, 1, 0.760784, 1, 1, 1)
@@ -16,7 +18,73 @@ gradient = SubResource("Gradient_rpwag")
 fill = 2
 fill_from = Vector2(0.5, 0.5)
 
-[node name="Starting_Interface" type="Control"]
+[sub_resource type="Animation" id="Animation_aspfa"]
+resource_name = "Appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"change_scene"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_w04x0"]
+resource_name = "Fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jafaa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y62jj"]
+_data = {
+&"Appear": SubResource("Animation_aspfa"),
+&"Fade": SubResource("Animation_w04x0"),
+&"RESET": SubResource("Animation_jafaa")
+}
+
+[node name="Starting_Interface" type="Control" node_paths=PackedStringArray("interactive_items_collection", "continue_label", "fade_rect", "button_list_function")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,6 +92,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jkb48")
+interactive_items_collection = [NodePath("MarginContainer/HBoxContainer/VBoxContainer/Continue_Label")]
+text_for_interactive_items = Array[String](["Multiplication Teaching System. A thesis project for university. Press Left click to continue. Press Enter to exit text to speech mode"])
+continue_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Continue_Label")
+fade_rect = NodePath("FadeRect")
+button_list_function = NodePath("ButtonListFunction")
+
+[node name="ButtonListFunction" parent="." node_paths=PackedStringArray("scn_list") instance=ExtResource("2_bq1j6")]
+scn_list = [NodePath("..")]
 
 [node name="Background" type="Control" parent="."]
 layout_mode = 1
@@ -139,3 +215,20 @@ theme_override_constants/outline_size = 4
 text = "STARTING_INTERFACE_CONTINUE"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="FadeRect" type="ColorRect" parent="." node_paths=PackedStringArray("starting_interface")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("8_tvext")
+starting_interface = NodePath("..")
+
+[node name="ColorRectAnimations" type="AnimationPlayer" parent="FadeRect"]
+libraries = {
+&"": SubResource("AnimationLibrary_y62jj")
+}

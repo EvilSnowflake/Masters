@@ -3,11 +3,14 @@ extends Control
 const RED = Color(1.0,0.0,0.0,1.0)
 const WHITE = Color(1.0,1.0,1.0,1.0)
 const GREEN = Color(0.0,1.0,0.0,1.0)
+const ANNOUNCEMENT: String = "Statistics Menu. Here you can check the statistics for each stage you have beaten or attempted to beat"
 
 @export var back_button: Button 
 @export var labels_container: HBoxContainer
 @export var texts_container: HBoxContainer
 @export var stages_button: OptionButton
+@export var interactive_items_collection: Array[Control]
+@export var text_for_interactive_items: Array[String]
 
 var _num_of_stages
 var _num_in_propedia
@@ -15,6 +18,8 @@ var _player_stats: Dictionary
 
 #signal calculate_score()
 signal play_button_sound()
+signal send_interactive_items(collection: Array[Control], text: Array[String], announcement: String)
+signal send_only_announcement(announcement: String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -99,3 +104,11 @@ func check_numbers(stat_name: String, stat_number: int, stage_num: int) -> Color
 			return GREEN
 	else:
 		return WHITE
+
+func show_statistics_menu(pstats: Dictionary, stg_num: int, prp_num: int) -> void:
+	set_player_stats(pstats)
+	set_stages_button_up()
+	set_num_of_stages(stg_num)
+	set_num_in_propedia(prp_num)
+	self.show()
+	send_interactive_items.emit(interactive_items_collection,text_for_interactive_items,ANNOUNCEMENT)

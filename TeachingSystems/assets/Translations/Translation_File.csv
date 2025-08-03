@@ -5,7 +5,7 @@ TEACHING SYSTEM","ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ
 SUBTITLE_TEXT,"Project Created by Panagiotis Vailakis MPSP2305
 Using Godot Game Engine
 Assets Created by craftpix.net
-MUSIC TRACKS : 
+MUSIC TRACKS :
 ""PASSENGERS"" BY CHROMONICCI
 ""MANIFOLD"" BY WEIRD INSIDE","Το έργο αυτό υλοποιήθηκε από τον Παναγιώτη Βαϊλάκη ΜΠΣΠ2305
 Χρησιμοποιώντας την παιχνιδομηχανή Godot
@@ -13,12 +13,14 @@ MUSIC TRACKS :
 ΜΟΥΣΙΚΑ ΚΟΜΜΑΤΙΑ:
 ""PASSENGERS"" ΑΠΟ CHROMONICCI
 ""MANIFOLD"" ΑΠΟ WEIRD INSIDE"
-STARTING_INTERFACE_CONTINUE,LEFT CLICK TO CONTINUE,ΠΑΤΗΣΤΕ ΤΟ ΑΡΙΣΤΕΡΟ ΚΛΙΚ ΓΙΑ ΝΑ ΠΡΟΧΩΡΗΣΕΤΕ
-MENU_SCREEN_CREDITS_LABEL,"CREATED BY 
+STARTING_INTERFACE_CONTINUE,"LEFT CLICK TO CONTINUE
+PRESS ENTER TO ENABLE TEXT TO SPEECH","ΠΑΤΗΣΤΕ ΤΟ ΑΡΙΣΤΕΡΟ ΚΛΙΚ ΓΙΑ ΝΑ ΠΡΟΧΩΡΗΣΕΤΕ
+ΠΑΤΗΣΕ ΤΟ ΚΟΥΜΠΙ ENTER ΓΙΑ ΝΑ ΕΝΕΡΓΟΠΟΙΗΣΕΤΕ ΤΟ ΚΕΙΜΕΝΟ ΣΕ ΦΩΝΗ"
+MENU_SCREEN_CREDITS_LABEL,"CREATED BY
 PANAGIOTIS VAILAKIS MPSP2305
-ASSETS BY 
+ASSETS BY
 https://craftpix.net/
-MUSIC BY 
+MUSIC BY
 https://found.ee/chromonicci
 https://found.ee/weirdinside","ΔΗΙΟΥΡΓΗΘΗΚΕ ΑΠΟ ΤΟΝ
 ΠΑΝΑΓΙΩΤΗΣ ΒΑΙΛΑΚΗΣ ΜΠΣΠ2305
@@ -41,7 +43,7 @@ LOAD_DATA_BUTTON,LOAD FROM CLOUD,ΦΟΡΤΩΣΕ ΔΕΔΟΜΕΝΑ ΑΠΟ ΤΟ Ν�
 LEADERBOARD_BUTTON,LEADERBOARDS,ΠΙΝΑΚΑΣ ΑΠΟΤΕΛΕΣΜΑΤΩΝ
 RESUME_BUTTON,RESUME,ΣΥΝΕΧΙΣΕ
 RETURN_TO_MENU_BUTTON,RETURN TO MENU,ΕΠΙΣΤΡΟΦΗ ΣΤΟ ΜΕΝΟΥ
-ENEMIES_LEFT_LABEL,ENEMIES LEFT: ,ΕΝΑΠΟΜΕΙΝΑΝΤΕΣ ΕΧΘΡΟΙ: 
+ENEMIES_LEFT_LABEL,ENEMIES LEFT:,ΕΝΑΠΟΜΕΙΝΑΝΤΕΣ ΕΧΘΡΟΙ:
 RESET_BUTTON,RESET VALUES,ΕΠΑΝΑΦΟΡΑ ΔΕΔΟΜΕΝΩΝ
 SAVE_VALUES_BUTTON,SAVE VALUES,ΑΠΟΘΗΚΕΥΣΗ ΔΕΔΟΜΕΝΩΝ
 MASTER_LABEL,MASTER,ΚΥΡΙΟ
@@ -65,7 +67,7 @@ CONFIRM_PASSWORD_LABEL,CONFIRM PASSWORD:,ΕΠΙΒΕΒΑΙΩΣΗ ΚΩΔΙΚΟΥ:
 RESET_PASSWORD_LABEL,RESET PASSWORD,ΑΛΛΑΓΗ ΚΩΔΙΚΟΥ
 RESET_PASSWORD_LABEL_2,PLEASE ENTER YOUR NAME BELOW,ΠΑΡΑΚΑΛΩ ΓΡΑΨΤΕ ΤΟ ΟΝΟΜΑ ΣΑΣ ΠΑΡΑΚΑΤΩ
 NAME_LABEL,NAME:,ΟΝΟΜΑ:
-RESET_PASSWORD_LABEL_3,"PLEASE ENTER BELOW THE CODE WE SENT YOU BY EMAIL 
+RESET_PASSWORD_LABEL_3,"PLEASE ENTER BELOW THE CODE WE SENT YOU BY EMAIL
 AND YOUR NEW PASSWORD TWICE","ΠΑΡΑΚΑΛΩ ΓΡΑΨΤΕ ΤΟΝ ΚΩΔΙΚΟ ΠΟΥ ΣΤΕΙΛΑΜΕ ΜΕΣΩ EMAIL ΠΑΡΑΚΑΤΩ
 ΚΑΙ ΤΟΝ ΝΕΟ ΚΩΔΙΚΟ ΣΑΣ ΔΥΟ ΦΟΡΕΣ"
 PASSWORD_RESET_LABEL,PASSWORD RESET,ΚΩΔΙΚΟΣ ΑΛΛΑΧΘΗΚΕ
@@ -81,10 +83,10 @@ ANSWERS","ΛΑΘΟΣ
 SCORE_TEXT,SCORE,ΒΑΘΜΟΛΟΓΙΑ
 STAGES_TEXT,stages,στάδια
 LOGGING_IN_TEXT,LOGGIING IN,ΣΥΝΔΕΣΗ
-LOGGED_IN_TEXT,LOGGED IN AS ,ΣΥΝΔΕΔΕΜΕΝΟΣ ΩΣ
+LOGGED_IN_TEXT,LOGGED IN AS,ΣΥΝΔΕΔΕΜΕΝΟΣ ΩΣ
 LOADING_DATA_TEXT,LOADING DATA,ΦΟΡΤΩΣΗ ΔΕΔΟΜΕΝΩΝ
 SAVING_DATA_TEXT,SAVING DATA,ΑΠΟΘΗΚΕΥΣΗ ΔΕΔΟΜΕΝΩΝ
-SAVING_HIGHSCORE_TEXT,SAVING HIGHSCORE,ΑΠΟΘΗΚΕΥΣΗ ΥΨΗΛΩΝ ΒΑΘΜΟΛΟΓΙΩΝ 
+SAVING_HIGHSCORE_TEXT,SAVING HIGHSCORE,ΑΠΟΘΗΚΕΥΣΗ ΥΨΗΛΩΝ ΒΑΘΜΟΛΟΓΙΩΝ
 INCREASED_TEXT, INCREASED!, ΑΥΞΗΘΗΚΕ!
 DECREASED_TEXT, DECREASED!, ΜΕΙΩΘΗΚΕ!
 HEALTH_TEXT,HEALTH,ΖΩΗ
@@ -102,8 +104,8 @@ LOADING_SCORES_TEXT,LOADING SCORES…,ΦΟΡΤΩΣΗ ΒΑΘΜΟΛΟΓΙΩΝ…
 PRESSKEY_TEXT,Press key to bind…,Πατήστε ένα κουμπί για δέσμευση..
 USER_HELP_MESSAGE_TEXT,USERNAME SHOULD CONTAIN AT LEAST 6 CHARACTERS (LETTERS OR NUMBERS) AND NO SPACES,ΤΟ ΟΝΟΜΑ ΧΡΗΣΤΗ ΠΡΕΠΕΙ ΝΑ ΠΕΡΙΕΧΕΙ ΤΟΥΛΑΧΙΣΤΩΝ 6 ΧΑΡΑΚΤΗΡΕΣ (ΓΡΑΜΜΑΤΑ Η ΑΡΙΘΜΟΥΣ) ΚΑΙ ΚΑΘΟΛΟΥ ΚΕΝΑ
 PASS_HELP_MESSAGE_TEXT,"PASSWORD SHOULD CONTAIN AT LEAST 8 CHARACTERS INCLUDING UPPERCASE AND LOWERCASE LETTERS, NUMBERS AND (OPTIONALLY) SPECIAL CHARACTERS","Ο ΚΩΔΙΚΟΣ ΠΡΕΠΕΙ ΝΑ ΠΕΡΙΕΧΕΙ ΤΟΥΛΑΧΙΣΤΩΝ 8 ΧΑΡΑΚΤΗΡΕΣ ΣΥΜΠΕΡΙΛΑΜΒΑΝΟΜΕΝΟΥ ΚΕΦΑΛΑΙΩΝ ΚΑΙ ΜΙΚΡΩΝ ΓΡΑΜΜΑΤΩΝ, ΑΡΙΘΜΩΝ ΚΑΙ (ΠΡΟΑΙΡΕΤΙΚΑ) ΕΙΔΙΚΟΥΣ ΧΑΡΑΚΤΗΡΕΣ"
-CODE_CANT_SENT_TEXT,Could not send confirmation code. ,"Δεν μπορούσε να σταλθεί κωδικός επιβεβαίωσης, "
-PASS_CANT_RESET_TEXT,Could not reset password. ,Δεν μπορούσε να αλλαχθεί ο κωδικός πρόσβασης.
+CODE_CANT_SENT_TEXT,Could not send confirmation code.,"Δεν μπορούσε να σταλθεί κωδικός επιβεβαίωσης,"
+PASS_CANT_RESET_TEXT,Could not reset password.,Δεν μπορούσε να αλλαχθεί ο κωδικός πρόσβασης.
 STAGE_WORD_TEXT,STAGE,ΣΤΑΔΙΟ
 MATERIAL_WORD_TEXT,MATERIAL,ΥΛΙΚΟ
 NOT_LOGGED_IN_TEXT,NOT LOGGED IN,ΔΕΝ ΕΧΕΤΕ ΣΥΝΔΕΘΕΙ

@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://bv2uqp01l1qbi"]
+[gd_scene load_steps=24 format=3 uid="uid://bv2uqp01l1qbi"]
 
 [ext_resource type="Script" uid="uid://ce74vlad7dvj8" path="res://scripts/menu_screen.gd" id="1_tejro"]
 [ext_resource type="Texture2D" uid="uid://7rhwi4sq4uls" path="res://assets/CityBackground/1 Backgrounds/2/Day/1.png" id="2_sx8ls"]
+[ext_resource type="PackedScene" uid="uid://r1by04mqeljh" path="res://scenes/button_list_function.tscn" id="2_teb4y"]
 [ext_resource type="Texture2D" uid="uid://5eyr4bqadrxa" path="res://assets/CityBackground/1 Backgrounds/2/Day/2.png" id="3_abkyv"]
 [ext_resource type="Shader" uid="uid://ctb3dvsilhip4" path="res://assets/Shaders/outline_sh.gdshader" id="3_teb4y"]
 [ext_resource type="Texture2D" uid="uid://by8x18niuqy8p" path="res://assets/CityBackground/1 Backgrounds/2/Day/3.png" id="4_teb4y"]
@@ -44,7 +45,7 @@ shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 
-[node name="MenuScreen" type="Control" node_paths=PackedStringArray("statistics_scn", "audio_options_button", "rebind_button", "locale_options")]
+[node name="MenuScreen" type="Control" node_paths=PackedStringArray("interactive_items_collection", "statistics_scn", "audio_options_button", "rebind_button", "locale_options", "controls_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,10 +53,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tejro")
+interactive_items_collection = [NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer4/Controls_Button"), NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer4/AudioOptionsButton"), NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer5/RebindButton"), NodePath("MarginContainer/HBoxContainer/TitleItems/Statistics"), NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer5/Exit"), NodePath("MarginContainer/HBoxContainer/TitleItems/Clear_Data"), NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer/Code_Input"), NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer/Code_Button"), NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer2/Register"), NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer2/Login"), NodePath("MarginContainer/HBoxContainer/TitleItems/Logout"), NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer3/SaveData"), NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer3/LoadData"), NodePath("MarginContainer/HBoxContainer/TitleItems/Leaderboards"), NodePath("MarginContainer/HBoxContainer/TitleItems/PlayerLoginLabel"), NodePath("MarginContainer/HBoxContainer/TitleItems/LocaleOptions"), NodePath("MarginContainer/Credits_Label")]
+text_for_interactive_items = Array[String](["Controls", "Audio", "Rebind Keys", "Statistics", "Exit", "Clear Saved Data", "Input Cheat Code", "Submit Cheat Code", "Register Account", "Login", "Logout", "Save Data", "Load Data", "Leaderboards", "Login Status", "Language Options", "Credits"])
 statistics_scn = NodePath("statistics_scene")
 audio_options_button = NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer4/AudioOptionsButton")
 rebind_button = NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer5/RebindButton")
 locale_options = NodePath("MarginContainer/HBoxContainer/TitleItems/LocaleOptions")
+controls_button = NodePath("MarginContainer/HBoxContainer/TitleItems/HBoxContainer4/Controls_Button")
+
+[node name="ButtonListFunction" parent="." node_paths=PackedStringArray("scn_list") instance=ExtResource("2_teb4y")]
+scn_list = [NodePath(".."), NodePath("../statistics_scene"), NodePath("../Controls")]
 
 [node name="Background" type="Control" parent="."]
 layout_mode = 1
@@ -204,6 +211,7 @@ layout_mode = 2
 
 [node name="Code_Input" type="LineEdit" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
@@ -212,6 +220,7 @@ placeholder_text = "Input Code"
 alignment = 1
 
 [node name="Code_Button" type="Button" parent="MarginContainer/HBoxContainer/TitleItems/HBoxContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("6_6ogre")
 text = "CODE_BUTTON"
@@ -268,6 +277,7 @@ text = "LEADERBOARD_BUTTON"
 
 [node name="PlayerLoginLabel" type="Label" parent="MarginContainer/HBoxContainer/TitleItems"]
 layout_mode = 2
+focus_mode = 2
 theme = ExtResource("6_6ogre")
 theme_override_font_sizes/font_size = 14
 
@@ -279,6 +289,7 @@ theme = ExtResource("6_6ogre")
 theme_override_font_sizes/font_size = 12
 selected = 0
 fit_to_longest_item = false
+allow_reselect = true
 item_count = 2
 popup/item_0/text = "ENGLISH_WORD"
 popup/item_0/id = 0
@@ -300,6 +311,7 @@ alignment = 2
 [node name="Credits_Label" type="Label" parent="MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+focus_mode = 2
 theme = ExtResource("6_6ogre")
 theme_override_colors/font_color = Color(0.728296, 0.475923, 0.0822524, 1)
 theme_override_font_sizes/font_size = 10

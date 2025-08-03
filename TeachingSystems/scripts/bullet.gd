@@ -1,4 +1,8 @@
 extends Area2D
+## This script should be attached to any bullet fired, it is an area that checks if it collides
+## with any enemy or foreground object, it only checks for the first and second collision mask.
+## It contains values for the logic of the bullet, like speed and damage, which can be changed
+## with some functions
 
 var _bullet_speed: int = 1000
 var _travelled_distance: int = 0

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://r1by04mqeljh"]
+
+[ext_resource type="Script" uid="uid://bp2q8vj7wr1t5" path="res://scripts/button_list_function.gd" id="1_sx3tj"]
+[ext_resource type="AudioStream" uid="uid://dnn6halwterge" path="res://assets/Music/change_focus_sound.wav" id="2_ecd45"]
+
+[node name="ButtonListFunction" type="Control" node_paths=PackedStringArray("change_foucus_sound", "wait_timer")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_sx3tj")
+change_foucus_sound = NodePath("ChangeFocusSound")
+wait_timer = NodePath("WaitTimer")
+
+[node name="ChangeFocusSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_ecd45")
+bus = &"SoundEffects"
+
+[node name="WaitTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true

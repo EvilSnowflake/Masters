@@ -28,7 +28,13 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xv6pp"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uu3r2"]
+texture = ExtResource("2_8uyn4")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.960922, 0.992203, 0.970545, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j57mb"]
 texture = ExtResource("2_8uyn4")
@@ -36,7 +42,7 @@ texture_margin_left = 10.0
 texture_margin_top = 10.0
 texture_margin_right = 10.0
 texture_margin_bottom = 10.0
-modulate_color = Color(0.599908, 0.881445, 0.697367, 1)
+modulate_color = Color(0.201515, 0.391661, 0.274157, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7wojr"]
 texture = ExtResource("2_8uyn4")
@@ -184,7 +190,7 @@ texture_margin_bottom = 10.0
 modulate_color = Color(0.817521, 0.817521, 0.817521, 1)
 
 [resource]
-Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_disabled_color = Color(1, 1, 1, 0.572549)
 Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
 Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
@@ -204,7 +210,7 @@ Button/constants/outline_size = 8
 Button/font_sizes/font_size = 24
 Button/fonts/font = ExtResource("1_oskf0")
 Button/styles/disabled = SubResource("StyleBoxFlat_cjt1k")
-Button/styles/focus = SubResource("StyleBoxEmpty_xv6pp")
+Button/styles/focus = SubResource("StyleBoxTexture_uu3r2")
 Button/styles/hover = SubResource("StyleBoxTexture_j57mb")
 Button/styles/normal = SubResource("StyleBoxTexture_7wojr")
 Button/styles/pressed = SubResource("StyleBoxTexture_41evq")

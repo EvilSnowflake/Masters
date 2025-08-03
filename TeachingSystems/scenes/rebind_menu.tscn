@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dtmkm5718eexc" path="res://scenes/input_button.tscn" id="2_7ltuy"]
 [ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="4_o1vsv"]
 
-[node name="RebindMenu" type="Control" node_paths=PackedStringArray("action_list", "reset_button", "exit_button")]
+[node name="RebindMenu" type="Control" node_paths=PackedStringArray("action_list", "reset_button", "exit_button", "interactive_items_collection")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,6 +16,8 @@ script = ExtResource("1_0ibhd")
 action_list = NodePath("TextureRect/MarginContainer/VBoxContainer/ScrollContainer/ActionList")
 reset_button = NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/ResetButton")
 exit_button = NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/ExitButton")
+interactive_items_collection = [NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/ResetButton"), NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/ExitButton")]
+text_for_interactive_items = Array[String](["Reset Values", "Return to main menu"])
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
