@@ -6,6 +6,7 @@ const WHITE = Color(1.0,1.0,1.0,1.0)
 const PROCESSING = "PROCESSING_TEXT"
 const CONFIRMATION_RESENT = "CODE_RESENT_TEXT"
 const CONFIRMATION_CANT_RESENT = "CODE_CANT_RESENT_TEXT"
+const ANNOUNCEMENT: String = "In order for your account to be created you need to confirm your email address. Input the code that was sent to your email" #NOT TRANSLATED
 
 @onready var info_label = $MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer/InfoLabel
 @onready var submit_button = $MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer2/SubmitButton
@@ -15,7 +16,13 @@ const CONFIRMATION_CANT_RESENT = "CODE_CANT_RESENT_TEXT"
 @onready var button_audio_player = %ButtonAudioPlayer
 @onready var anti_click_panel = %AntiClickPanel
 
+@export var interactive_items_collection: Array[Control]
+@export var text_for_interactive_items: Array[String]
+
 signal play_button_sound()
+signal send_interactive_items(collection: Array[Control], text: Array[String], announcement: String)
+signal send_only_announcement(announcement: String)
+signal send_scene_for_signals(scene)
 
 func _ready():
 	SilentWolf.Auth.sw_email_verif_complete.connect(_on_confirmation_complete)
@@ -23,6 +30,7 @@ func _ready():
 	submit_button.pressed.connect(_on_submitButton_pressed)
 	resend_button.pressed.connect(_on_resendButton_pressed)
 	play_button_sound.connect(_on_button_play_sound)
+	send_interactive_items.emit(interactive_items_collection,text_for_interactive_items,ANNOUNCEMENT)
 
 func _on_confirmation_complete(sw_result: Dictionary) -> void:
 	if sw_result.success:
@@ -59,6 +67,7 @@ func resend_code_failure() -> void:
 
 func _show_infoLabel(text: String, colr: Color = WHITE) -> void:
 	info_label.text = tr(text)
+	send_only_announcement.emit(text)
 	info_label.set("theme_override_colors/font_color",colr)
 	info_label.show()
 

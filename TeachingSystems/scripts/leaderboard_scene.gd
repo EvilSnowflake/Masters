@@ -5,6 +5,7 @@ const SCORE_ITEM = preload("res://scenes/score_item.tscn")
 const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
 const NOSCORES = "NO_SCORES_TEXT"
 const LOADING = "LOADING_SCORES_TEXT"
+const ANNOUNCEMENT: String = "Here are the leaderboards. You can see the top 5 total scores from all the accounts created." #NOT TRANSLATED
 
 var list_index = 0
 # Replace the leaderboard name if you're not using the default leaderboard
@@ -18,7 +19,14 @@ var max_scores = 5
 @onready var wait_timer = %WaitTimer
 @onready var anti_click_panel = %AntiClickPanel
 
+@export var interactive_items_collection: Array[Control]
+@export var text_for_interactive_items: Array[String]
+
+
 signal play_button_sound()
+signal send_interactive_items(collection: Array[Control], text: Array[String], announcement: String)
+signal send_only_announcement(announcement: String)
+signal send_scene_for_signals(scene)
 
 func _ready():
 	back_button.pressed.connect(_on_CloseButton_pressed)
@@ -48,15 +56,19 @@ func render_board(scores: Array, local_scores: Array) -> void:
 		all_scores = merge_scores_with_local_scores(scores, local_scores, max_scores)
 		if scores.is_empty() and local_scores.is_empty():
 			show_message(tr(NOSCORES))
+			send_interactive_items.emit(interactive_items_collection,text_for_interactive_items)
 	else:
 		if scores.is_empty():
 			show_message(tr(NOSCORES))
+			send_interactive_items.emit(interactive_items_collection,text_for_interactive_items)
 	if all_scores.is_empty():
 		for score in scores:
 			add_item(score.player_name, str(int(score.score)))
+		send_interactive_items.emit(interactive_items_collection,text_for_interactive_items,"Scores Found \n" + ANNOUNCEMENT)
 	else:
 		for score in all_scores:
 			add_item(score.player_name, str(int(score.score)))
+		send_interactive_items.emit(interactive_items_collection,text_for_interactive_items,"Scores Found \n" + ANNOUNCEMENT)
 
 func is_default_leaderboard(ld_config: Dictionary) -> bool:
 	var default_insert_opt = (ld_config.insert_opt == "keep")
@@ -99,10 +111,13 @@ func add_item(player_name: String, score_value: String) -> void:
 	labelCont.get_node("Score").text = score_value
 	item.offset_top = list_index * 100
 	leader_container.add_child(item)
+	interactive_items_collection.append(item)
+	text_for_interactive_items.append("Player " + player_name + " \n has score " + score_value)
 
 func show_message(text: String = "") -> void:
 	message_label.text = text
 	message_label.show()
+	send_only_announcement.emit(text)
 
 func hide_message()-> void:
 	message_label.text = ""

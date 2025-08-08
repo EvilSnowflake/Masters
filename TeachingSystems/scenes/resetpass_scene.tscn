@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://11g8r3bgs0lg"]
+[gd_scene load_steps=5 format=3 uid="uid://11g8r3bgs0lg"]
 
 [ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_ervq3"]
 [ext_resource type="Script" uid="uid://b3m3m04ibi5tr" path="res://scripts/resetpass_scene.gd" id="1_v03yq"]
 [ext_resource type="PackedScene" uid="uid://ob0kfrivfnka" path="res://scenes/button_audio_player.tscn" id="2_ervq3"]
+[ext_resource type="PackedScene" uid="uid://r1by04mqeljh" path="res://scenes/button_list_function.tscn" id="2_omum5"]
 
-[node name="resetpass_scene" type="Control"]
+[node name="resetpass_scene" type="Control" node_paths=PackedStringArray("rf_interactive_items_collection", "pwdrf_interactive_items_collection", "pc_interactive_items_collection")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +13,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v03yq")
+rf_interactive_items_collection = [NodePath("MarginContainer/RequestFormContainer/HBoxContainer3/VBoxLineEdits/NameLineEdit"), NodePath("MarginContainer/RequestFormContainer/HBoxContainer5/SubmitButton"), NodePath("MarginContainer/BackButtonContainer/HBoxContainer2/BackButton")]
+rf_text_for_interactive_items = Array[String](["Write your username", "Submit your info", "Return to main menu"])
+pwdrf_interactive_items_collection = [NodePath("MarginContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits/CodeLineEdit"), NodePath("MarginContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits/PasswordLineEdit"), NodePath("MarginContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits/ConfirmPassLineEdit"), NodePath("MarginContainer/PwdResetFormContainer/HBoxContainer5/SubmitButton"), NodePath("MarginContainer/BackButtonContainer/HBoxContainer2/BackButton")]
+pwdrf_text_for_interactive_items = Array[String](["Write the code that was sent to your email", "Write your new password", "Confirm your new password", "Submit your password", "Return to main menu"])
+pc_interactive_items_collection = [NodePath("MarginContainer/PasswordChangedContainer/HBoxContainer5/CloseButton"), NodePath("MarginContainer/BackButtonContainer/HBoxContainer2/BackButton")]
+pc_text_for_interactive_items = Array[String](["Exit the password reset instance", "Return to main menu"])
+
+[node name="ButtonListFunction" parent="." node_paths=PackedStringArray("scn_list") instance=ExtResource("2_omum5")]
+scn_list = [NodePath("..")]
 
 [node name="ButtonAudioPlayer" parent="." instance=ExtResource("2_ervq3")]
 unique_name_in_owner = true
@@ -40,21 +50,7 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="BackButtonContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/BackButtonContainer"]
-layout_mode = 2
-
-[node name="BackButton" type="Button" parent="MarginContainer/BackButtonContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme = ExtResource("1_ervq3")
-theme_type_variation = &"LeaderboardsButton"
-text = "BACK_BUTTON"
-
 [node name="RequestFormContainer" type="VBoxContainer" parent="MarginContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 48
 
@@ -132,6 +128,7 @@ theme_type_variation = &"LeaderboardsButton"
 text = "SUBMIT_BUTTON"
 
 [node name="PwdResetFormContainer" type="VBoxContainer" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 48
 
@@ -276,6 +273,19 @@ layout_mode = 2
 theme = ExtResource("1_ervq3")
 theme_type_variation = &"LeaderboardsButton"
 text = "EXIT_BUTTON"
+
+[node name="BackButtonContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/BackButtonContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="MarginContainer/BackButtonContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_ervq3")
+theme_type_variation = &"LeaderboardsButton"
+text = "BACK_BUTTON"
 
 [node name="AntiClickPanel" type="Panel" parent="MarginContainer"]
 unique_name_in_owner = true

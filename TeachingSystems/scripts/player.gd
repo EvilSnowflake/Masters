@@ -46,6 +46,9 @@ signal on_step_made()
 signal on_shoot_performed()
 signal on_item_picked()
 signal on_rewarded(powered: bool)
+signal send_interactive_items(collection: Array[Control], text: Array[String], announcement: String)
+signal send_only_announcement(announcement: String)
+signal send_scene_for_signals(scene)
 
 enum Reward {NEGATIVE = -1, SMALL = 0, MEDIUM = 1, LARGE = 2}
 
@@ -79,9 +82,13 @@ func _physics_process(delta):
 	
 
 func get_hit(delta):
+	
 	if(_died):
 		return
 	var overlapping_mobs = hurt_box.get_overlapping_bodies()
+	if overlapping_mobs.size() <=0 :
+		return
+	send_only_announcement.emit("Got Hit")
 	_health -= _damage_rate * overlapping_mobs.size() * delta
 	health_bar.value = (100 * _health)/_max_health
 	if(_health <= 0.0 ):

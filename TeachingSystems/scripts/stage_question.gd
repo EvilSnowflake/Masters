@@ -18,16 +18,22 @@ var num_in_propedia: int = 10
 var menu_screen_node : Control
 var correct_answer_num: int = 0
 var wrong_answer_num: int = 0
+var button_array: Array[Control]
+var text_button_array: Array[String]
 
 @onready var possible_answers = %Possible_Answers
 @onready var question_num_1 = %Question_Num_1
 @onready var question_num_2 = %Question_Num_2
 
+@export var pre_question: Label
 @export var result_item: ColorRect
 
 signal answer_given(numbers: String, result: bool)
 signal play_button_sound()
 signal too_many_wrong_answers()
+signal send_interactive_items(collection: Array[Control], text: Array[String], announcement: String)
+signal send_only_announcement(announcement: String)
+signal send_scene_for_signals(scene)
 
 func _ready():
 	_outcome_label = result_item.get_child(0)
@@ -55,7 +61,7 @@ func create_question():
 	var game_sts: Dictionary = {}
 	if "_game_stats" in menu_screen_node:
 		game_sts = menu_screen_node._game_stats
-	print(game_sts)
+	#print(game_sts)
 	if game_sts != {} and game_sts.has("answers"):
 		prev_answers = game_sts["answers"]
 		
@@ -71,28 +77,28 @@ func create_question():
 			false_indexes.append(i)
 		else:
 			true_indexes.append(i)
-	print_debug(false_indexes)
-	print_debug(true_indexes)
+	#print_debug(false_indexes)
+	#print_debug(true_indexes)
 	
 	var ran_num = randi_range(0,2)
-	print_debug(ran_num)
+	#print_debug(ran_num)
 	
 	
-	print_debug("False previous answers")
+	#print_debug("False previous answers")
 	var false_prev_answers: Array[String] = [] 
 	for index in false_indexes:
 		var false_prev: String = keys[index]
 		if false_prev.begins_with(str(_stage_num)) and int(false_prev.right(1))<=num_in_propedia:
 			false_prev_answers.append(false_prev)
-	print_debug(false_prev_answers)
+	#print_debug(false_prev_answers)
 	wrong_answer_num = false_prev_answers.size()
-	print_debug("Correct previous answers")
+	#print_debug("Correct previous answers")
 	var true_prev_answers: Array[String] = [] 
 	for index in true_indexes:
 		var true_prev : String = keys[index]
 		if true_prev.begins_with(str(_stage_num)) and int(true_prev.right(1))<=num_in_propedia:
 			true_prev_answers.append(true_prev)
-	print_debug(true_prev_answers)
+	#print_debug(true_prev_answers)
 	
 	if true_prev_answers.size() == num_in_propedia:
 		first_num = randi_range(1,max_num)
@@ -128,6 +134,9 @@ func create_question():
 	question_num_2.text = str(second_num)
 	correct_answer_num = randi_range(0,possible_answers.get_child_count()-1)
 	var last_answer: int = 0
+	button_array = []
+	text_button_array = []
+	
 	for i in range(possible_answers.get_child_count()):
 		if(i == correct_answer_num):
 			possible_answers.get_child(i).text = str(first_num*second_num)
@@ -139,8 +148,15 @@ func create_question():
 			possible_answers.get_child(i).text = str(first_num*wrong_answer_num)
 			possible_answers.get_child(i).pressed.connect(_on_question_button_pressed.bind(first_num*wrong_answer_num))
 			last_answer = wrong_answer_num
+		button_array.append(possible_answers.get_child(i))
+		text_button_array.append(possible_answers.get_child(i).text)
+	button_array.append(pre_question)
+	text_button_array.append(question_num_1.text + " times " + question_num_2.text)
+	send_interactive_items.emit(button_array,text_button_array,"Question \n How much is \n " + str(first_num) + " \n times \n" + str(second_num))
+
 
 func _on_question_button_pressed(answer: int):
+	
 	play_button_sound.emit()
 	_answer_given = answer
 	for i in range(possible_answers.get_child_count()):
@@ -158,6 +174,7 @@ func _on_question_button_pressed(answer: int):
 		_outcome_label.text = WRONG
 		_outcome_label.set("theme_override_colors/font_color",RED)
 	result_item.show()
+	send_only_announcement.emit(tr(_outcome_label.text))
 	_countdown_timer.start()
 
 func _on_countdown_timer_timeout() -> void:

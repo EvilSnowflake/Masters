@@ -25,8 +25,13 @@ signal send_only_announcement(announcement: String)
 func _ready():
 	stages_button.select(0)
 	back_button.pressed.connect(_on_back_button_pressed)
-	stages_button.pressed.connect(_on_option_button_pressed)
 	stages_button.item_selected.connect(_on_stages_button_item_selected)
+	stages_button.item_focused.connect(_on_stages_button_item_focused)
+	stages_button.pressed.connect(_on_stages_button_pressed)
+	#for lbls in labels_container.get_children():
+	#	lbls.focus_entered.connect(_on_label_focused.bind(lbls.text))
+	for i in range(labels_container.get_child_count()):
+		labels_container.get_child(i).focus_entered.connect(_on_label_focused.bind(i))
 
 func set_player_stats(pstats: Dictionary):
 	_player_stats = pstats
@@ -38,21 +43,34 @@ func _on_back_button_pressed():
 	update_labels()
 	self.hide()
 
-func _on_option_button_pressed():
-	play_button_sound.emit()
-
 func _on_stages_button_item_selected(index: int):
 	play_button_sound.emit()
-	var stage_name = "stage_"+str(index)
+	var stage_name = "stage_"+str(index+1)
 	if not _player_stats.has(stage_name):
 		update_labels()
 		print_debug("No such stage!")
-		return
-	var stage: Dictionary = _player_stats[stage_name]
-	update_labels(stage,index)
-		
+	else:
+		var stage: Dictionary = _player_stats[stage_name]
+		update_labels(stage,index)
+	
+	var collected_data: String = "Selected " + stage_name + "\n" + "Your performance for the stage is \n"
+	#send_only_announcement.emit(collected_data)
+	for i in range(labels_container.get_child_count()):
+		collected_data += tr(texts_container.get_child(i).text).replace("\n"," ") + " " + labels_container.get_child(i).text + "\n"
+		#print_debug(" The numbers are: " + texts_container.get_child(i).text + " " + labels_container.get_child(i).text)
+		#send_only_announcement.emit("Your performance for the stage is: " + tr(texts_container.get_child(i).text) + " " + labels_container.get_child(i).text)
+	send_interactive_items.emit(interactive_items_collection,text_for_interactive_items,collected_data)
+
+func _on_stages_button_item_focused(index: int) -> void:
+	var item_text = stages_button.get_item_text(index)
+	send_only_announcement.emit(tr(item_text))
+
+func _on_stages_button_pressed() -> void:
+	play_button_sound.emit()
+	send_interactive_items.emit([],[],"Select a stage from the options to learn your progress")
 
 func set_stages_button_up():
+	stages_button.clear()
 	for stage: String in _player_stats:
 		if stage.begins_with("stage") :
 			stages_button.add_item(stage)
@@ -112,3 +130,7 @@ func show_statistics_menu(pstats: Dictionary, stg_num: int, prp_num: int) -> voi
 	set_num_in_propedia(prp_num)
 	self.show()
 	send_interactive_items.emit(interactive_items_collection,text_for_interactive_items,ANNOUNCEMENT)
+
+func _on_label_focused(chld_indx: int) -> void:
+	send_only_announcement.emit(labels_container.get_child(chld_indx).text)
+	#print_debug(chld_indx)

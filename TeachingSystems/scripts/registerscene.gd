@@ -6,7 +6,10 @@ const PROCESSING: String = "PROCESSING_TEXT"
 const RED: Color = Color(1.0,0.0,0.0,1.0)
 const WHITE: Color = Color(1.0,1.0,1.0,1.0)
 const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
+const ANNOUNCEMENT: String = "Register an account here to upload your saved data on the cloud. You can move between input boxes with enter and not with the directional buttons" #NOT TRANSLATED
 
+@export var interactive_items_collection: Array[Control]
+@export var text_for_interactive_items: Array[String]
 
 @onready var info_label = $MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer/InfoLabel
 @onready var submit_button = $MarginContainer/VBoxContainer/HBoxContainer5/SubmitButton
@@ -20,6 +23,9 @@ const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
 @onready var anti_click_panel = %AntiClickPanel
 
 signal play_button_sound()
+signal send_interactive_items(collection: Array[Control], text: Array[String], announcement: String)
+signal send_only_announcement(announcement: String)
+signal send_scene_for_signals(scene)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,6 +40,7 @@ func _ready():
 	password_tool_button.mouse_exited.connect(_on_passwordtoolbutton_mouse_exited)
 	play_button_sound.connect(_on_button_play_sound)
 	wait_timer.timeout.connect(_on_wait_timer_timout)
+	send_interactive_items.emit(interactive_items_collection,text_for_interactive_items,ANNOUNCEMENT)
 
 func _on_registration_complete(sw_result: Dictionary) -> void:
 	if sw_result.success:
@@ -69,6 +76,7 @@ func registration_failure(error: String) -> void:
 
 func _show_infolabel(text: String, isError = false) -> void:
 	info_label.text =  text
+	send_only_announcement.emit(text)
 	if isError:
 		info_label.set("theme_override_colors/font_color",RED)
 	else:

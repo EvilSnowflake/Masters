@@ -4,6 +4,7 @@ const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
 const RED = Color(1.0,0.0,0.0,1.0)
 const WHITE = Color(1.0,1.0,1.0,1.0)
 const PROCESSING = "PROCESSING_TEXT"
+const ANNOUNCEMENT: String = "Here you can login to your account. You can move between input boxes with enter and not with the directional buttons" #NOT TRANSLATED
 
 @onready var info_label = $MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer/InfoLabel
 @onready var back_button = $MarginContainer/VBoxContainer/HBoxContainer2/BackButton
@@ -15,7 +16,13 @@ const PROCESSING = "PROCESSING_TEXT"
 @onready var wait_timer = %WaitTimer
 @onready var anti_click_panel = %AntiClickPanel
 
+@export var interactive_items_collection: Array[Control]
+@export var text_for_interactive_items: Array[String]
+
 signal play_button_sound()
+signal send_interactive_items(collection: Array[Control], text: Array[String], announcement: String)
+signal send_only_announcement(announcement: String)
+signal send_scene_for_signals(scene)
 
 func _ready():
 	SilentWolf.Auth.sw_login_complete.connect(_on_login_complete)
@@ -25,6 +32,7 @@ func _ready():
 	play_button_sound.connect(_on_button_play_sound)
 	wait_timer.timeout.connect(_on_wait_timer_timout)
 	stay_signed_check_box.pressed.connect(_on_stay_signed_in_check_button_pressed)
+	send_interactive_items.emit(interactive_items_collection,text_for_interactive_items,ANNOUNCEMENT)
 
 func _on_login_complete(sw_result: Dictionary) -> void:
 	anti_click_panel.hide()
@@ -49,6 +57,7 @@ func _show_infolabel(text: String, isError = false) -> void:
 	else:
 		info_label.set("theme_override_colors/font_color",WHITE)
 	info_label.show()
+	send_only_announcement.emit(text)
 
 func _hide_infolabel() -> void:
 	info_label.text = ""

@@ -16,7 +16,7 @@ back_button = NodePath("MarginContainer/VBoxContainer/BackButtonContainer/BackBu
 labels_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer")
 texts_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Labels2Container")
 stages_button = NodePath("MarginContainer/VBoxContainer/OptionsButtonContianer/OptionButton")
-interactive_items_collection = [NodePath("MarginContainer/VBoxContainer/OptionsButtonContianer/OptionButton"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/Labels2Container/Enemies_Text"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/Labels2Container/Time_Text"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/Labels2Container/CorrAnsw_Text"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/Labels2Container/WrongAns_Text"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/Labels2Container/Score_Text"), NodePath("MarginContainer/VBoxContainer/BackButtonContainer/BackButtton")]
+interactive_items_collection = [NodePath("MarginContainer/VBoxContainer/OptionsButtonContianer/OptionButton"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer/total_enemies"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer/total_time"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer/correct_answers"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer/wrong_answers"), NodePath("MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer/score"), NodePath("MarginContainer/VBoxContainer/BackButtonContainer/BackButtton")]
 text_for_interactive_items = Array[String](["Stage Selection Button", "Number of Enemies Beaten", "Time Spent is Stage", "Correct Answers Given", "Wrong Answers Given", "Total Score", "Return to Main Menu"])
 
 [node name="Backgrounds" type="Control" parent="."]
@@ -93,6 +93,7 @@ alignment = 1
 [node name="total_enemies" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+focus_mode = 2
 theme = ExtResource("2_24pys")
 theme_override_font_sizes/font_size = 18
 text = "0"
@@ -102,6 +103,7 @@ vertical_alignment = 1
 [node name="total_time" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+focus_mode = 2
 theme = ExtResource("2_24pys")
 theme_override_font_sizes/font_size = 18
 text = "0"
@@ -111,6 +113,7 @@ vertical_alignment = 1
 [node name="correct_answers" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+focus_mode = 2
 theme = ExtResource("2_24pys")
 theme_override_font_sizes/font_size = 18
 text = "0"
@@ -120,6 +123,7 @@ vertical_alignment = 1
 [node name="wrong_answers" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+focus_mode = 2
 theme = ExtResource("2_24pys")
 theme_override_font_sizes/font_size = 18
 text = "0"
@@ -129,6 +133,7 @@ vertical_alignment = 1
 [node name="score" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/LabelsContainer"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+focus_mode = 2
 theme = ExtResource("2_24pys")
 theme_override_font_sizes/font_size = 18
 text = "0"
@@ -195,6 +200,7 @@ theme = ExtResource("2_24pys")
 theme_override_font_sizes/font_size = 30
 selected = 0
 fit_to_longest_item = false
+allow_reselect = true
 item_count = 1
 popup/item_0/text = "STAGES_TEXT"
 popup/item_0/id = 0

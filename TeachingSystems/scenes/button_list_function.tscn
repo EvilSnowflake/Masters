@@ -17,3 +17,4 @@ bus = &"SoundEffects"
 [node name="WaitTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+ignore_time_scale = true

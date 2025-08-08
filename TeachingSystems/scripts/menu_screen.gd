@@ -26,6 +26,7 @@ const SAVING_DATA: String = "SAVING_DATA_TEXT"
 const SAVING_HIGHSCORE: String = "SAVING_HIGHSCORE_TEXT"
 const ENGLISH: String = "ENGLISH_WORD"
 const GREEK: String = "GREEK_WORD"
+const ANNOUNCEMENT_TEXT: String = "Main menu, choose a stage to play or choose a button to press" #NOT TRANSLATED YET!!!
 
 
 #FILE SAVE ON %APPDATA%\Godot\app_userdata\TeachingSystems
@@ -111,7 +112,6 @@ func _ready():
 		locale_options.item_selected.connect(_on_locale_options_item_selected)
 		locale_options.item_focused.connect(_on_locale_options_item_focused)
 		locale_options.pressed.connect(_on_locale_options_button_pressed)
-		locale_options.focus_exited.connect(_on_locale_options_focus_exited)
 	load_data()
 	
 
@@ -136,6 +136,7 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 	await wait_timer.timeout
 	_send_data_to_tts()
 	if(stage_menu.has_method("create_game")):
+		send_interactive_items.emit([],[])
 		_current_game = stage_menu.create_game(int(stg_num),num_in_propedia)
 		if _current_game.has_method("get_stage_quest"):
 			var stg_qst = _current_game.get_stage_quest()
@@ -151,6 +152,7 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 				stg_qst.num_in_propedia = num_in_propedia
 			if (stg_qst.has_signal("play_button_sound")):
 				stg_qst.play_button_sound.connect(_on_button_play_sound)
+			#send_scene_for_signals.emit(stg_qst)
 		if _current_game.has_signal("play_button_sound"):
 			_current_game.play_button_sound.connect(_on_button_play_sound)
 		if _current_game.has_signal("on_step_made"):
@@ -167,9 +169,15 @@ func _on_stage_button_pressed(stg_num: String) -> void:
 			_current_game.on_player_rewarded.connect(_play_rewarded_sound)
 		if _current_game.has_signal("show_audio_frame"):
 			_current_game.show_audio_frame.connect(_on_audio_options_button_pressed)
+		#if _current_game.has_signal("send_interactive_items") and _current_game.has_signal("send_only_announcement") and _current_game.has_signal("send_scene_for_signals"):
+		send_scene_for_signals.emit(_current_game)
+		if _current_game.has_method("setup_pauses_and_player"):
+			_current_game.setup_pauses_and_player()
 
 func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bool = false) -> void:
 	#print_debug("Enabling stage "+str(num))
+	_current_game = null
+	_send_data_to_tts(ANNOUNCEMENT_TEXT)
 	if not user_died:
 		end_stats[SCORE_TEXT] = find_the_score(end_stats)
 		
@@ -309,6 +317,7 @@ func _on_logout_button_pressed() -> void:
 	SilentWolf.Auth.logout_player()
 
 func _on_logout_complete(_a,_b) -> void:
+	_send_data_to_tts("Logged out")
 	update_login_state_label()
 
 func _on_leader_button_pressed() -> void:
@@ -486,9 +495,8 @@ func setupButtons() -> void:
 		print_debug("Game stats have enable tts")
 		#interactive_items_collection = [controls_button,_statistics_button,info_label]
 		#text_for_interactive_items = ["Controls Button", "Statistics Button", "User Name"] #NOT TRANSLATED YET!!
-		var announcement = "Main menu, choose a stage to play or choose a button to press" #NOT TRANSLATED YET!!
 		#print_debug(interactive_items_collection)
-		_send_data_to_tts(announcement)
+		_send_data_to_tts(ANNOUNCEMENT_TEXT)
 
 func _setup_audio_settings() -> void:
 	if _audio_options == null:
@@ -655,8 +663,6 @@ func _on_locale_options_item_selected(index: int) -> void:
 	save_data()
 	_setup_locale()
 
-func _on_locale_options_focus_exited() -> void:
-	print_debug("focus Exited")
 
 func _check_text_to_speech_flag():
 	if _game_stats == {}:
@@ -672,4 +678,9 @@ func _on_label_focused(labeltext: String):
 	send_only_announcement.emit(labeltext)
 
 func _send_data_to_tts(announcement = null) -> void:
-	send_interactive_items.emit(interactive_items_collection, text_for_interactive_items,announcement)
+	if _current_game == null:
+		send_interactive_items.emit(interactive_items_collection, text_for_interactive_items,announcement)
+	else:
+		if not _current_game.has_method("send_pauses_items_to_buttons_func"):
+			return
+		_current_game.send_pauses_items_to_buttons_func()

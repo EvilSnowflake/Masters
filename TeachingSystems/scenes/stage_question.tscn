@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b7nnfdyiqxlai" path="res://scripts/stage_question.gd" id="1_ogwjm"]
 [ext_resource type="Texture2D" uid="uid://bexg8qg56nx3h" path="res://assets/GUI/3 Icons/Icons/Icon_02.png" id="3_3ihov"]
 
-[node name="Stage_Question" type="Control" node_paths=PackedStringArray("result_item")]
+[node name="Stage_Question" type="Control" node_paths=PackedStringArray("pre_question", "result_item")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ogwjm")
+pre_question = NodePath("VBoxContainer/Pre_Question")
 result_item = NodePath("ResultItem")
 
 [node name="BackgroundColor" type="ColorRect" parent="."]

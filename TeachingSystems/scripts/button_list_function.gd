@@ -80,6 +80,12 @@ func _process(_delta):
 			_check_visibility(-1)
 			_check_disability(-1)
 			_change_current_item(true)
+	elif _current_item_type == "LineEdit":
+		if Input.is_action_just_pressed("Enter"):
+			_change_current_number(1)
+			_check_visibility(1)
+			_check_disability(1)
+			_change_current_item(true)
 	else:
 		if Input.is_action_just_pressed("Down") :
 			_items_list[_current_item].grab_focus()
@@ -98,6 +104,7 @@ func _process(_delta):
 		elif Input.is_action_just_pressed("Left") or Input.is_action_just_pressed("Right"):
 			_items_list[_current_item].grab_focus()
 			_items_list[_current_item].release_focus()
+		
 
 func _recieve_items(collection = null, text = null, announcement = null) -> void:
 	_items_list.clear()
@@ -146,6 +153,9 @@ func _change_current_item(interrupt: bool = false) -> void:
 		DisplayServer.tts_speak(_text_list[_current_item], _voice_id, 100, 1.0, 1.0, 0, false)
 	else:
 		DisplayServer.tts_speak(_text_list[_current_item], _voice_id, 100, 1.0, 1.0, 0, interrupt)
+	if _current_item_type == "LineEdit":
+		_items_list[_current_item].edit()
+		
 		
 
 func _play_change_focus_sound() -> void:
@@ -190,9 +200,10 @@ func _check_disability(number: int) -> void:
 			counter += 1
 
 func check_and_add_signal(scn) -> void:
-	if not scn_list.has(scn):
-		print_debug("Scene added: " + str(scn))
-		scn_list.append(scn)
+	#if not scn_list.has(scn):
+	#	print_debug("Scene added: " + str(scn))
+	#	scn_list.append(scn)
+	print_debug("Scene added: " + str(scn))
 	if _enabledTTS == false:
 		return
 	if scn.has_signal("send_interactive_items"):
@@ -201,6 +212,10 @@ func check_and_add_signal(scn) -> void:
 	if scn.has_signal("send_only_announcement"):
 		if !scn.send_only_announcement.is_connected(_call_announcement_only):
 			scn.send_only_announcement.connect(_call_announcement_only)
+	if scn.has_signal("send_scene_for_signals"):
+		if !scn.send_scene_for_signals.is_connected(check_and_add_signal):
+			#scn.send_only_announcement.connect(_call_announcement_only)
+			scn.send_scene_for_signals.connect(check_and_add_signal)
 
 func give_scns_func() -> void:
 	for scn in scn_list:

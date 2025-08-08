@@ -27,6 +27,9 @@ const DECREASED: String = "DECREASED_TEXT"
 @export var _enemies_left_alive: int = 0
 @export var _wave: int = 0
 @export var audio_button: Button
+@export var pause_interactive_item_arrray: Array[Control]
+@export var pause_text_for_interactive_items: Array[String]
+#@export var audio_button: Button
 
 var _user_died = false
 var _max_waves: int = 10
@@ -48,9 +51,12 @@ signal on_player_leveled_up()
 signal on_user_die()
 signal on_player_rewarded(powered: bool)
 signal show_audio_frame()
+signal send_interactive_items(collection: Array[Control], text: Array[String], announcement: String)
+signal send_only_announcement(announcement: String)
+signal send_scene_for_signals(scene)
 
 func _ready():
-	print_debug(end_stats)
+	#print_debug(end_stats)
 	time_timer.timeout.connect(_on_time_timer_timeout)
 	player.on_levelup.connect(_player_lvlup)
 	spawn_timer.start()
@@ -113,15 +119,20 @@ func pause(pause_kind: int) -> void:
 	if(_paused):
 		if(pause_kind == 0 or pause_kind == 2):
 			game_music.stream_paused = false
+		
+		send_interactive_items.emit([],[])
 		pauses.get_child(pause_kind).hide()
 		time_timer.start()
 		Engine.time_scale = 1
+		
 	else:
 		if(pause_kind == 0 or pause_kind == 2):
 			game_music.stream_paused = true
 		pauses.get_child(pause_kind).show()
 		time_timer.stop()
 		Engine.time_scale = 0
+		if pause_kind == 0:
+			send_pauses_items_to_buttons_func()
 		if(pauses.get_child(pause_kind).has_method("create_question")):
 			pauses.get_child(pause_kind).set_numbers(_wave,_propedia_num)
 			pauses.get_child(pause_kind).create_question()
@@ -154,6 +165,8 @@ func _increase_wave() -> void:
 	_wave += 1
 	set_wave_enemies(_wave * _propedia_num)
 	wave_announcer.text = str(_propedia_num)+"x"+str(_wave)
+	#print_debug("changed wave")
+	send_only_announcement.emit("Stage " + str(_propedia_num) + " Wave " + str(_wave))
 	wave_announcer.get_child(0).play("Appear")
 	spawn_timer.wait_time = 1.0/(_wave*_propedia_num)
 	if(_wave > 1):
@@ -208,6 +221,7 @@ func _on_stage_question_answer(_numbers: String, result: bool) -> void:
 			var stat_change: Array[String] = player.give_reward(-1)
 			for change in stat_change:
 				spawn_stat_notification(change + tr(DECREASED),Color.RED)
+	send_only_announcement.emit("Stage " + str(_propedia_num) + " Wave " + str(_wave))
 	#pause(2)
 
 func _on_stage_propedia_pressed_return() -> void:
@@ -257,3 +271,13 @@ func _on_audio_button_pressed() -> void:
 
 func _on_too_many_wrong_answers() -> void:
 	pause(2)
+
+func setup_pauses_and_player() -> void:
+	send_scene_for_signals.emit(player)
+	for paus in pauses.get_children():
+		send_scene_for_signals.emit(paus)
+		if paus.has_method("call_material"):
+			paus.call_material()
+
+func send_pauses_items_to_buttons_func() -> void:
+	send_interactive_items.emit(pause_interactive_item_arrray,pause_text_for_interactive_items,"Game Paused")

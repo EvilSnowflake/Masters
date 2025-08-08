@@ -64,7 +64,8 @@ func save_data() -> void:
 	if button_list_function.has_method("give_scns_func") and button_list_function.has_method("set_enabledTTS"):
 		button_list_function.set_enabledTTS(true)
 		button_list_function.give_scns_func()
-	send_interactive_items.emit(interactive_items_collection,text_for_interactive_items)
+	if _game_stats["enableTTS"] == true:
+		send_interactive_items.emit(interactive_items_collection,text_for_interactive_items)
 
 func load_data() -> void:
 	var file = FileAccess.open(save_path,FileAccess.READ)

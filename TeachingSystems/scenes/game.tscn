@@ -402,9 +402,11 @@ texture_margin_right = 2.0
 texture_margin_bottom = 2.0
 modulate_color = Color(5.39064e-06, 0.908111, 0.788993, 1)
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("audio_button")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("audio_button", "pause_interactive_item_arrray")]
 script = ExtResource("1_qgtll")
 audio_button = NodePath("CanvasLayer/Game_Menu/Pauses/Pause_Menu/MarginContainer/HBoxContainer/VBoxContainer/AudioButton")
+pause_interactive_item_arrray = [NodePath("CanvasLayer/Game_Menu/Pauses/Pause_Menu/MarginContainer/HBoxContainer/VBoxContainer/Resume_Button"), NodePath("CanvasLayer/Game_Menu/Pauses/Pause_Menu/MarginContainer/HBoxContainer/VBoxContainer/Exit_Button"), NodePath("CanvasLayer/Game_Menu/Pauses/Pause_Menu/MarginContainer/HBoxContainer/VBoxContainer/AudioButton")]
+pause_text_for_interactive_items = Array[String](["Resume Game", "Return to Main Menu", "Open Audio Menu"])
 
 [node name="Game_Music" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true

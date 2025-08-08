@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5gcieeebwfhf"]
+[gd_scene load_steps=7 format=3 uid="uid://c5gcieeebwfhf"]
 
 [ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_jj6ok"]
 [ext_resource type="Script" uid="uid://d1wk6t56ipvls" path="res://scripts/registerscene.gd" id="1_ldays"]
 [ext_resource type="PackedScene" uid="uid://ob0kfrivfnka" path="res://scenes/button_audio_player.tscn" id="2_5yph5"]
+[ext_resource type="PackedScene" uid="uid://r1by04mqeljh" path="res://scenes/button_list_function.tscn" id="2_om1tj"]
 [ext_resource type="Texture2D" uid="uid://dxsyui4g70gb8" path="res://assets/GUI/9 Other/3 Skill icons/Skillicon7_09.png" id="3_6glbt"]
 [ext_resource type="Texture2D" uid="uid://b71wl8x3m4jvb" path="res://assets/GUI/9 Other/2 Socialmedia icons/DummyInfoIcon.png" id="4_oiks7"]
 
-[node name="RegisterScene" type="Control"]
+[node name="RegisterScene" type="Control" node_paths=PackedStringArray("interactive_items_collection")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +15,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ldays")
+interactive_items_collection = [NodePath("MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits/UsernameLineEdit"), NodePath("MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits/EmailLineEdit"), NodePath("MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits/PasswordLineEdit"), NodePath("MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits/CofirmPassLineEdit"), NodePath("MarginContainer/VBoxContainer/HBoxContainer5/SubmitButton"), NodePath("MarginContainer/VBoxContainer/HBoxContainer2/BackButton")]
+text_for_interactive_items = Array[String](["Write your username here", "Write your email here", "Write your password here. The password should contain at least 8 characters, including uppercase and lowercase letters, numbers and, optionaly, special characters", "Confirm your password", "Submit your info", "Return to main menu"])
+
+[node name="ButtonListFunction" parent="." node_paths=PackedStringArray("scn_list") instance=ExtResource("2_om1tj")]
+scn_list = [NodePath("..")]
 
 [node name="ButtonAudioPlayer" parent="." instance=ExtResource("2_5yph5")]
 unique_name_in_owner = true

@@ -18,7 +18,7 @@ music_slider = NodePath("TextureRect/MarginContainer/VBoxContainer/MusicSlider")
 return_button = NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/ExitButton")
 save_button = NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/SaveButton")
 interactive_items_collection = [NodePath("TextureRect/MarginContainer/VBoxContainer/MasterSlider"), NodePath("TextureRect/MarginContainer/VBoxContainer/MusicSlider"), NodePath("TextureRect/MarginContainer/VBoxContainer/SFXSlider"), NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/SaveButton"), NodePath("TextureRect/MarginContainer/VBoxContainer/HBoxContainer/ExitButton")]
-text_for_interactive_items = Array[String](["Master Volume", "Music Volume", "Sound Effect Volume", "Save Settings", "Exit"])
+text_for_interactive_items = Array[String](["Master Volume", "Music Volume", "Sound Effect Volume", "Save Settings", "Return"])
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

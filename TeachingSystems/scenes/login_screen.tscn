@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bevwk1yc65svm"]
+[gd_scene load_steps=5 format=3 uid="uid://bevwk1yc65svm"]
 
 [ext_resource type="Script" uid="uid://jss17aspfsqh" path="res://scripts/loginscreen.gd" id="1_e8ckn"]
 [ext_resource type="Theme" uid="uid://dgwn8knwt1m3r" path="res://assets/Themes/main_theme.tres" id="1_frse4"]
 [ext_resource type="PackedScene" uid="uid://ob0kfrivfnka" path="res://scenes/button_audio_player.tscn" id="2_8q002"]
+[ext_resource type="PackedScene" uid="uid://r1by04mqeljh" path="res://scenes/button_list_function.tscn" id="2_mhqwn"]
 
-[node name="login_screen" type="Control"]
+[node name="login_screen" type="Control" node_paths=PackedStringArray("interactive_items_collection")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +13,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e8ckn")
+interactive_items_collection = [NodePath("MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits/UsernameLineEdit"), NodePath("MarginContainer/VBoxContainer/HBoxContainer3/VBoxLineEdits/PasswordLineEdit"), NodePath("MarginContainer/VBoxContainer/HBoxContainer6/ForgotPassword_LinkButton"), NodePath("MarginContainer/VBoxContainer/HBoxContainer7/StaySignedCheckBox"), NodePath("MarginContainer/VBoxContainer/HBoxContainer5/LoginButton"), NodePath("MarginContainer/VBoxContainer/HBoxContainer2/BackButton")]
+text_for_interactive_items = Array[String](["Write your username here", "Write your password here", "Press here if you forgot your password", "Press here to stay signed in to your account for 30 days", "Login", "Return to the main menu"])
+
+[node name="ButtonListFunction" parent="." node_paths=PackedStringArray("scn_list") instance=ExtResource("2_mhqwn")]
+scn_list = [NodePath("..")]
 
 [node name="ButtonAudioPlayer" parent="." instance=ExtResource("2_8q002")]
 unique_name_in_owner = true

@@ -8,6 +8,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 500.0
 offset_bottom = 50.0
+focus_mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
