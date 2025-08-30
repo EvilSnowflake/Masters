@@ -1,7 +1,7 @@
 extends Node
+## This script is the first one used when the game starts. When ready we connect to Silent Wolf
+## with out api key and the game id to be able to get or send data.
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	SilentWolf.configure({
 	"api_key": "CqSf9SKaX69546wWGLUXHaw3ngFl5L9P2vJvu9me",

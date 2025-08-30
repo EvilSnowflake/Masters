@@ -4,6 +4,7 @@ extends Control
 ## is saved locally asa set of 3 percentage numbers, so that when the user opens the program
 ## again the values will return
 
+## Constant variable sent to the tts component to describe the menu
 const ANNOUNCEMENT = "Audio Options Menu. Here you can adjust the volume of the various buses with the appropriate sliders and then save them."
 
 ## This variable should hold the slider item for the master bus
@@ -16,7 +17,9 @@ const ANNOUNCEMENT = "Audio Options Menu. Here you can adjust the volume of the 
 @export var return_button: Button
 ## This variable should hold the button that saves the above sliders values
 @export var save_button: Button
+## Variable containing all the Control elements on the scene the user can interact with
 @export var interactive_items_collection: Array[Control]
+## Text used to describe each element in the interactive items collection variable 
 @export var text_for_interactive_items: Array[String]
 
 ## This signal is called when the user presses the save button, it returns all the values
@@ -26,7 +29,9 @@ signal audio_values_changed(master: float, music: float, sfx: float)
 signal on_button_pressed()
 ## This signal is called when the user changes any of the sliders, this should trigger a sound
 signal sliders_value_change()
+## This signal is emitted when new buttons appear for the user on screen, used in the tts component
 signal send_interactive_items(collection: Array[Control], text: Array[String], announcement: String)
+## This signal is used in the tts component when the code needs to sound an announcement
 signal send_only_announcement(announcement: String)
 
 func _ready():
@@ -38,8 +43,6 @@ func _ready():
 	music_slider.value_changed.connect(_on_slider_value_changed)
 	sfx_slider.mouse_exited.connect(_on_sfx_slider_mouse_exited)
 	sfx_slider.value_changed.connect(_on_slider_value_changed)
-	
-	
 	return_button.pressed.connect(_on_return_button_pressed)
 	save_button.pressed.connect(_on_save_button_pressed)
 
@@ -97,6 +100,8 @@ func _on_save_button_pressed() -> void:
 	
 	audio_values_changed.emit(master_slider.value, music_slider.value, sfx_slider.value)
 
+## This function should be called by the parent component to show this menu, although the parent 
+## can just call item.show() this function also send the tts component the buttons and sliders
 func show_audio_menu() -> void:
 	self.show()
 	send_interactive_items.emit(interactive_items_collection,text_for_interactive_items,ANNOUNCEMENT+" Values are, master slider " + str(int(master_slider.value * 100)) + ", music slider " + str(int(music_slider.value * 100)) + ", sound effects slider " + str(int(sfx_slider.value * 100)))

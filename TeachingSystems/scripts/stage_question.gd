@@ -142,12 +142,12 @@ func create_question():
 			possible_answers.get_child(i).text = str(first_num*second_num)
 			possible_answers.get_child(i).pressed.connect(_on_question_button_pressed.bind(first_num*second_num))
 		else:
-			var wrong_answer_num = randi_range(1,num_in_propedia)
-			while(wrong_answer_num == second_num or wrong_answer_num == last_answer):
-				wrong_answer_num = randi_range(1,num_in_propedia)
-			possible_answers.get_child(i).text = str(first_num*wrong_answer_num)
-			possible_answers.get_child(i).pressed.connect(_on_question_button_pressed.bind(first_num*wrong_answer_num))
-			last_answer = wrong_answer_num
+			var wrong_answer_number = randi_range(1,num_in_propedia)
+			while(wrong_answer_number == second_num or wrong_answer_number == last_answer):
+				wrong_answer_number = randi_range(1,num_in_propedia)
+			possible_answers.get_child(i).text = str(first_num*wrong_answer_number)
+			possible_answers.get_child(i).pressed.connect(_on_question_button_pressed.bind(first_num*wrong_answer_number))
+			last_answer = wrong_answer_number
 		button_array.append(possible_answers.get_child(i))
 		text_button_array.append(possible_answers.get_child(i).text)
 	button_array.append(pre_question)
