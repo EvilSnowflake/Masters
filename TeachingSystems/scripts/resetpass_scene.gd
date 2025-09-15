@@ -151,7 +151,8 @@ func send_code_success() -> void:
 	request_form_info_label.hide()
 	request_form_container.hide()
 	pwd_reset_form_container.show()
-	send_interactive_items.emit(pwdrf_interactive_items_collection,pwdrf_text_for_interactive_items,"Authentication Successfull") #NOT TRANSLATED YET
+	send_interactive_items.emit(pwdrf_interactive_items_collection,
+	pwdrf_text_for_interactive_items,"Authentication Successfull") #NOT TRANSLATED YET
 
 ## This function should be called when the program was unable to send a code for authentication.
 func send_code_failure(error: String) -> void:

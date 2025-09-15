@@ -57,7 +57,6 @@ func _on_return_button_pressed():
 ## for the first number into the label, it adds the label as a child to the propedia container 
 ## and also sends it to the tts component for the user to be able to hear it. Then moves
 ## to the next label.
-
 func show_controls_menu(num1: int, num2: int) -> void:
 	_num_of_stages = num1
 	_num_in_propedia = num2

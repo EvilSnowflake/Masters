@@ -88,7 +88,8 @@ func registration_success() -> void:
 	# redirect to configured scene (user is logged in after registration)
 	var scene_name = SilentWolf.auth_config.redirect_to_scene
 	# if doing email verification, open scene to confirm email address
-	if ("email_confirmation_scene" in SilentWolf.auth_config) and (SilentWolf.auth_config.email_confirmation_scene) != "":
+	if (("email_confirmation_scene" in SilentWolf.auth_config) and
+	 (SilentWolf.auth_config.email_confirmation_scene) != ""):
 		SWLogger.info("registration succeeded, waiting for email verification...")
 		scene_name = SilentWolf.auth_config.email_confirmation_scene
 	else:

@@ -164,7 +164,7 @@ func _recieve_items(collection = null, text = null, announcement = null) -> void
 	_current_item = 0
 	_check_visibility(1)
 	_check_disability(1)
-	print_debug("Receiving items")
+	#print_debug("Receiving items")
 	_change_current_item()
 
 ## This function can be used to add more items to them main array when necessary

@@ -33,7 +33,7 @@ signal send_scene_for_signals(scene)
 ## takes in the current stage number along with the multiplication table material, which then
 ## fills in the appropriate variables and then replaces the text on the right labels.
 func change_labels(number: String, mat: String):
-	print_debug("Cahanged labels")
+	print_debug("Changed labels")
 	_num = number
 	_mat = mat
 	stage_number.text = tr(STAGE_WORD) + " " + number + " " + tr(MATERIAL_WORD)

@@ -252,14 +252,16 @@ func enable_propedia_button(num: int, end_stats : Dictionary = {}, user_died: bo
 	else:
 		if not _game_stats.has(STAGE_PREFIX+str(num)):
 			end_stats[SCORE_TEXT] = 0
-		elif _game_stats.has(STAGE_PREFIX+str(num)) and _game_stats[STAGE_PREFIX+str(num)].has(SCORE_TEXT):
+		elif (_game_stats.has(STAGE_PREFIX+str(num)) and
+		 _game_stats[STAGE_PREFIX+str(num)].has(SCORE_TEXT)):
 			if _game_stats[STAGE_PREFIX+str(num)][SCORE_TEXT] > 0:
 				var new_score = find_the_score(end_stats)
 				if new_score < _game_stats[STAGE_PREFIX+str(num)][SCORE_TEXT]:
 					return
 				else:
 					end_stats[SCORE_TEXT] = new_score
-		elif _game_stats.has(STAGE_PREFIX+str(num)) and not _game_stats[STAGE_PREFIX+str(num)].has(SCORE_TEXT):
+		elif (_game_stats.has(STAGE_PREFIX+str(num)) and not
+		 _game_stats[STAGE_PREFIX+str(num)].has(SCORE_TEXT)):
 			end_stats[SCORE_TEXT] = 0
 	_game_stats[STAGE_PREFIX+str(num)] = end_stats
 	_game_stats[HIGHSCORE_TEXT] = _calc_highscore()
@@ -484,7 +486,8 @@ func _cloud_load_data() -> void:
 		info_label.text = tr(LOADING_DATA)
 		
 		#load data async
-		var sw_result = await SilentWolf.Players.get_player_data(SilentWolf.Auth.logged_in_player).sw_get_player_data_complete
+		var sw_result = await SilentWolf.Players.get_player_data(
+			SilentWolf.Auth.logged_in_player).sw_get_player_data_complete
 		print_debug("Player data from cloud: " + str(sw_result.player_data))
 		
 		#show results
@@ -516,7 +519,9 @@ func _cloud_save_data() -> void:
 	if SilentWolf.Auth.logged_in_player:
 		info_label.text = tr(SAVING_DATA)
 		print_debug("Saving to cloud")
-		var sw_result = await SilentWolf.Players.save_player_data(SilentWolf.Auth.logged_in_player, _game_stats).sw_save_player_data_complete
+		var sw_result = await SilentWolf.Players.save_player_data(
+			SilentWolf.Auth.logged_in_player,
+			 _game_stats).sw_save_player_data_complete
 		if(sw_result and sw_result.success):
 			print_debug("Saved to cloud")
 			upload_lead_score()
@@ -545,7 +550,8 @@ func find_the_score(stats: Dictionary) -> int:
 	var points_for_lvl: int = 1
 	var expctd: int = total_en * time_for_en
 	var base_score: int = num_of_stages*num_of_stages
-	score = base_score + (total_corr*points_for_answ) - (total_wrng*points_for_wrng_answ) + (points_for_lvl*total_lvl)
+	score = (base_score + (total_corr*points_for_answ) -
+	 (total_wrng*points_for_wrng_answ) + (points_for_lvl*total_lvl))
 	if total_t < expctd:
 		score += expctd-total_t
 	return score
@@ -558,7 +564,8 @@ func find_the_score(stats: Dictionary) -> int:
 func upload_lead_score():
 	if not _game_stats.has(HIGHSCORE_TEXT) or not SilentWolf.Auth.logged_in_player:
 		return
-	var sw_result = await SilentWolf.Scores.get_top_score_by_player(SilentWolf.Auth.logged_in_player).sw_top_player_score_complete
+	var sw_result = await SilentWolf.Scores.get_top_score_by_player(
+		SilentWolf.Auth.logged_in_player).sw_top_player_score_complete
 	print_debug(sw_result)
 	if sw_result == null:
 		return
@@ -568,7 +575,8 @@ func upload_lead_score():
 		print_debug("Highscore has not changed or improved")
 		return
 	info_label.text = tr(SAVING_HIGHSCORE)
-	var sw_score_result: Dictionary = await SilentWolf.Scores.save_score(SilentWolf.Auth.logged_in_player, _game_stats[HIGHSCORE_TEXT]).sw_save_score_complete
+	var sw_score_result: Dictionary = await SilentWolf.Scores.save_score(
+		SilentWolf.Auth.logged_in_player, _game_stats[HIGHSCORE_TEXT]).sw_save_score_complete
 	info_label.text = ""
 	print_debug("Score persisted successfully: " + str(sw_score_result.score_id))
 
@@ -634,7 +642,9 @@ func _setup_audio_settings() -> void:
 	if _audio_options.has_method("initialiase_values"):
 		_audio_options.initialiase_values()
 	if _audio_options.has_method("load_values") and _game_stats.has(SOUND_TEXT):
-		_audio_options.load_values(_game_stats[SOUND_TEXT][MASTER_TEXT],_game_stats[SOUND_TEXT][MUSIC_TEXT],_game_stats[SOUND_TEXT][SFX_TEXT])
+		_audio_options.load_values(_game_stats[SOUND_TEXT][MASTER_TEXT],
+		_game_stats[SOUND_TEXT][MUSIC_TEXT],
+		_game_stats[SOUND_TEXT][SFX_TEXT])
 
 ## This function helps the rebind menu set up any changes from the previous session.
 func _setup_rebind_settings() -> void:

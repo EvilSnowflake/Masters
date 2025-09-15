@@ -51,6 +51,7 @@ theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
 [node name="RequestFormContainer" type="VBoxContainer" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 48
 
@@ -229,7 +230,6 @@ theme_type_variation = &"LeaderboardsButton"
 text = "SUBMIT_BUTTON"
 
 [node name="PasswordChangedContainer" type="VBoxContainer" parent="MarginContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 48
 
