@@ -48,6 +48,7 @@ func _ready():
 	stages_button.item_selected.connect(_on_stages_button_item_selected)
 	stages_button.item_focused.connect(_on_stages_button_item_focused)
 	stages_button.pressed.connect(_on_stages_button_pressed)
+	
 	for i in range(labels_container.get_child_count()):
 		labels_container.get_child(i).focus_entered.connect(_on_label_focused.bind(i))
 
@@ -101,6 +102,7 @@ func set_stages_button_up():
 	for stage: String in _player_stats:
 		if stage.begins_with("stage") :
 			stages_button.add_item(stage)
+	
 
 ## This function should be called when the user selects a stage in the options button.
 ## If there is a stage in the user's saved game data, it takes the statistics from that
@@ -172,6 +174,8 @@ func show_statistics_menu(pstats: Dictionary, stg_num: int, prp_num: int) -> voi
 	set_num_in_propedia(prp_num)
 	self.show()
 	send_interactive_items.emit(interactive_items_collection,text_for_interactive_items,ANNOUNCEMENT)
+	if stages_button.item_count > 0:
+		update_labels(_player_stats["stage_1"],0)
 
 ## This function should be connected to all labels. After being focused the label sends its
 ## text to the tts component for it to be voiced.

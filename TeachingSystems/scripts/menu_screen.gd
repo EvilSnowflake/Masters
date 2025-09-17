@@ -438,6 +438,7 @@ func update_login_state_label() -> void:
 		_save_data_button.hide()
 		_load_data_button.hide()
 		_login_button.show()
+		_leaderboard_button.hide()
 	#Check if there are other signals connected and disconnect them
 	if login_state_label.focus_entered.is_connected(_on_label_focused):
 		login_state_label.disconnect("focus_entered",_on_label_focused)
@@ -519,6 +520,7 @@ func _cloud_save_data() -> void:
 	if SilentWolf.Auth.logged_in_player:
 		info_label.text = tr(SAVING_DATA)
 		print_debug("Saving to cloud")
+		_game_stats[HIGHSCORE_TEXT] = _calc_highscore()
 		var sw_result = await SilentWolf.Players.save_player_data(
 			SilentWolf.Auth.logged_in_player,
 			 _game_stats).sw_save_player_data_complete
@@ -567,13 +569,16 @@ func upload_lead_score():
 	var sw_result = await SilentWolf.Scores.get_top_score_by_player(
 		SilentWolf.Auth.logged_in_player).sw_top_player_score_complete
 	print_debug(sw_result)
-	if sw_result == null:
+	if sw_result == null :
 		return
-	print_debug(sw_result["top_score"][SCORE_TEXT])
 	print_debug(_game_stats[HIGHSCORE_TEXT])
-	if sw_result["top_score"][SCORE_TEXT] >= _game_stats[HIGHSCORE_TEXT]:
-		print_debug("Highscore has not changed or improved")
-		return
+	if sw_result.has("top_score"):
+		print_debug(sw_result["top_score"][SCORE_TEXT])
+		if sw_result["top_score"][SCORE_TEXT] >= _game_stats[HIGHSCORE_TEXT]:
+			print_debug("Highscore has not changed or improved")
+			return
+	
+	
 	info_label.text = tr(SAVING_HIGHSCORE)
 	var sw_score_result: Dictionary = await SilentWolf.Scores.save_score(
 		SilentWolf.Auth.logged_in_player, _game_stats[HIGHSCORE_TEXT]).sw_save_score_complete
