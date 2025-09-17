@@ -10,13 +10,14 @@ config_version=5
 
 [application]
 
-config/name="MultiplicactionTeachingSystem"
-config/version="0_6"
+config/name="Project_MultiplicationTable"
+config/version="0_9"
 run/main_scene="uid://fi5ofs2oiks8"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(1, 1, 1, 1)
 boot_splash/show_image=false
-config/icon="res://Icons/Didaskalia_Icon.svg"
+config/icon="uid://bm3iaqfb3ifq5"
+config/windows_native_icon="res://Icons/GameIcon.ico"
 
 [audio]
 

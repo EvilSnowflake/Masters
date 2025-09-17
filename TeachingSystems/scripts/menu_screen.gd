@@ -12,7 +12,7 @@ const LEADERBOARDSCENE = "res://scenes/leaderboard_scene.tscn"
 const STAGE_BUTTON = preload("res://scenes/stage_button.tscn")
 const STAGE_BUTTON_BOX = preload("res://scenes/stage_button_box.tscn")
 const HTTPS_API_URL: String = "https://localhost:7218/api/Numbers/2"
-const API_URL: String = "http://localhost:5000/api/Numbers/1"
+const API_URL: String = "http://localhost:5000/api/Numbers/2"
 const STAGE_PREFIX: String = "stage_"
 const LANGUAGE_TEXT: String = "language"
 const ENGLISH_LOC: String = "en"
@@ -162,7 +162,7 @@ func _ready():
 	
 	#API STUFF
 	_number_req_https.request_completed.connect(_on_request_completed)
-	_number_req_https.request(HTTPS_API_URL)
+	_number_req_https.request(API_URL)
 	
 	_register_button.pressed.connect(_on_register_button_pressed.bind())
 	_login_button.pressed.connect(_on_login_button_pressed.bind())
@@ -629,9 +629,10 @@ func setupButtons() -> void:
 		text_for_interactive_items.push_front("Stage " + button.text)
 		button.pressed.connect(_on_stage_button_pressed.bind(button.text))
 	unlock_enabled_stages()
-	if _game_stats["enableTTS"] == true:
-		print_debug("Game stats have enable tts")
-		_send_data_to_tts(ANNOUNCEMENT_TEXT)
+	if _game_stats.has("enableTTS"):
+		if _game_stats["enableTTS"] == true:
+			print_debug("Game stats have enable tts")
+			_send_data_to_tts(ANNOUNCEMENT_TEXT)
 
 ## This function helps the audio options menu set up their values. If we have a reference to
 ## it then we initialise it's values and then load any saved data.
