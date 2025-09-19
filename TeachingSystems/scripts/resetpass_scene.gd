@@ -17,32 +17,32 @@ var login_scene = "res://scenes/login_screen.tscn"
 
 ## This variable references the form container that takes an email code as an input and a new
 ## password
-@onready var pwd_reset_form_container = $MarginContainer/PwdResetFormContainer
+@onready var pwd_reset_form_container = $MarginContainer/BackButtonContainer/PwdResetFormContainer
 ## This variable references the form container that takes the user's name as input
-@onready var request_form_container = $MarginContainer/RequestFormContainer
+@onready var request_form_container = $MarginContainer/BackButtonContainer/RequestFormContainer
 ## This variable references the form container that informs the user that they
 ## changed their password
-@onready var password_changed_container = $MarginContainer/PasswordChangedContainer
+@onready var password_changed_container = $MarginContainer/BackButtonContainer/PasswordChangedContainer
 ## This variable references the back button on the hierarchy
 @onready var back_button = $MarginContainer/BackButtonContainer/HBoxContainer2/BackButton
 ## This variable references the password reset info label on the hierarchy
-@onready var pwd_reset_info_label = $MarginContainer/PwdResetFormContainer/HBoxContainer5/VBoxContainer/InfoLabel
+@onready var pwd_reset_info_label = $MarginContainer/BackButtonContainer/PwdResetFormContainer/HBoxContainer5/VBoxContainer/InfoLabel
 ## This variable references the request form info label on the hierarchy
-@onready var request_form_info_label = $MarginContainer/RequestFormContainer/HBoxContainer5/VBoxContainer/InfoLabel
+@onready var request_form_info_label = $MarginContainer/BackButtonContainer/RequestFormContainer/HBoxContainer5/VBoxContainer/InfoLabel
 ## This variable references the close button on the hierarchy
-@onready var close_button = $MarginContainer/PasswordChangedContainer/HBoxContainer5/CloseButton
+@onready var close_button = $MarginContainer/BackButtonContainer/PasswordChangedContainer/HBoxContainer5/CloseButton
 ## This variable references the password submit button on the hierarchy
-@onready var pwd_submit_button = $MarginContainer/PwdResetFormContainer/HBoxContainer5/SubmitButton
+@onready var pwd_submit_button = $MarginContainer/BackButtonContainer/PwdResetFormContainer/HBoxContainer5/SubmitButton
 ## This variable references the request form submit button on the hierarchy
-@onready var rf_submit_button = $MarginContainer/RequestFormContainer/HBoxContainer5/SubmitButton
+@onready var rf_submit_button = $MarginContainer/BackButtonContainer/RequestFormContainer/HBoxContainer5/SubmitButton
 ## This variable references the request form name text box on the hierarchy
-@onready var rf_name_line_edit = $MarginContainer/RequestFormContainer/HBoxContainer3/VBoxLineEdits/NameLineEdit
+@onready var rf_name_line_edit = $MarginContainer/BackButtonContainer/RequestFormContainer/HBoxContainer3/VBoxLineEdits/NameLineEdit
 ## This variable references the password code text box on the hierarchy
-@onready var pwd_code_line_edit = $MarginContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits/CodeLineEdit
+@onready var pwd_code_line_edit = $MarginContainer/BackButtonContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits/CodeLineEdit
 ## This variable references the password text box form the password form on the hierarchy
-@onready var pwd_password_line_edit = $MarginContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits/PasswordLineEdit
+@onready var pwd_password_line_edit = $MarginContainer/BackButtonContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits/PasswordLineEdit
 ## This variable references the password confirm password text box on the hierarchy
-@onready var pwd_confirm_pass_line_edit = $MarginContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits/ConfirmPassLineEdit
+@onready var pwd_confirm_pass_line_edit = $MarginContainer/BackButtonContainer/PwdResetFormContainer/HBoxContainer3/VBoxLineEdits/ConfirmPassLineEdit
 ## This variable references the audio player for button audio clip on the hierarchy
 @onready var button_audio_player = %ButtonAudioPlayer
 ## This variable references the wait timer on the hierarchy
